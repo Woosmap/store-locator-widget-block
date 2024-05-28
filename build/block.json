@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "woosmap/wp-store-locator-widget-block",
+  "version": "0.1.0",
+  "title": "Woosmap Store Locator Widget Block",
+  "category": "widgets",
+  "keywords": [
+    "Woosmap",
+    "Store Locator",
+    "Store Finder",
+    "Map"
+  ],
+  "description": "Easily display your stores on a Map using Woosmap platform",
+  "example": {},
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true
+    },
+    "html": false
+  },
+  "attributes": {
+    "apiKey": {
+      "type": "string",
+      "default": "woos-48c80350-88aa-333e-835a-07f4b658a9a4"
+    },
+    "height": {
+      "type": "string",
+      "default": "450"
+    },
+    "latitude": {
+      "type": "number",
+      "default": 51.48762585296625
+    },
+    "longitude": {
+      "type": "number",
+      "default": -0.1326724377053381
+    },
+    "zoom": {
+      "type": "number",
+      "default": 6
+    }
+  },
+  "textdomain": "wp-store-locator-widget-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "script": "woosmap-webapp-js"
+}

@@ -1,0 +1,10 @@
+{
+	"phpVersion": null,
+	"core": null,
+	"plugins": ["."],
+	"config": {
+		"JETPACK_AUTOLOAD_DEV": true,
+		"WP_DEBUG": true,
+		"SCRIPT_DEBUG": true
+	}
+}
