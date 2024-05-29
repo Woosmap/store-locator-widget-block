@@ -9,7 +9,7 @@ import {
 } from '@wordpress/block-editor';
 import {useState, useEffect, memo} from '@wordpress/element';
 import {useSelect, useDispatch} from '@wordpress/data';
-import {useRefEffect} from '@wordpress/compose';
+import {useRefEffect, useDebounce} from '@wordpress/compose';
 import {StoreLocatorEdit} from "./components/StoreLocator";
 import './editor.scss';
 import {store as slwBlockStore} from './store';
@@ -18,8 +18,9 @@ import BlockIcon from "./block-icon";
 import EditAuthForm from "./components/EditAuthForm";
 import {ResizableMap} from "./components/ResizableMap";
 
+
 const StoreLocatorWidget = memo((props) => {
-	const {storeLocatorWidget, isAuthenticated, clientId, setAttributes, setStoreLocatorWidget, webAppLib} =
+	const {storeLocatorWidget, isAuthenticated, clientId, setAttributes, setStoreLocatorWidget, webAppLib, apiKey} =
 		props;
 
 	const hasSLW = !!storeLocatorWidget;
@@ -42,7 +43,7 @@ const StoreLocatorWidget = memo((props) => {
 				}
 			};
 		},
-		[webAppLib, isAuthenticated, storeLocatorWidget, clientId, setAttributes]
+		[webAppLib, apiKey, isAuthenticated, storeLocatorWidget, clientId, setAttributes]
 	);
 	return <div id="storeLocatorWidgetEdit" ref={slwContainerRef}/>;
 });
@@ -50,9 +51,10 @@ const StoreLocatorWidget = memo((props) => {
 
 export default function StoreLocatorBlockEdit(props) {
 	const {attributes, setAttributes, clientId, isSelected} = props;
-	const {height} = attributes;
+	const {height, apiKey: initialApiKey} = attributes;
 	const [storeLocatorWidget, setStoreLocatorWidget] = useState(null);
 	const [webAppLib, setWebAppLib] = useState(null);
+	const [apiKey, setApiKey] = useState(initialApiKey);
 	const hasSLW = !!storeLocatorWidget;
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -62,6 +64,15 @@ export default function StoreLocatorBlockEdit(props) {
 	const {updateAuthenticationStatus} = useDispatch(slwBlockStore);
 	const {toggleSelection} = useDispatch(blockEditorStore);
 
+	const debouncedUpdate = useDebounce((attributes) => {
+		storeLocatorWidget.update(attributes);
+	}, 500);
+
+
+	const handleSetApiKey = (newApiKey) => {
+		setApiKey(newApiKey);
+		setAttributes({apiKey: newApiKey});
+	};
 
 	/**
 	 * setup the initial authentication of Woosmap
@@ -100,6 +111,9 @@ export default function StoreLocatorBlockEdit(props) {
 
 		if (localWebAppLib) {
 			setIsLoading(false);
+			if (apiKey){
+				InitializeWebApp()
+			}
 		}
 
 		window.addEventListener('woosmapSettingsSaved', InitializeWebApp);
@@ -116,7 +130,7 @@ export default function StoreLocatorBlockEdit(props) {
 
 	useEffect(() => {
 		if (isAuthenticated && hasSLW) {
-			storeLocatorWidget.update(attributes);
+			debouncedUpdate(attributes);
 		}
 	}, [attributes, isAuthenticated, storeLocatorWidget]);
 
@@ -170,7 +184,7 @@ export default function StoreLocatorBlockEdit(props) {
 								)}
 							</a>
 						</div>
-						<EditAuthForm/>
+						<EditAuthForm setApiKey={handleSetApiKey}/>
 					</Placeholder>
 				</div>
 			</>
@@ -207,6 +221,7 @@ export default function StoreLocatorBlockEdit(props) {
 					webAppLib={webAppLib}
 					storeLocatorWidget={storeLocatorWidget}
 					setStoreLocatorWidget={setStoreLocatorWidget}
+					apiKey={apiKey}
 				/>
 			</div>
 		</>

@@ -12,7 +12,7 @@ const RESIZABLE_BOX_ENABLE_OPTION = {
 	topLeft: false,
 };
 
-const MAP_MIN_HEIGHT = 100;
+const MAP_MIN_HEIGHT = 250;
 
 export function ResizableMap({
 	onResizeStart,

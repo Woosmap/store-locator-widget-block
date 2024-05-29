@@ -1,9 +1,9 @@
-import { __ } from '@wordpress/i18n';
-import { TextControl, Button } from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
-import { dispatch, useSelect } from '@wordpress/data';
+import {__} from '@wordpress/i18n';
+import {TextControl, Button} from '@wordpress/components';
+import {useEffect, useState} from '@wordpress/element';
+import {dispatch, useSelect} from '@wordpress/data';
 
-export default function EditAuthForm() {
+export default function EditAuthForm({setApiKey}) {
 	const [publicApiKey, setPublicApiKey] = useState('');
 	const [isBusy, setIsBusy] = useState(false);
 
@@ -14,7 +14,7 @@ export default function EditAuthForm() {
 	useEffect(() => {
 		if (siteSettings) {
 			const {
-				woosmap_settings: { woosmap_public_api_key },
+				woosmap_settings: {woosmap_public_api_key},
 			} = siteSettings;
 			setPublicApiKey(woosmap_public_api_key);
 		}
@@ -29,9 +29,10 @@ export default function EditAuthForm() {
 					woosmap_public_api_key: publicApiKey,
 				},
 			})
-			.then(({ woosmap_settings: { woosmap_public_api_key } }) => {
+			.then(({woosmap_settings: {woosmap_public_api_key}}) => {
 				setPublicApiKey(woosmap_public_api_key);
 				setIsBusy(false);
+				setApiKey(woosmap_public_api_key);
 				window.dispatchEvent(new CustomEvent('woosmapSettingsSaved'));
 			})
 			.catch((error) => {

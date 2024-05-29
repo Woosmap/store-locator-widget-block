@@ -2,6 +2,9 @@ import {
 	PanelBody,
 	TextControl,
 	RangeControl,
+	PanelRow,
+	ColorIndicator,
+	ColorPalette
 } from '@wordpress/components';
 import {__} from '@wordpress/i18n';
 
@@ -9,13 +12,27 @@ export default function DisplaySettings(props) {
 	const {
 		attributes: {
 			height,
-			zoom
+			zoom,
+			themeColor,
 		},
 		setAttributes,
 	} = props;
 
 	return (
 		<PanelBody title={__('Display Settings', 'wp-store-locator-widget-block')}>
+			<PanelRow>
+				<label htmlFor="theme-color-control">
+					{__('Primary Color', 'wp-store-locator-widget-block')}
+				</label>
+				<ColorIndicator
+					id="theme-color-control"
+					colorValue={themeColor}
+				/>
+			</PanelRow>
+			<ColorPalette
+				value={themeColor}
+				onChange={(value) => setAttributes({themeColor: value})}
+			/>
 			<RangeControl
 				label={__('Zoom', 'wp-store-locator-widget-block')}
 				value={zoom}

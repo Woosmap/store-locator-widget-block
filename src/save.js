@@ -7,6 +7,7 @@ export default function StoreLocatorBlockSave(props) {
 			latitude,
 			longitude,
 			zoom,
+			themeColor,
 			apiKey
 		},
 	} = props;
@@ -24,6 +25,7 @@ export default function StoreLocatorBlockSave(props) {
 			data-latitude={latitude}
 			data-longitude={longitude}
 			data-zoom={zoom}
+			data-theme-color={themeColor}
 			data-api-key={apiKey}
 		>
 		</div>
