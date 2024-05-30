@@ -23,11 +23,21 @@ class StoreLocator {
 			longitude,
 			zoom,
 			themeColor,
-			apiKey
+			apiKey,
+			tileColor,
+			tileSize,
+			breakPoint,
+			defaultMarkerUrl,
+			selectedMarkerUrl,
+			numberedMarkerUrl,
 		} = this.element.dataset;
 
 		this.storeLocatorConfig = {
 			theme: {primary_color: themeColor || "#000"},
+			datasource: {
+				max_responses: 5,
+				max_distance: 50000,
+			},
 			maps: {provider: "woosmap"},
 			woosmapview: {
 				initialCenter: {
@@ -35,8 +45,27 @@ class StoreLocator {
 					lng: Number(longitude) || 2.368438
 				},
 				initialZoom: Number(zoom) || 5,
+				tileStyle: {
+					color: tileColor || "#000",
+					size: Number(tileSize) || 11,
+					minSize: 5,
+				},
+				breakPoint: Number(breakPoint) || 10,
+				style: {
+					rules: [],
+					default: {
+						icon: {
+							url: defaultMarkerUrl || "https://images.woosmap.com/marker-default.svg",
+						},
+						selectedIcon: {
+							url: selectedMarkerUrl || "https://images.woosmap.com/marker-selected.svg",
+						},
+						numberedIcon: {
+							url: numberedMarkerUrl || "https://images.woosmap.com/marker-default.svg",
+						},
+					},
+				},
 			},
-			datasource: {max_responses: 10, max_distance: 50000},
 		};
 
 		this.element.innerHTML = ''
@@ -115,9 +144,21 @@ class StoreLocatorEdit extends StoreLocator {
 	 * Update options of the map
 	 *
 	 * @param {Object} options Settings to update
+	 * @param rerenderLocator
 	 */
-	update(options) {
-		const {height, latitude, longitude, zoom, themeColor, apiKey} = options;
+	update(options, rerenderLocator = true) {
+		const {height,
+			latitude,
+			longitude,
+			zoom,
+			themeColor,
+			apiKey,
+			tileColor,
+			tileSize,
+			breakPoint,
+			defaultMarkerUrl,
+			selectedMarkerUrl,
+			numberedMarkerUrl} = options;
 
 		if (height) {
 			this.element.style.height = `${height}px`;
@@ -141,8 +182,28 @@ class StoreLocatorEdit extends StoreLocator {
 			this.element.dataset.apiKey = apiKey;
 		}
 
+		if (tileColor) {
+			this.element.dataset.tileColor = tileColor;
+		}
+		if (tileSize) {
+			this.element.dataset.tileSize = tileSize;
+		}
+		if (breakPoint) {
+			this.element.dataset.breakPoint = breakPoint;
+		}
+
+		if (defaultMarkerUrl) {
+			this.element.dataset.defaultMarkerUrl = defaultMarkerUrl;
+		}
+		if (selectedMarkerUrl) {
+			this.element.dataset.selectedMarkerUrl = selectedMarkerUrl;
+		}
+		if (numberedMarkerUrl) {
+			this.element.dataset.numberedMarkerUrl = numberedMarkerUrl;
+		}
+
 		// Only call init if options other than height are passed
-		if (latitude || longitude || zoom || themeColor || apiKey) {
+		if (rerenderLocator) {
 			this.init();
 		}
 	}

@@ -21,7 +21,8 @@
 		"spacing": {
 			"margin": true
 		},
-		"html": false
+		"html": false,
+		"multiple": false
 	},
 	"attributes": {
 		"apiKey": {
@@ -46,6 +47,30 @@
 		"themeColor": {
 			"type": "string",
 			"default": "#000"
+		},
+		"tileColor":  {
+			"type": "string",
+			"default": "#000"
+		},
+		"tileSize": {
+			"type": "number",
+			"default": 11
+		},
+		"breakPoint": {
+			"type": "number",
+			"default": 10
+		},
+		"defaultMarkerUrl": {
+			"type": "string",
+			"default": "https://images.woosmap.com/marker-default.svg"
+		},
+		"selectedMarkerUrl": {
+			"type": "string",
+			"default": "https://images.woosmap.com/marker-selected.svg"
+		},
+		"numberedMarkerUrl": {
+			"type": "string",
+			"default": "https://images.woosmap.com/marker-default.svg"
 		}
 	},
 	"textdomain": "wp-store-locator-widget-block",

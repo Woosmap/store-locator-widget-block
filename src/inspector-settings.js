@@ -3,6 +3,7 @@ import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import DisplaySettings from './Settings/DisplaySettings';
+import MarkerSettings from './Settings/MarkerSettings';
 export default function InspectorSettings(props) {
 	const { isAuthenticated } = props;
 
@@ -24,6 +25,7 @@ export default function InspectorSettings(props) {
 	return (
 		<InspectorControls>
 			<DisplaySettings {...props} />
+			<MarkerSettings {...props} />
 		</InspectorControls>
 	);
 }
