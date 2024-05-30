@@ -8,7 +8,13 @@ export default function StoreLocatorBlockSave(props) {
 			longitude,
 			zoom,
 			themeColor,
-			apiKey
+			apiKey,
+			tileColor,
+			tileSize,
+			breakPoint,
+			defaultMarkerUrl,
+			selectedMarkerUrl,
+			numberedMarkerUrl
 		},
 	} = props;
 
@@ -27,6 +33,12 @@ export default function StoreLocatorBlockSave(props) {
 			data-zoom={zoom}
 			data-theme-color={themeColor}
 			data-api-key={apiKey}
+			data-tile-color={tileColor}
+			data-tile-size={tileSize}
+			data-break-point={breakPoint}
+			data-default-marker-url={defaultMarkerUrl}
+			data-selected-marker-url={selectedMarkerUrl}
+			data-numbered-marker-url={numberedMarkerUrl}
 		>
 		</div>
 	);

@@ -205,7 +205,7 @@ export default function StoreLocatorBlockEdit(props) {
 						toggleSelection(false);
 					}}
 					onResize={(newHeight) => {
-						storeLocatorWidget.update({height: newHeight});
+						storeLocatorWidget.update({height: newHeight},false);
 					}}
 					onResizeStop={(newHeight) => {
 						setAttributes({height: newHeight});
