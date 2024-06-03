@@ -28,3 +28,7 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+
+# jest snapshots
+src/__tests__/__snapshots__/
