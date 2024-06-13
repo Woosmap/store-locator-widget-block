@@ -14,6 +14,8 @@ export default function DisplaySettings(props) {
 			height,
 			zoom,
 			themeColor,
+			latitude,
+			longitude
 		},
 		setAttributes,
 	} = props;
@@ -44,7 +46,26 @@ export default function DisplaySettings(props) {
 			<TextControl
 				label={__('Height ( pixels )', 'wp-store-locator-widget-block')}
 				value={height}
-				onChange={(value) => setAttributes({height: value})}
+				type="number"
+				onChange={(value) => setAttributes({height: Number(value)})}
+				min={250}
+				step={5}
+			/>
+			<TextControl
+				label={__('Default Latitude', 'wp-store-locator-widget-block')}
+				type="number"
+				value={latitude}
+				onChange={(value) => setAttributes({latitude: Number(value)})}
+				min={-90}
+				max={90}
+			/>
+			<TextControl
+				label={__('Default Longitude', 'wp-store-locator-widget-block')}
+				type="number"
+				value={longitude}
+				onChange={(value) => setAttributes({longitude: Number(value)})}
+				min={-90}
+				max={90}
 			/>
 		</PanelBody>
 	);
