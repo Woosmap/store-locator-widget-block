@@ -30,15 +30,15 @@
 		},
 		"height": {
 			"type": "string",
-			"default": "450"
+			"default": "500"
 		},
 		"latitude": {
 			"type": "number",
-			"default": 51.48762585296625
+			"default": 50
 		},
 		"longitude": {
 			"type": "number",
-			"default": -0.1326724377053381
+			"default": 0
 		},
 		"zoom": {
 			"type": "number",

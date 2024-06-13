@@ -43,29 +43,29 @@ export default function DisplaySettings(props) {
 				max={20}
 				step={0.5}
 			/>
-			<TextControl
+			<RangeControl
 				label={__('Height ( pixels )', 'wp-store-locator-widget-block')}
-				value={height}
-				type="number"
-				onChange={(value) => setAttributes({height: Number(value)})}
+				value={Number(height)}
+				onChange={(value) => setAttributes({height: value})}
 				min={250}
+				max={5000}
 				step={5}
 			/>
-			<TextControl
+			<RangeControl
 				label={__('Default Latitude', 'wp-store-locator-widget-block')}
-				type="number"
 				value={latitude}
-				onChange={(value) => setAttributes({latitude: Number(value)})}
+				onChange={(value) => setAttributes({latitude: value})}
 				min={-90}
 				max={90}
+				step={0.1}
 			/>
-			<TextControl
+			<RangeControl
 				label={__('Default Longitude', 'wp-store-locator-widget-block')}
-				type="number"
 				value={longitude}
-				onChange={(value) => setAttributes({longitude: Number(value)})}
+				onChange={(value) => setAttributes({longitude: value})}
 				min={-90}
 				max={90}
+				step={0.1}
 			/>
 		</PanelBody>
 	);

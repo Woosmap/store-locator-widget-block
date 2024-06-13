@@ -49,8 +49,8 @@ class StoreLocator {
 			maps: {provider: "woosmap"},
 			woosmapview: {
 				initialCenter: {
-					lat: Number(latitude) || 48.967529,
-					lng: Number(longitude) || 2.368438
+					lat: Number(latitude) || 50,
+					lng: Number(longitude) || 0
 				},
 				initialZoom: Number(zoom) || 5,
 				tileStyle: {
@@ -178,11 +178,9 @@ class StoreLocatorEdit extends StoreLocator {
 		if (latitude) {
 			this.element.dataset.latitude = latitude;
 		}
-
 		if (longitude) {
 			this.element.dataset.longitude = longitude;
 		}
-
 		if (zoom) {
 			this.element.dataset.zoom = zoom;
 		}
