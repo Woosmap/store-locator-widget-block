@@ -30,6 +30,9 @@ class StoreLocator {
 			defaultMarkerUrl,
 			selectedMarkerUrl,
 			numberedMarkerUrl,
+			language,
+			period,
+			unitSystem
 		} = this.element.dataset;
 
 		this.storeLocatorConfig = {
@@ -37,6 +40,11 @@ class StoreLocator {
 			datasource: {
 				max_responses: 5,
 				max_distance: 50000,
+			},
+			internationalization: {
+				lang: language || "en",
+				period: period || "fr",
+				unitSystem: Number(unitSystem) || 0
 			},
 			maps: {provider: "woosmap"},
 			woosmapview: {
@@ -158,7 +166,11 @@ class StoreLocatorEdit extends StoreLocator {
 			breakPoint,
 			defaultMarkerUrl,
 			selectedMarkerUrl,
-			numberedMarkerUrl} = options;
+			numberedMarkerUrl,
+			language,
+			period,
+			unitSystem
+		} = options;
 
 		if (height) {
 			this.element.style.height = `${height}px`;
@@ -200,6 +212,16 @@ class StoreLocatorEdit extends StoreLocator {
 		}
 		if (numberedMarkerUrl) {
 			this.element.dataset.numberedMarkerUrl = numberedMarkerUrl;
+		}
+
+		if (language) {
+			this.element.dataset.language = language;
+		}
+		if (period) {
+			this.element.dataset.period = period;
+		}
+		if (unitSystem) {
+			this.element.dataset.unitSystem = unitSystem;
 		}
 
 		// Only call init if options other than height are passed

@@ -14,7 +14,10 @@ export default function StoreLocatorBlockSave(props) {
 			breakPoint,
 			defaultMarkerUrl,
 			selectedMarkerUrl,
-			numberedMarkerUrl
+			numberedMarkerUrl,
+			language,
+			period,
+			unitSystem
 		},
 	} = props;
 
@@ -39,6 +42,9 @@ export default function StoreLocatorBlockSave(props) {
 			data-default-marker-url={defaultMarkerUrl}
 			data-selected-marker-url={selectedMarkerUrl}
 			data-numbered-marker-url={numberedMarkerUrl}
+			data-language={language}
+			data-period={period}
+			data-unit-system={unitSystem}
 		>
 		</div>
 	);

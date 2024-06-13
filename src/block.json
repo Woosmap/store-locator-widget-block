@@ -71,6 +71,18 @@
 		"numberedMarkerUrl": {
 			"type": "string",
 			"default": "https://images.woosmap.com/marker-default.svg"
+		},
+		"language": {
+			"type": "string",
+			"default": "en"
+		},
+		"period": {
+			"type": "string",
+			"default": "fr"
+		},
+		"unitSystem": {
+			"type": "number",
+			"default": "0"
 		}
 	},
 	"textdomain": "wp-store-locator-widget-block",
