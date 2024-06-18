@@ -83,6 +83,30 @@
     "unitSystem": {
       "type": "number",
       "default": "0"
+    },
+    "customMarkers": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "storeType": {
+            "type": "string"
+          },
+          "customTyleColor": {
+            "type": "string"
+          },
+          "customDefaultMarkerUrl": {
+            "type": "string"
+          },
+          "customSelectedMarkerUrl": {
+            "type": "string"
+          },
+          "customNumberedMarkerUrl": {
+            "type": "string"
+          }
+        }
+      }
     }
   },
   "textdomain": "wp-store-locator-widget-block",

@@ -32,8 +32,34 @@ class StoreLocator {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			customMarkers
 		} = this.element.dataset;
+
+		let typeRules = {typeRules: []};
+		let styleRules = {rules: []};
+
+		const jsonCustomMarkers = JSON.parse(customMarkers);
+
+		if (jsonCustomMarkers) {
+			typeRules = jsonCustomMarkers.map(marker => ({
+				type: marker.storeType || "store_type",
+				color: marker.customTyleColor || "#000"
+			}));
+
+			styleRules = jsonCustomMarkers.map(marker => ({
+				type: marker.storeType || "store_type",
+				icon: {
+					url: marker.customDefaultMarkerUrl || "https://images.woosmap.com/marker-default.svg",
+				},
+				selectedIcon: {
+					url: marker.customSelectedMarkerUrl || "https://images.woosmap.com/marker-selected.svg",
+				},
+				numberedIcon: {
+					url: marker.customNumberedMarkerUrl || "https://images.woosmap.com/marker-default.svg",
+				},
+			}));
+		}
 
 		this.storeLocatorConfig = {
 			theme: {primary_color: themeColor || "#000"},
@@ -57,10 +83,11 @@ class StoreLocator {
 					color: tileColor || "#000",
 					size: Number(tileSize) || 11,
 					minSize: 5,
+					typeRules: typeRules
 				},
 				breakPoint: Number(breakPoint) || 10,
 				style: {
-					rules: [],
+					rules: styleRules,
 					default: {
 						icon: {
 							url: defaultMarkerUrl || "https://images.woosmap.com/marker-default.svg",
@@ -169,7 +196,8 @@ class StoreLocatorEdit extends StoreLocator {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			customMarkers
 		} = options;
 
 		if (height) {
@@ -222,6 +250,10 @@ class StoreLocatorEdit extends StoreLocator {
 		}
 		if (unitSystem) {
 			this.element.dataset.unitSystem = unitSystem;
+		}
+
+		if (customMarkers) {
+			this.element.dataset.customMarkers = JSON.stringify(customMarkers);
 		}
 
 		// Only call init if options other than height are passed
