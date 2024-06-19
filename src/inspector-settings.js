@@ -26,10 +26,10 @@ export default function InspectorSettings(props) {
 
 	return (
 		<InspectorControls>
-			<CustomMarkerSettings {...props} />
 			<DisplaySettings {...props} />
 			<InternationalizationSettings {...props} />
 			<MarkerSettings {...props} />
+			<CustomMarkerSettings {...props} />
 		</InspectorControls>
 	);
 }

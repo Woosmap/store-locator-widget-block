@@ -49,15 +49,17 @@ export default function CustomMarkerSettings(props) {
 	};
 
 	return (
-		<PanelBody title={__('Custom Marker Settings', 'wp-store-locator-widget-block')}>
-			<TextControl
-				label={__('Store Type', 'wp-store-locator-widget-block')}
-				value={storeType}
-				onChange={(value) => setStoreType(value)}
-			/>
-			<Button variant="primary" onClick={addCustomMarker}>
-				{__('Add Custom Marker', 'wp-store-locator-widget-block')}
-			</Button>
+		<PanelBody title={__('Custom Marker Settings', 'wp-store-locator-widget-block')} initialOpen={false}>
+			<div style={{ marginBottom: 20, padding: 10, border: '1px solid lightgray', borderRadius: 5 }}>
+				<TextControl
+					label={__('Store Type', 'wp-store-locator-widget-block')}
+					value={storeType}
+					onChange={(value) => setStoreType(value)}
+				/>
+				<Button variant="primary" onClick={addCustomMarker}>
+					{__('Add Custom Marker', 'wp-store-locator-widget-block')}
+				</Button>
+			</div>
 			{customMarkers.map((marker, index) => (
 				<EditCustomMarkerSettings
 					key={index}

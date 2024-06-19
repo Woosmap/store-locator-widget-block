@@ -23,7 +23,7 @@ export default function MarkerSettings(props) {
 	} = props;
 
 	return (
-		<PanelBody title={__('Marker Settings', 'wp-store-locator-widget-block')}>
+		<PanelBody title={__('Marker Settings', 'wp-store-locator-widget-block')} initialOpen={false}>
 			<PanelRow>
 				<label htmlFor="tile-color-control">
 					{__('Tile Color', 'wp-store-locator-widget-block')}
@@ -53,21 +53,36 @@ export default function MarkerSettings(props) {
 				max={20}
 				step={1}
 			/>
-			<TextControl
-				label={__('Default Marker Url', 'wp-store-locator-widget-block')}
-				value={defaultMarkerUrl}
-				onChange={(value) => setAttributes({defaultMarkerUrl: value})}
-			/>
-			<TextControl
-				label={__('Selected Marker Url', 'wp-store-locator-widget-block')}
-				value={selectedMarkerUrl}
-				onChange={(value) => setAttributes({selectedMarkerUrl: value})}
-			/>
-			<TextControl
-				label={__('Numbered Marker Url', 'wp-store-locator-widget-block')}
-				value={numberedMarkerUrl}
-				onChange={(value) => setAttributes({numberedMarkerUrl: value})}
-			/>
+			<div style={{ marginBottom: 20, padding: 10, border: '1px solid lightgray', borderRadius: 5 }}>
+				<TextControl
+					label={__('Default Marker Url', 'wp-store-locator-widget-block')}
+					value={defaultMarkerUrl}
+					onChange={(value) => setAttributes({defaultMarkerUrl: value})}
+				/>
+				{defaultMarkerUrl && (
+					<img src={defaultMarkerUrl} alt="Default Marker Url" style={{ maxWidth: '100%', height: 'auto' }} />
+				)}
+			</div>
+			<div style={{ marginBottom: 20, padding: 10, border: '1px solid lightgray', borderRadius: 5 }}>
+				<TextControl
+					label={__('Selected Marker Url', 'wp-store-locator-widget-block')}
+					value={selectedMarkerUrl}
+					onChange={(value) => setAttributes({selectedMarkerUrl: value})}
+				/>
+				{selectedMarkerUrl && (
+					<img src={selectedMarkerUrl} alt="Selected Marker Url" style={{ maxWidth: '100%', height: 'auto' }} />
+				)}
+			</div>
+			<div style={{ padding: 10, border: '1px solid lightgray', borderRadius: 5 }}>
+				<TextControl
+					label={__('Numbered Marker Url', 'wp-store-locator-widget-block')}
+					value={numberedMarkerUrl}
+					onChange={(value) => setAttributes({numberedMarkerUrl: value})}
+				/>
+				{numberedMarkerUrl && (
+					<img src={numberedMarkerUrl} alt="Numbered Marker Url" style={{ maxWidth: '100%', height: 'auto' }} />
+				)}
+			</div>
 		</PanelBody>
 	);
 }

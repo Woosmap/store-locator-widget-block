@@ -45,7 +45,7 @@ export default function EditCustomMarkerSettings(props) {
 	};
 
 	return (
-		<PanelBody title={__('Edit: ', 'wp-store-locator-widget-block') + storeType}>
+		<PanelBody title={__('Edit: ', 'wp-store-locator-widget-block') + storeType} initialOpen={false}>
 			<TextControl
 				label={__('Store Type', 'wp-store-locator-widget-block')}
 				value={storeType}
@@ -68,21 +68,36 @@ export default function EditCustomMarkerSettings(props) {
 				value={customTyleColor}
 				onChange={(value) => updateMarker({ ...marker, customTyleColor: value })}
 			/>
-			<TextControl
-				label={__('Custom Default Marker Url', 'wp-store-locator-widget-block')}
-				value={customDefaultMarkerUrl}
-				onChange={(value) => updateMarker({ ...marker, customDefaultMarkerUrl: value })}
-			/>
-			<TextControl
-				label={__('Custom Selected Marker Url', 'wp-store-locator-widget-block')}
-				value={customSelectedMarkerUrl}
-				onChange={(value) => updateMarker({ ...marker, customSelectedMarkerUrl: value })}
-			/>
-			<TextControl
-				label={__('Custom Numbered Marker Url', 'wp-store-locator-widget-block')}
-				value={customNumberedMarkerUrl}
-				onChange={(value) => updateMarker({ ...marker, customNumberedMarkerUrl: value })}
-			/>
+			<div style={{ marginBottom: 20, padding: 10, border: '1px solid lightgray', borderRadius: 5 }}>
+				<TextControl
+					label={__('Custom Default Marker Url', 'wp-store-locator-widget-block')}
+					value={customDefaultMarkerUrl}
+					onChange={(value) => updateMarker({ ...marker, customDefaultMarkerUrl: value })}
+				/>
+				{customDefaultMarkerUrl && (
+					<img src={customDefaultMarkerUrl} alt="Custom Default Marker" style={{ maxWidth: '100%', height: 'auto' }} />
+				)}
+			</div>
+			<div style={{ marginBottom: 20, padding: 10, border: '1px solid lightgray', borderRadius: 5 }}>
+				<TextControl
+					label={__('Custom Selected Marker Url', 'wp-store-locator-widget-block')}
+					value={customSelectedMarkerUrl}
+					onChange={(value) => updateMarker({ ...marker, customSelectedMarkerUrl: value })}
+				/>
+				{customSelectedMarkerUrl && (
+					<img src={customSelectedMarkerUrl} alt="Custom Selected Marker" style={{ maxWidth: '100%', height: 'auto' }} />
+				)}
+			</div>
+			<div style={{ marginBottom: 20, padding: 10, border: '1px solid lightgray', borderRadius: 5 }}>
+				<TextControl
+					label={__('Custom Numbered Marker Url', 'wp-store-locator-widget-block')}
+					value={customNumberedMarkerUrl}
+					onChange={(value) => updateMarker({ ...marker, customNumberedMarkerUrl: value })}
+				/>
+				{customNumberedMarkerUrl && (
+					<img src={customNumberedMarkerUrl} alt="Custom Numbered Marker" style={{ maxWidth: '100%', height: 'auto' }} />
+				)}
+			</div>
 			<Button
 				variant="primary"
 				onClick={deleteMarker}
