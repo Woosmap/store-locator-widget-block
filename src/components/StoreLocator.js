@@ -32,8 +32,32 @@ class StoreLocator {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			filtersOpenend,
+			filtersCustomOrder,
+			filters,
+			filtersOuterOperator
 		} = this.element.dataset;
+
+		let allFilters = {filters: []};
+
+		const jsonFilters = JSON.parse(filters);
+
+		if (jsonFilters) {
+			allFilters = jsonFilters.map(filter => ({
+				propertyType: filter.propertyType || "propertyType",
+				title: {
+					en: filter.title || "title"
+				},
+				choices: filter.choices.map(choice => ({
+					key: choice.choiceKey || "choiceKey",
+					en: choice.choiceTitle || "choiceTitle",
+					selected: choice.choiceSelected || false,
+					hidden: choice.choiceHidden || false
+				})) || [],
+				innerOperator: filter.innerOperator || "and"
+			}));
+		}
 
 		this.storeLocatorConfig = {
 			theme: {primary_color: themeColor || "#000"},
@@ -74,6 +98,12 @@ class StoreLocator {
 					},
 				},
 			},
+			filters: {
+				opened: filtersOpenend || false,
+				customOrder: filtersCustomOrder || false,
+				filters: allFilters,
+				outerOperator: filtersOuterOperator || "or"
+			}
 		};
 
 		this.element.innerHTML = ''
@@ -169,7 +199,11 @@ class StoreLocatorEdit extends StoreLocator {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			filtersOpenend,
+			filtersCustomOrder,
+			filters,
+			filtersOuterOperator
 		} = options;
 
 		if (height) {
@@ -222,6 +256,19 @@ class StoreLocatorEdit extends StoreLocator {
 		}
 		if (unitSystem) {
 			this.element.dataset.unitSystem = unitSystem;
+		}
+
+		if (filtersOpenend) {
+			this.element.dataset.filtersOpenend = filtersOpenend;
+		}
+		if (filtersCustomOrder) {
+			this.element.dataset.filtersCustomOrder = filtersCustomOrder;
+		}
+		if (filters) {
+			this.element.dataset.filters = JSON.stringify(filters);
+		}
+		if (filtersOuterOperator) {
+			this.element.dataset.filtersOuterOperator = filtersOuterOperator;
 		}
 
 		// Only call init if options other than height are passed

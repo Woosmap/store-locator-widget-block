@@ -17,7 +17,11 @@ export default function StoreLocatorBlockSave(props) {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			filtersOpenend,
+			filtersCustomOrder,
+			filters,
+			filtersOuterOperator
 		},
 	} = props;
 
@@ -45,6 +49,10 @@ export default function StoreLocatorBlockSave(props) {
 			data-language={language}
 			data-period={period}
 			data-unit-system={unitSystem}
+			data-filters-openend={filtersOpenend}
+			data-filters-custom-order={filtersCustomOrder}
+			data-filters={JSON.stringify(filters)}
+			data-filters-outer-operator={filtersOuterOperator}
 		>
 		</div>
 	);

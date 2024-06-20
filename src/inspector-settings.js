@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import DisplaySettings from './Settings/DisplaySettings';
 import MarkerSettings from './Settings/MarkerSettings';
 import InternationalizationSettings from "./Settings/InternationalizationSettings";
+import FiltersSettings from "./Settings/FiltersSettings";
 export default function InspectorSettings(props) {
 	const { isAuthenticated } = props;
 
@@ -28,6 +29,7 @@ export default function InspectorSettings(props) {
 			<DisplaySettings {...props} />
 			<InternationalizationSettings {...props} />
 			<MarkerSettings {...props} />
+			<FiltersSettings {...props} />
 		</InspectorControls>
 	);
 }
