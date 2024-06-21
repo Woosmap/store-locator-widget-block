@@ -32,15 +32,11 @@ export default function EditFiltersSettings(props) {
 
 	const validatePropertyType = (value) => {
 		if (!value.trim()) {
-			alert(__('Choice Key cannot be empty.', 'wp-store-locator-widget-block'));
+			alert(__('Property Type cannot be empty.', 'wp-store-locator-widget-block'));
 			return false;
 		}
-		if (/\s/.test(value)) {
-			alert(__('Choice Key should not contain spaces. Please replace them with underscores.', 'wp-store-locator-widget-block'));
-			return false;
-		}
-		if (/[^a-zA-Z0-9_]/g.test(value)) {
-			alert(__('Choice Key should not contain special characters.', 'wp-store-locator-widget-block'));
+		if (filters.some(filter => filter.propertyType === value)) {
+			alert(__('This filter already exists. Please choose a different one.', 'wp-store-locator-widget-block'));
 			return false;
 		}
 		return true;
@@ -65,11 +61,6 @@ export default function EditFiltersSettings(props) {
 
 		if (!choiceTitle.trim()) {
 			alert('Choice Title cannot be empty.');
-			return;
-		}
-
-		if (/\s/.test(choiceKey) || /[^\w-]/.test(choiceKey)) {
-			alert('Invalid Choice Key. Please use only letters, numbers or underscores (_). Spaces and special characters are not allowed.');
 			return;
 		}
 

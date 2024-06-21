@@ -11,7 +11,7 @@ import { useState } from '@wordpress/element';
 export default function FiltersSettings(props) {
 	const {
 		attributes: {
-			filtersOpenend,
+			filtersOpened,
 			filtersCustomOrder,
 			filters,
 			filtersOuterOperator
@@ -24,17 +24,12 @@ export default function FiltersSettings(props) {
 
 	const addFilter = () => {
 		if (!propertyType.trim()) {
-			alert('Please enter a valid property type.');
+			alert('Property Type cannot be empty.');
 			return;
 		}
 
 		if (!title.trim()) {
-			alert('Please enter a valid title.');
-			return;
-		}
-
-		if (/\s/.test(propertyType) || /[^\w-]/.test(propertyType)) {
-			alert('Invalid property type. Please use only letters, numbers, or underscores (_). Spaces and special characters are not allowed.');
+			alert('Title cannot be empty.');
 			return;
 		}
 
@@ -61,9 +56,9 @@ export default function FiltersSettings(props) {
 	return (
 		<PanelBody title={__('Filters Settings', 'wp-store-locator-widget-block')} initialOpen={false}>
 			<CheckboxControl
-				label={__('Filters Openend', 'wp-store-locator-widget-block')}
-				checked={filtersOpenend}
-				onChange={(checked) => setAttributes({ filtersOpenend: checked })}
+				label={__('Filters Opened', 'wp-store-locator-widget-block')}
+				checked={filtersOpened}
+				onChange={(checked) => setAttributes({ filtersOpened: checked })}
 			/>
 			<CheckboxControl
 				label={__('Filters Custom Order', 'wp-store-locator-widget-block')}

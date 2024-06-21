@@ -41,12 +41,8 @@ export default function EditchoicesSettings(props) {
 			alert(__('Choice Key cannot be empty.', 'wp-store-locator-widget-block'));
 			return false;
 		}
-		if (/\s/.test(value)) {
-			alert(__('Choice Key should not contain spaces.', 'wp-store-locator-widget-block'));
-			return false;
-		}
-		if (/[^a-zA-Z0-9_]/g.test(value)) {
-			alert(__('Choice Key should not contain special characters.', 'wp-store-locator-widget-block'));
+		if (choices.some(choice => choice.choiceKey === value)) {
+			alert(__('This choice already exists. Please choose a different one.', 'wp-store-locator-widget-block'));
 			return false;
 		}
 		return true;

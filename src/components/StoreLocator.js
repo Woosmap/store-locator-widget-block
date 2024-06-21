@@ -33,7 +33,7 @@ class StoreLocator {
 			language,
 			period,
 			unitSystem,
-			filtersOpenend,
+			filtersOpened,
 			filtersCustomOrder,
 			filters,
 			filtersOuterOperator
@@ -99,7 +99,7 @@ class StoreLocator {
 				},
 			},
 			filters: {
-				opened: filtersOpenend || false,
+				opened: filtersOpened || false,
 				customOrder: filtersCustomOrder || false,
 				filters: allFilters,
 				outerOperator: filtersOuterOperator || "or"
@@ -200,7 +200,7 @@ class StoreLocatorEdit extends StoreLocator {
 			language,
 			period,
 			unitSystem,
-			filtersOpenend,
+			filtersOpened,
 			filtersCustomOrder,
 			filters,
 			filtersOuterOperator
@@ -258,8 +258,8 @@ class StoreLocatorEdit extends StoreLocator {
 			this.element.dataset.unitSystem = unitSystem;
 		}
 
-		if (filtersOpenend) {
-			this.element.dataset.filtersOpenend = filtersOpenend;
+		if (filtersOpened) {
+			this.element.dataset.filtersOpened = filtersOpened;
 		}
 		if (filtersCustomOrder) {
 			this.element.dataset.filtersCustomOrder = filtersCustomOrder;

@@ -84,7 +84,7 @@
 			"type": "number",
 			"default": "0"
 		},
-		"filtersOpenend": {
+		"filtersOpened": {
 			"type": "boolean",
 			"default": false
 		},
