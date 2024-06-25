@@ -23,17 +23,6 @@ export default function CustomMarkerSettings(props) {
 			return;
 		}
 
-		if (/\s/.test(storeType) || /[^\w-]/.test(storeType)) {
-			alert('Invalid store type. Please use only letters, numbers, dashes (-), or underscores (_). Spaces and special characters are not allowed.');
-			return;
-		}
-
-		const existingMarker = customMarkers.find(marker => marker.storeType === storeType);
-		if (existingMarker) {
-			alert('This store type already exists. Please choose a different one.');
-			return;
-		}
-
 		const newMarker = {
 			storeType: storeType,
 			customTyleColor: "#000",

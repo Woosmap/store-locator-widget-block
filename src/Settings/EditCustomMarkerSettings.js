@@ -33,14 +33,6 @@ export default function EditCustomMarkerSettings(props) {
 			alert(__('Store Type cannot be empty.', 'wp-store-locator-widget-block'));
 			return false;
 		}
-		if (/\s/.test(value)) {
-			alert(__('Store Type should not contain spaces. Please replace them with underscores.', 'wp-store-locator-widget-block'));
-			return false;
-		}
-		if (/[^a-zA-Z0-9_]/g.test(value)) {
-			alert(__('Store Type should not contain special characters.', 'wp-store-locator-widget-block'));
-			return false;
-		}
 		return true;
 	};
 
