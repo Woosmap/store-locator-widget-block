@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-import {registerBlockType} from '@wordpress/blocks';
+import { registerBlockType } from '@wordpress/blocks';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -17,10 +17,10 @@ import './style.scss';
 /**
  * Internal dependencies
  */
-import BlockIcon from "./block-icon";
+import BlockIcon from './block-icon';
 import metadata from './block.json';
-import StoreLocatorBlockEdit from "./edit";
-import StoreLocatorBlockSave from "./save";
+import StoreLocatorBlockEdit from './edit';
+import StoreLocatorBlockSave from './save';
 import './store';
 
 /**
@@ -28,9 +28,9 @@ import './store';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType(metadata, {
+registerBlockType( metadata, {
 	attributes: {
-		...metadata.attributes
+		...metadata.attributes,
 	},
 	icon: BlockIcon,
 	/**
@@ -41,5 +41,5 @@ registerBlockType(metadata, {
 	/**
 	 * @see ./save.js
 	 */
-	save: StoreLocatorBlockSave
-});
+	save: StoreLocatorBlockSave,
+} );
