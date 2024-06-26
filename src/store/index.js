@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {createReduxStore, register} from '@wordpress/data';
+import { createReduxStore, register } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -17,10 +17,10 @@ const STORE_NAME = 'woosmap/wp-store-locator-widget-block';
  *
  * @type {Object}
  */
-export const store = createReduxStore(STORE_NAME, {
+export const store = createReduxStore( STORE_NAME, {
 	reducer,
 	selectors,
 	actions,
-});
+} );
 
-register(store);
+register( store );

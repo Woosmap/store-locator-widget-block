@@ -48,7 +48,7 @@
 			"type": "string",
 			"default": "#000"
 		},
-		"tileColor":  {
+		"tileColor": {
 			"type": "string",
 			"default": "#000"
 		},

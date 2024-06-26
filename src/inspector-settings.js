@@ -5,20 +5,21 @@ import { __ } from '@wordpress/i18n';
 import DisplaySettings from './Settings/DisplaySettings';
 import MarkerSettings from './Settings/MarkerSettings';
 import CustomMarkerSettings from './Settings/CustomMarkerSettings';
-import InternationalizationSettings from "./Settings/InternationalizationSettings";
-import FiltersSettings from "./Settings/FiltersSettings";
-export default function InspectorSettings(props) {
+import InternationalizationSettings from './Settings/InternationalizationSettings';
+import FiltersSettings from './Settings/FiltersSettings';
+
+export default function InspectorSettings( props ) {
 	const { isAuthenticated } = props;
 
-	if (!isAuthenticated) {
+	if ( ! isAuthenticated ) {
 		return (
 			<InspectorControls>
 				<PanelBody>
 					<p>
-						{__(
+						{ __(
 							'You need to confirm your access to Woosmap before you can continue.',
 							'wp-store-locator-widget-block'
-						)}
+						) }
 					</p>
 				</PanelBody>
 			</InspectorControls>
@@ -27,11 +28,11 @@ export default function InspectorSettings(props) {
 
 	return (
 		<InspectorControls>
-			<DisplaySettings {...props} />
-			<InternationalizationSettings {...props} />
-			<MarkerSettings {...props} />
-			<CustomMarkerSettings {...props} />
-			<FiltersSettings {...props} />
+			<DisplaySettings { ...props } />
+			<InternationalizationSettings { ...props } />
+			<MarkerSettings { ...props } />
+			<CustomMarkerSettings { ...props } />
+			<FiltersSettings { ...props } />
 		</InspectorControls>
 	);
 }
