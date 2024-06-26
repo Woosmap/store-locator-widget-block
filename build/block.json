@@ -107,6 +107,57 @@
           }
         }
       }
+    },
+    "filtersOpened": {
+      "type": "boolean",
+      "default": false
+    },
+    "filtersCustomOrder": {
+      "type": "boolean",
+      "default": false
+    },
+    "filters": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "propertyType": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "innerOperator": {
+            "type": "string"
+          },
+          "choices": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "choiceKey": {
+                  "type": "string"
+                },
+                "choiceTitle": {
+                  "type": "string"
+                },
+                "choiceSelected": {
+                  "type": "boolean"
+                },
+                "choiceHidden": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "filtersOuterOperator": {
+      "type": "string",
+      "default": "or"
     }
   },
   "textdomain": "wp-store-locator-widget-block",

@@ -33,7 +33,11 @@ class StoreLocator {
 			language,
 			period,
 			unitSystem,
-			customMarkers
+			customMarkers,
+			filtersOpened,
+			filtersCustomOrder,
+			filters,
+			filtersOuterOperator
 		} = this.element.dataset;
 
 		let typeRules = {typeRules: []};
@@ -58,6 +62,26 @@ class StoreLocator {
 				numberedIcon: {
 					url: marker.customNumberedMarkerUrl || "https://images.woosmap.com/marker-default.svg",
 				},
+			}));
+		}
+
+		let allFilters = {filters: []};
+
+		const jsonFilters = JSON.parse(filters);
+
+		if (jsonFilters) {
+			allFilters = jsonFilters.map(filter => ({
+				propertyType: filter.propertyType || "propertyType",
+				title: {
+					en: filter.title || "title"
+				},
+				choices: filter.choices.map(choice => ({
+					key: choice.choiceKey || "choiceKey",
+					en: choice.choiceTitle || "choiceTitle",
+					selected: choice.choiceSelected || false,
+					hidden: choice.choiceHidden || false
+				})) || [],
+				innerOperator: filter.innerOperator || "and"
 			}));
 		}
 
@@ -101,6 +125,12 @@ class StoreLocator {
 					},
 				},
 			},
+			filters: {
+				opened: filtersOpened || false,
+				customOrder: filtersCustomOrder || false,
+				filters: allFilters,
+				outerOperator: filtersOuterOperator || "or"
+			}
 		};
 
 		this.element.innerHTML = ''
@@ -197,7 +227,11 @@ class StoreLocatorEdit extends StoreLocator {
 			language,
 			period,
 			unitSystem,
-			customMarkers
+			customMarkers,
+			filtersOpened,
+			filtersCustomOrder,
+			filters,
+			filtersOuterOperator
 		} = options;
 
 		if (height) {
@@ -252,6 +286,19 @@ class StoreLocatorEdit extends StoreLocator {
 
 		if (customMarkers) {
 			this.element.dataset.customMarkers = JSON.stringify(customMarkers);
+		}
+
+		if (filtersOpened) {
+			this.element.dataset.filtersOpened = filtersOpened;
+		}
+		if (filtersCustomOrder) {
+			this.element.dataset.filtersCustomOrder = filtersCustomOrder;
+		}
+		if (filters) {
+			this.element.dataset.filters = JSON.stringify(filters);
+		}
+		if (filtersOuterOperator) {
+			this.element.dataset.filtersOuterOperator = filtersOuterOperator;
 		}
 
 		// Only call init if options other than height are passed

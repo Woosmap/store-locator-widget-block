@@ -6,6 +6,7 @@ import DisplaySettings from './Settings/DisplaySettings';
 import MarkerSettings from './Settings/MarkerSettings';
 import CustomMarkerSettings from './Settings/CustomMarkerSettings';
 import InternationalizationSettings from "./Settings/InternationalizationSettings";
+import FiltersSettings from "./Settings/FiltersSettings";
 export default function InspectorSettings(props) {
 	const { isAuthenticated } = props;
 
@@ -30,6 +31,7 @@ export default function InspectorSettings(props) {
 			<InternationalizationSettings {...props} />
 			<MarkerSettings {...props} />
 			<CustomMarkerSettings {...props} />
+			<FiltersSettings {...props} />
 		</InspectorControls>
 	);
 }
