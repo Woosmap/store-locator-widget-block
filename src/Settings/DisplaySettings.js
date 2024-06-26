@@ -1,6 +1,5 @@
 import {
 	PanelBody,
-	TextControl,
 	RangeControl,
 	PanelRow,
 	ColorIndicator,
@@ -14,6 +13,8 @@ export default function DisplaySettings(props) {
 			height,
 			zoom,
 			themeColor,
+			latitude,
+			longitude
 		},
 		setAttributes,
 	} = props;
@@ -41,10 +42,29 @@ export default function DisplaySettings(props) {
 				max={20}
 				step={0.5}
 			/>
-			<TextControl
+			<RangeControl
 				label={__('Height ( pixels )', 'wp-store-locator-widget-block')}
-				value={height}
+				value={Number(height)}
 				onChange={(value) => setAttributes({height: value})}
+				min={250}
+				max={5000}
+				step={5}
+			/>
+			<RangeControl
+				label={__('Default Latitude', 'wp-store-locator-widget-block')}
+				value={latitude}
+				onChange={(value) => setAttributes({latitude: value})}
+				min={-90}
+				max={90}
+				step={0.1}
+			/>
+			<RangeControl
+				label={__('Default Longitude', 'wp-store-locator-widget-block')}
+				value={longitude}
+				onChange={(value) => setAttributes({longitude: value})}
+				min={-90}
+				max={90}
+				step={0.1}
 			/>
 		</PanelBody>
 	);
