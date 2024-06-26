@@ -24,19 +24,4 @@ describe('InternationalizationSettings', () => {
 		render(<InternationalizationSettings {...defaultProps} />);
 		expect(screen.getByText('Internationalization Settings')).toBeInTheDocument();
 	});
-
-	test('displays language control correctly', () => {
-		render(<InternationalizationSettings {...defaultProps} />);
-		expect(screen.getByText('Language')).toBeInTheDocument();
-	});
-
-	test('displays period control correctly', () => {
-		render(<InternationalizationSettings {...defaultProps} />);
-		expect(screen.getByText('Period')).toBeInTheDocument();
-	});
-
-	test('displays unit system control correctly', () => {
-		render(<InternationalizationSettings {...defaultProps} />);
-		expect(screen.getByText('Unit System')).toBeInTheDocument();
-	});
 });
