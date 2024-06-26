@@ -1,6 +1,12 @@
-import { Spinner, Placeholder } from '@wordpress/components';
+import {
+	Spinner,
+	Placeholder,
+	ToolbarGroup,
+	ToolbarButton,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import {
+	BlockControls,
 	useBlockProps,
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
@@ -14,6 +20,7 @@ import InspectorSettings from './inspector-settings';
 import BlockIcon from './block-icon';
 import EditAuthForm from './components/EditAuthForm';
 import { ResizableMap } from './components/ResizableMap';
+import WidgetJsonForm from './components/WidgetJsonForm';
 
 const StoreLocatorWidget = memo( ( props ) => {
 	const {
@@ -70,6 +77,8 @@ export default function StoreLocatorBlockEdit( props ) {
 	const [ apiKey, setApiKey ] = useState( initialApiKey );
 	const hasSLW = !! storeLocatorWidget;
 	const [ isLoading, setIsLoading ] = useState( true );
+	const [ showConfigPlaceholder, setShowConfigPlaceholder ] =
+		useState( false );
 
 	const isAuthenticated = useSelect( ( select ) => {
 		return select( slwBlockStore ).isAuthenticated();
@@ -86,6 +95,10 @@ export default function StoreLocatorBlockEdit( props ) {
 		setAttributes( { apiKey: newApiKey } );
 	};
 
+	const onValidateConfig = ( conf ) => {
+		setAttributes( conf );
+		setShowConfigPlaceholder( false );
+	};
 	/**
 	 * setup the initial authentication of Woosmap
 	 *
@@ -149,13 +162,8 @@ export default function StoreLocatorBlockEdit( props ) {
 		if ( isAuthenticated && hasSLW ) {
 			debouncedUpdate( attributes );
 		}
-	}, [
-		attributes,
-		isAuthenticated,
-		storeLocatorWidget,
-		hasSLW,
-		debouncedUpdate,
-	] );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ attributes, isAuthenticated, storeLocatorWidget, hasSLW ] );
 
 	const blockProps = useBlockProps( { ref: setupRef } );
 
@@ -216,9 +224,33 @@ export default function StoreLocatorBlockEdit( props ) {
 			</>
 		);
 	}
+	if ( showConfigPlaceholder ) {
+		return (
+			<WidgetJsonForm
+				blockProps={ blockProps }
+				BlockIcon={ BlockIcon }
+				initialConfig={ attributes }
+				onValidateConfig={ onValidateConfig }
+			/>
+		);
+	}
 
 	return (
 		<>
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarButton
+						icon="admin-generic"
+						label={ __(
+							'Show Configuration',
+							'wp-store-locator-widget-block'
+						) }
+						onClick={ () =>
+							setShowConfigPlaceholder( ! showConfigPlaceholder )
+						}
+					/>
+				</ToolbarGroup>
+			</BlockControls>
 			<InspectorSettings
 				{ ...props }
 				isAuthenticated={ isAuthenticated }
