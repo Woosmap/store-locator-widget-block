@@ -18,6 +18,7 @@ export default function StoreLocatorBlockSave(props) {
 			language,
 			period,
 			unitSystem,
+			customMarkers,
 			filtersOpened,
 			filtersCustomOrder,
 			filters,
@@ -49,6 +50,7 @@ export default function StoreLocatorBlockSave(props) {
 			data-language={language}
 			data-period={period}
 			data-unit-system={unitSystem}
+			data-custom-markers={JSON.stringify(customMarkers)}
 			data-filters-opened={filtersOpened}
 			data-filters-custom-order={filtersCustomOrder}
 			data-filters={JSON.stringify(filters)}

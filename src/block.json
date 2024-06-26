@@ -30,15 +30,15 @@
 		},
 		"height": {
 			"type": "string",
-			"default": "450"
+			"default": "500"
 		},
 		"latitude": {
 			"type": "number",
-			"default": 51.48762585296625
+			"default": 50
 		},
 		"longitude": {
 			"type": "number",
-			"default": -0.1326724377053381
+			"default": 0
 		},
 		"zoom": {
 			"type": "number",
@@ -83,6 +83,30 @@
 		"unitSystem": {
 			"type": "number",
 			"default": "0"
+		},
+		"customMarkers": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"storeType": {
+						"type": "string"
+					},
+					"customTyleColor": {
+						"type": "string"
+					},
+					"customDefaultMarkerUrl": {
+						"type": "string"
+					},
+					"customSelectedMarkerUrl": {
+						"type": "string"
+					},
+					"customNumberedMarkerUrl": {
+						"type": "string"
+					}
+				}
+			}
 		},
 		"filtersOpened": {
 			"type": "boolean",
