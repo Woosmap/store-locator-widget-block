@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function InternationalizationSettings( props ) {
 	const {
-		attributes: { language, period, unitSystem },
+		attributes: { internationalization },
 		setAttributes,
 	} = props;
 
@@ -17,8 +17,16 @@ export default function InternationalizationSettings( props ) {
 		>
 			<SelectControl
 				label={ __( 'Language', 'wp-store-locator-widget-block' ) }
-				value={ language }
-				onChange={ ( value ) => setAttributes( { language: value } ) }
+				value={ internationalization.lang }
+				onChange={ ( value ) =>
+					setAttributes( {
+						internationalization: {
+							lang: value,
+							period: internationalization.period,
+							unitSystem: internationalization.unitSystem,
+						},
+					} )
+				}
 			>
 				<option value="pt-br">
 					{ __(
@@ -90,8 +98,16 @@ export default function InternationalizationSettings( props ) {
 
 			<SelectControl
 				label={ __( 'Period', 'wp-store-locator-widget-block' ) }
-				value={ period }
-				onChange={ ( value ) => setAttributes( { period: value } ) }
+				value={ internationalization.period }
+				onChange={ ( value ) =>
+					setAttributes( {
+						internationalization: {
+							lang: internationalization.lang,
+							period: value,
+							unitSystem: internationalization.unitSystem,
+						},
+					} )
+				}
 			>
 				<option value="fr">
 					{ __( '24h', 'wp-store-locator-widget-block' ) }
@@ -103,8 +119,16 @@ export default function InternationalizationSettings( props ) {
 
 			<SelectControl
 				label={ __( 'Unit System', 'wp-store-locator-widget-block' ) }
-				value={ unitSystem }
-				onChange={ ( value ) => setAttributes( { unitSystem: value } ) }
+				value={ internationalization.unitSystem }
+				onChange={ ( value ) =>
+					setAttributes( {
+						internationalization: {
+							lang: internationalization.lang,
+							period: internationalization.period,
+							unitSystem: value,
+						},
+					} )
+				}
 			>
 				<option value="0">
 					{ __( 'Metric', 'wp-store-locator-widget-block' ) }

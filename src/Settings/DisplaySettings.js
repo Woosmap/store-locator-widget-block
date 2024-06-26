@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function DisplaySettings( props ) {
 	const {
-		attributes: { height, zoom, themeColor, latitude, longitude },
+		attributes: { height, theme, initialCenter, zoom },
 		setAttributes,
 	} = props;
 
@@ -23,12 +23,14 @@ export default function DisplaySettings( props ) {
 				</label>
 				<ColorIndicator
 					id="theme-color-control"
-					colorValue={ themeColor }
+					colorValue={ theme.primary_color }
 				/>
 			</PanelRow>
 			<ColorPalette
-				value={ themeColor }
-				onChange={ ( value ) => setAttributes( { themeColor: value } ) }
+				value={ theme.primary_color }
+				onChange={ ( value ) =>
+					setAttributes( { theme: { primary_color: value } } )
+				}
 			/>
 			<RangeControl
 				label={ __( 'Zoom', 'wp-store-locator-widget-block' ) }
@@ -54,8 +56,15 @@ export default function DisplaySettings( props ) {
 					'Default Latitude',
 					'wp-store-locator-widget-block'
 				) }
-				value={ latitude }
-				onChange={ ( value ) => setAttributes( { latitude: value } ) }
+				value={ initialCenter.lat }
+				onChange={ ( value ) =>
+					setAttributes( {
+						initialCenter: {
+							lat: value,
+							lng: initialCenter.lng,
+						},
+					} )
+				}
 				min={ -90 }
 				max={ 90 }
 				step={ 0.1 }
@@ -65,10 +74,17 @@ export default function DisplaySettings( props ) {
 					'Default Longitude',
 					'wp-store-locator-widget-block'
 				) }
-				value={ longitude }
-				onChange={ ( value ) => setAttributes( { longitude: value } ) }
-				min={ -90 }
-				max={ 90 }
+				value={ initialCenter.lng }
+				onChange={ ( value ) =>
+					setAttributes( {
+						initialCenter: {
+							lat: initialCenter.lat,
+							lng: value,
+						},
+					} )
+				}
+				min={ -180 }
+				max={ 180 }
 				step={ 0.1 }
 			/>
 		</PanelBody>
