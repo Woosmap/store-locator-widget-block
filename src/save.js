@@ -17,7 +17,8 @@ export default function StoreLocatorBlockSave(props) {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			customMarkers
 		},
 	} = props;
 
@@ -45,6 +46,7 @@ export default function StoreLocatorBlockSave(props) {
 			data-language={language}
 			data-period={period}
 			data-unit-system={unitSystem}
+			data-custom-markers={JSON.stringify(customMarkers)}
 		>
 		</div>
 	);
