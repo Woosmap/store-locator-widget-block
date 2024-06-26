@@ -1,6 +1,7 @@
 import {render, screen, fireEvent} from '@testing-library/react';
 import DisplaySettings from '../../Settings/DisplaySettings';
 import '@testing-library/jest-dom';
+import InternationalizationSettings from "../../Settings/InternationalizationSettings";
 
 
 const setAttributes = jest.fn();
@@ -20,6 +21,11 @@ const defaultProps = {
 describe('DisplaySettings', () => {
 	beforeEach(() => {
 		setAttributes.mockClear();
+	});
+
+	test('displays display settings panel correctly', () => {
+		render(<DisplaySettings {...defaultProps} />);
+		expect(screen.getByText('Display Settings')).toBeInTheDocument();
 	});
 
 	test('displays primary color control correctly', () => {
