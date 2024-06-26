@@ -1,6 +1,5 @@
 import {
 	PanelBody,
-	TextControl,
 	RangeControl,
 	PanelRow,
 	ColorIndicator,

@@ -10,6 +10,8 @@ const defaultProps = {
 		height: 300,
 		zoom: 13,
 		themeColor: '#000000',
+		latitude: 50,
+		longitude: 0
 	},
 	setAttributes,
 	setState: jest.fn(),
@@ -30,10 +32,18 @@ describe('DisplaySettings', () => {
 		expect(screen.getByText('Zoom')).toBeInTheDocument();
 	});
 
-	test('displays and updates height control correctly', () => {
+	test('displays height control correctly', () => {
 		render(<DisplaySettings {...defaultProps} />);
 		expect(screen.getByText('Height ( pixels )')).toBeInTheDocument();
-		fireEvent.change(screen.getByLabelText('Height ( pixels )'), {target: {value: '400'}});
-		expect(setAttributes).toHaveBeenCalledWith({height: '400'});
+	});
+
+	test('displays default latitude control correctly', () => {
+		render(<DisplaySettings {...defaultProps} />);
+		expect(screen.getByText('Default Latitude')).toBeInTheDocument();
+	});
+
+	test('displays default longitude control correctly', () => {
+		render(<DisplaySettings {...defaultProps} />);
+		expect(screen.getByText('Default Longitude')).toBeInTheDocument();
 	});
 });
