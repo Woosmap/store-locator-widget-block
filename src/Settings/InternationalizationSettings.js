@@ -15,7 +15,7 @@ export default function InternationalizationSettings(props) {
 	} = props;
 
 	return (
-		<PanelBody title={ __('Internationalization Settings', 'wp-store-locator-widget-block') }>
+		<PanelBody title={ __('Internationalization Settings', 'wp-store-locator-widget-block') } initialOpen={false}>
 			<SelectControl
 				label={ __('Language', 'wp-store-locator-widget-block') }
 				value={ language }

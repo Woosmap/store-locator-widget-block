@@ -32,8 +32,58 @@ class StoreLocator {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			customMarkers,
+			filtersOpened,
+			filtersCustomOrder,
+			filters,
+			filtersOuterOperator
 		} = this.element.dataset;
+
+		let typeRules = {typeRules: []};
+		let styleRules = {rules: []};
+
+		const jsonCustomMarkers = JSON.parse(customMarkers);
+
+		if (jsonCustomMarkers) {
+			typeRules = jsonCustomMarkers.map(marker => ({
+				type: marker.storeType || "store_type",
+				color: marker.customTyleColor || "#000"
+			}));
+
+			styleRules = jsonCustomMarkers.map(marker => ({
+				type: marker.storeType || "store_type",
+				icon: {
+					url: marker.customDefaultMarkerUrl || "https://images.woosmap.com/marker-default.svg",
+				},
+				selectedIcon: {
+					url: marker.customSelectedMarkerUrl || "https://images.woosmap.com/marker-selected.svg",
+				},
+				numberedIcon: {
+					url: marker.customNumberedMarkerUrl || "https://images.woosmap.com/marker-default.svg",
+				},
+			}));
+		}
+
+		let allFilters = {filters: []};
+
+		const jsonFilters = JSON.parse(filters);
+
+		if (jsonFilters) {
+			allFilters = jsonFilters.map(filter => ({
+				propertyType: filter.propertyType || "propertyType",
+				title: {
+					en: filter.title || "title"
+				},
+				choices: filter.choices.map(choice => ({
+					key: choice.choiceKey || "choiceKey",
+					en: choice.choiceTitle || "choiceTitle",
+					selected: choice.choiceSelected || false,
+					hidden: choice.choiceHidden || false
+				})) || [],
+				innerOperator: filter.innerOperator || "and"
+			}));
+		}
 
 		this.storeLocatorConfig = {
 			theme: {primary_color: themeColor || "#000"},
@@ -49,18 +99,19 @@ class StoreLocator {
 			maps: {provider: "woosmap"},
 			woosmapview: {
 				initialCenter: {
-					lat: Number(latitude) || 48.967529,
-					lng: Number(longitude) || 2.368438
+					lat: Number(latitude) || 50,
+					lng: Number(longitude) || 0
 				},
 				initialZoom: Number(zoom) || 5,
 				tileStyle: {
 					color: tileColor || "#000",
 					size: Number(tileSize) || 11,
 					minSize: 5,
+					typeRules: typeRules
 				},
 				breakPoint: Number(breakPoint) || 10,
 				style: {
-					rules: [],
+					rules: styleRules,
 					default: {
 						icon: {
 							url: defaultMarkerUrl || "https://images.woosmap.com/marker-default.svg",
@@ -74,6 +125,12 @@ class StoreLocator {
 					},
 				},
 			},
+			filters: {
+				opened: filtersOpened || false,
+				customOrder: filtersCustomOrder || false,
+				filters: allFilters,
+				outerOperator: filtersOuterOperator || "or"
+			}
 		};
 
 		this.element.innerHTML = ''
@@ -169,7 +226,12 @@ class StoreLocatorEdit extends StoreLocator {
 			numberedMarkerUrl,
 			language,
 			period,
-			unitSystem
+			unitSystem,
+			customMarkers,
+			filtersOpened,
+			filtersCustomOrder,
+			filters,
+			filtersOuterOperator
 		} = options;
 
 		if (height) {
@@ -178,11 +240,9 @@ class StoreLocatorEdit extends StoreLocator {
 		if (latitude) {
 			this.element.dataset.latitude = latitude;
 		}
-
 		if (longitude) {
 			this.element.dataset.longitude = longitude;
 		}
-
 		if (zoom) {
 			this.element.dataset.zoom = zoom;
 		}
@@ -222,6 +282,23 @@ class StoreLocatorEdit extends StoreLocator {
 		}
 		if (unitSystem) {
 			this.element.dataset.unitSystem = unitSystem;
+		}
+
+		if (customMarkers) {
+			this.element.dataset.customMarkers = JSON.stringify(customMarkers);
+		}
+
+		if (filtersOpened) {
+			this.element.dataset.filtersOpened = filtersOpened;
+		}
+		if (filtersCustomOrder) {
+			this.element.dataset.filtersCustomOrder = filtersCustomOrder;
+		}
+		if (filters) {
+			this.element.dataset.filters = JSON.stringify(filters);
+		}
+		if (filtersOuterOperator) {
+			this.element.dataset.filtersOuterOperator = filtersOuterOperator;
 		}
 
 		// Only call init if options other than height are passed
