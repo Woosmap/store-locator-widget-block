@@ -35,10 +35,6 @@ export default function EditFiltersSettings(props) {
 			alert(__('Property Type cannot be empty.', 'wp-store-locator-widget-block'));
 			return false;
 		}
-		if (filters.some(filter => filter.propertyType === value)) {
-			alert(__('This filter already exists. Please choose a different one.', 'wp-store-locator-widget-block'));
-			return false;
-		}
 		return true;
 	};
 
@@ -61,12 +57,6 @@ export default function EditFiltersSettings(props) {
 
 		if (!choiceTitle.trim()) {
 			alert('Choice Title cannot be empty.');
-			return;
-		}
-
-		const existingChoices = choices.find(choice => choice.choiceKey === choiceKey);
-		if (existingChoices) {
-			alert('This choice already exists. Please choose a different one.');
 			return;
 		}
 

@@ -33,12 +33,6 @@ export default function FiltersSettings(props) {
 			return;
 		}
 
-		const existingFilters = filters.find(filter => filter.propertyType === propertyType);
-		if (existingFilters) {
-			alert('This filter already exists. Please choose a different one.');
-			return;
-		}
-
 		const newFilter = {
 			propertyType: propertyType,
 			title: title,

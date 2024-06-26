@@ -41,10 +41,6 @@ export default function EditchoicesSettings(props) {
 			alert(__('Choice Key cannot be empty.', 'wp-store-locator-widget-block'));
 			return false;
 		}
-		if (choices.some(choice => choice.choiceKey === value)) {
-			alert(__('This choice already exists. Please choose a different one.', 'wp-store-locator-widget-block'));
-			return false;
-		}
 		return true;
 	};
 
