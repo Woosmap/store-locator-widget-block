@@ -16,7 +16,9 @@
 		"start": "wp-scripts start",
 		"test:unit": "wp-scripts test-unit-js",
 		"test:e2e": "wp-scripts test-playwright --config test/e2e/playwright.config.js",
-		"test:e2e:debug": "wp-scripts test-playwright --config test/e2e/playwright.config.js --ui"
+		"test:e2e:debug": "wp-scripts test-playwright --config test/e2e/playwright.config.js --ui",
+		"wp-env": "wp-env",
+		"env:start": "wp-env start"
 	},
 	"devDependencies": {
 		"filenamify": "^6.0.0",
@@ -27,7 +29,6 @@
 		"@wordpress/components": "^28.0.0",
 		"@wordpress/e2e-test-utils-playwright": "^1.2.0",
 		"@wordpress/eslint-plugin": "^19.1.0",
-		"@wordpress/env": "^10.2.0",
 		"@wordpress/scripts": "^27.9.0"
 	}
 }
