@@ -11,7 +11,6 @@
 /**
  * External dependencies
  */
-import filenamify from 'filenamify';
 import fs from 'fs';
 
 // Remove "steps" to prevent stringify circular structure.
@@ -36,7 +35,7 @@ class FlakyTestsReporter {
 		}
 	}
 
-	onTestEnd( test, testCaseResult ) {
+	async onTestEnd( test, testCaseResult ) {
 		const testPath = test.location.file;
 		const testTitle = test.title;
 
@@ -50,6 +49,7 @@ class FlakyTestsReporter {
 					.push( formatTestResult( testCaseResult ) );
 				break;
 			case 'flaky':
+				const { default: filenamify } = await import( 'filenamify' );
 				fs.writeFileSync(
 					`flaky-tests/${ filenamify( testTitle ) }.json`,
 					JSON.stringify( {
