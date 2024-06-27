@@ -1,5 +1,5 @@
 import {render, screen, fireEvent} from '@testing-library/react';
-import DisplaySettings from '../../Settings/DisplaySettings';
+import DisplaySettings from '../../../src/Settings/DisplaySettings';
 import '@testing-library/jest-dom';
 
 
