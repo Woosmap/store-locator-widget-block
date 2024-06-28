@@ -205,7 +205,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function EditchoicesSettings(props) {
   const {
-    key,
+    choiceIndex,
     choice,
     choiceKey,
     choiceTitle,
@@ -224,14 +224,14 @@ function EditchoicesSettings(props) {
     });
   };
   const updateChoice = updatedChoice => {
-    const newChoices = choices.map((m, i) => i === key ? updatedChoice : m);
+    const newChoices = choices.map((m, i) => i === choiceIndex ? updatedChoice : m);
     updateFilter({
       ...filter,
       choices: newChoices
     });
   };
   const deleteChoice = () => {
-    const newChoices = choices.filter((_, i) => i !== key);
+    const newChoices = choices.filter((_, i) => i !== choiceIndex);
     updateFilter({
       ...filter,
       choices: newChoices
@@ -485,7 +485,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function EditFiltersSettings(props) {
   const {
-    key,
+    index,
     filter,
     propertyType,
     title,
@@ -495,13 +495,13 @@ function EditFiltersSettings(props) {
     setAttributes
   } = props;
   const updateFilter = updatedFilter => {
-    const newFilters = filters.map((m, i) => i === key ? updatedFilter : m);
+    const newFilters = filters.map((m, i) => i === index ? updatedFilter : m);
     setAttributes({
       filters: newFilters
     });
   };
   const deleteFilter = () => {
-    const newFilters = filters.filter((_, i) => i !== key);
+    const newFilters = filters.filter((_, i) => i !== index);
     setAttributes({
       filters: newFilters
     });
@@ -612,13 +612,14 @@ function EditFiltersSettings(props) {
     onClick: addChoice
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Choice', 'wp-store-locator-widget-block'))), choices.map((choice, choiceIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_EditChoicesSettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
     key: choiceIndex,
+    choiceIndex: choiceIndex,
     choice: choice,
     choiceKey: choice.choiceKey,
     choiceTitle: choice.choiceTitle,
     choiceSelected: choice.choiceSelected,
     choiceHidden: choice.choiceHidden,
     choices: choices,
-    index: key,
+    index: index,
     filter: filter,
     filters: filters,
     setAttributes: setAttributes
@@ -732,11 +733,16 @@ function FiltersSettings(props) {
       border: '1px solid lightgray',
       borderRadius: 5
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Property Type', 'wp-store-locator-widget-block'),
-    value: propertyType,
     onChange: value => setPropertyType(value)
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "type"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Type', 'wp-store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "tag"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Tag', 'wp-store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "custom"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom', 'wp-store-locator-widget-block'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Title', 'wp-store-locator-widget-block'),
     value: title,
     onChange: value => setTitle(value)
@@ -745,6 +751,7 @@ function FiltersSettings(props) {
     onClick: addFilter
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Filter', 'wp-store-locator-widget-block'))), filters.map((filter, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_EditFiltersSettings__WEBPACK_IMPORTED_MODULE_3__["default"], {
     key: index,
+    index: index,
     filter: filter,
     propertyType: filter.propertyType,
     title: filter.title,
