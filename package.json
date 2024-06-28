@@ -1,26 +1,35 @@
 {
-  "name": "wp-store-locator-widget-block",
-  "version": "0.1.0",
-  "description": "Easily display your stores on a Map using Woosmap platform",
-  "author": "Woosmap Team",
-  "license": "GPL-2.0-or-later",
-  "main": "build/index.js",
-  "scripts": {
-    "build": "wp-scripts build",
-    "format": "wp-scripts format",
-    "lint:css": "wp-scripts lint-style",
-    "lint:js": "wp-scripts lint-js",
-    "packages-update": "wp-scripts packages-update",
-    "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start",
-    "test:unit": "wp-scripts test-unit-js"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^15.0.7",
-    "@wordpress/block-editor": "^13.0.0",
-    "@wordpress/components": "^28.0.0",
-	"@wordpress/eslint-plugin": "^19.1.0",
-    "@wordpress/scripts": "^27.9.0"
-  }
+	"name": "wp-store-locator-widget-block",
+	"version": "0.1.0",
+	"description": "Easily display your stores on a Map using Woosmap platform",
+	"author": "Woosmap Team",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"lint:js:fix": "wp-scripts lint-js --fix",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start",
+		"test:unit": "wp-scripts test-unit-js",
+		"test:e2e": "wp-scripts test-playwright --config tests/e2e/playwright.config.js",
+		"test:e2e:debug": "wp-scripts test-playwright --config tests/e2e/playwright.config.js --ui",
+		"wp-env": "wp-env",
+		"env:start": "wp-env start"
+	},
+	"devDependencies": {
+		"filenamify": "^6.0.0",
+		"@playwright/test": "^1.45.0",
+		"@testing-library/jest-dom": "^6.4.5",
+		"@testing-library/react": "^15.0.7",
+		"@wordpress/block-editor": "^13.0.0",
+		"@wordpress/components": "^28.0.0",
+		"@wordpress/e2e-test-utils-playwright": "^1.2.0",
+		"@wordpress/eslint-plugin": "^19.1.0",
+		"@wordpress/env": "^10.2.0",
+		"@wordpress/scripts": "^27.9.0"
+	}
 }

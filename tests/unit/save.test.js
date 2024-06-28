@@ -1,5 +1,5 @@
 import {render, cleanup} from "@testing-library/react";
-import StoreLocatorBlockSave from '../save';
+import StoreLocatorBlockSave from '../../src/save';
 
 describe("StoreLocatorBlockSave component", () => {
 	afterEach(cleanup);

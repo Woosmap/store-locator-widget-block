@@ -1,5 +1,5 @@
 import {render, cleanup} from "@testing-library/react";
-import StoreLocatorBlockEdit from '../edit';
+import StoreLocatorBlockEdit from '../../src/edit';
 
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
 	observe: jest.fn(),
