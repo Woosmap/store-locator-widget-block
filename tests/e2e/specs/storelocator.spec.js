@@ -1,11 +1,11 @@
 /**
- * Import WordPress Playwright test utilities.
+ * Import WordPress Playwright tests utilities.
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Store Locator Widget Editor Block Functionality', () => {
 	test.beforeEach( async ( { admin } ) => {
-		// Create a new post before each test.
+		// Create a new post before each tests.
 		await admin.createNewPost();
 	} );
 
@@ -15,10 +15,10 @@ test.describe( 'Store Locator Widget Editor Block Functionality', () => {
 			name: 'woosmap/wp-store-locator-widget-block',
 		} );
 
-		// Fill in the API key field with a test value.
+		// Fill in the API key field with a tests value.
 		await editor.canvas
 			.locator( "[name='woosmap_public_api_key']" )
-			.fill( 'test-apikey' );
+			.fill( 'tests-apikey' );
 
 		// Confirm the API key.
 		await editor.canvas

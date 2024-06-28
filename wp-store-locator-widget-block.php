@@ -3,6 +3,7 @@
  * Plugin Name:       Woosmap Store Locator Widget Block
  * Description:       Easily display your stores on a Map using Woosmap platform
  * Requires at least: 6.1
+ * Tested up to:      6.5
  * Requires PHP:      7.0
  * Version:           0.1.0
  * Author:            Woosmap Team

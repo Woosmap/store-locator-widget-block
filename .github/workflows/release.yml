@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+env:
+  PLUGIN_SLUG: wp-store-locator-widget-block
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/cache@v4
+        id: npm-and-build-cache
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        shell: bash
+        run: npm run build --if-present
+
+      - name: Create artifacts
+        shell: bash
+        run: npm run plugin-zip
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: github.ref
+          files: ${{ env.PLUGIN_SLUG }}.zip
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          draft: true
