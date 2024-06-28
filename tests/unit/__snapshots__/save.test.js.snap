@@ -4,9 +4,6 @@ exports[`StoreLocatorBlockSave component matches snapshot with default attribute
 <DocumentFragment>
   <div
     data-api-key=""
-    data-latitude="0"
-    data-longitude="0"
-    data-theme-color="#000000"
     data-zoom="13"
     id="storeLocatorWidget"
     style="height: 300px;"
@@ -18,9 +15,6 @@ exports[`StoreLocatorBlockSave component matches snapshot with provided attribut
 <DocumentFragment>
   <div
     data-api-key="your-api-key"
-    data-latitude="51.5074"
-    data-longitude="0.1278"
-    data-theme-color="#ffffff"
     data-zoom="15"
     id="storeLocatorWidget"
     style="height: 400px;"

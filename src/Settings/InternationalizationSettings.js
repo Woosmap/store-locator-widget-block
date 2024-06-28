@@ -125,7 +125,7 @@ export default function InternationalizationSettings( props ) {
 						internationalization: {
 							lang: internationalization.lang,
 							period: internationalization.period,
-							unitSystem: value,
+							unitSystem: Number( value ),
 						},
 					} )
 				}
