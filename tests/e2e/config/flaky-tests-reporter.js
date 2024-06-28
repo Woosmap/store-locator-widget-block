@@ -1,12 +1,12 @@
 // Fork of https://github.com/WordPress/gutenberg/blob/trunk/test/e2e/config/flaky-tests-reporter.js
 
 /**
- * A **flaky** tests is defined as a tests which passed after auto-retrying.
+ * A **flaky** test is defined as a test which passed after auto-retrying.
  * - By default, all tests run once if they pass.
- * - If a tests fails, it will automatically re-run at most 2 times.
+ * - If a test fails, it will automatically re-run at most 2 times.
  * - If it pass after retrying (below 2 times), then it's marked as **flaky**
- *   but displayed as **passed** in the original tests suite.
- * - If it fail all 3 times, then it's a **failed** tests.
+ *   but displayed as **passed** in the original test suite.
+ * - If it fail all 3 times, then it's a **failed** test.
  */
 /**
  * External dependencies
@@ -54,7 +54,7 @@ class FlakyTestsReporter {
 					`flaky-tests/${ filenamify( testTitle ) }.json`,
 					JSON.stringify( {
 						version: 1,
-						runner: '@playwright/tests',
+						runner: '@playwright/test',
 						title: testTitle,
 						path: testPath,
 						results: this.failingTestCaseResults.get( testTitle ),
