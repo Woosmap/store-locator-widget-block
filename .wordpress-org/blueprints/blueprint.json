@@ -18,7 +18,7 @@
 			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "wordpress.org/plugins",
-				"slug": "wp-store-locator-widget-block"
+				"slug": "woosmap-store-locator-widget-block"
 			},
 			"options": {
 				"activate": true
@@ -28,7 +28,7 @@
 			"step": "importFile",
 			"file": {
 				"resource": "url",
-				"url": "https://raw.githubusercontent.com/Woosmap/wp-store-locator-widget-block/master/.wordpress.org/blueprints/demo-data.xml"
+				"url": "https://raw.githubusercontent.com/Woosmap/wp-store-locator-widget-block/master/.wordpress-org/blueprints/demo-data.xml"
 			}
 		}
 	]

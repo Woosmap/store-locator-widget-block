@@ -6,7 +6,7 @@ on:
       - '*.*.*'
 
 env:
-  PLUGIN_SLUG: wp-store-locator-widget-block
+  PLUGIN_SLUG: woosmap-store-locator-widget-block
 
 permissions:
   contents: write

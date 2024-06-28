@@ -4,8 +4,7 @@ Block for Woosmap Store Locator Widget
 This document provides an overview of the "Block for Woosmap Store Locator Widget" plugin for WordPress, detailing its features, installation, configuration, and frequently asked questions.
 
 ## Contributors
-- camilo
-- galela
+- Woosmap Team
 
 ## Features
 - Integrates Woosmap Store Locator Widget JS into WordPress block editor (Gutenberg).
@@ -34,14 +33,6 @@ The plugin adds a Woosmap Store Locator Widget block to the WordPress block edit
 ## Configuration
 Configuration involves creating a Woosmap account and generating the necessary Public API Key.
 
-## Frequently Asked Questions
-- Addresses validation errors, updating MapKit JS credentials, rate limits, and tracking map views and service requests.
+---
 
-## Changelog Highlights
-- Version 1.1.0 introduced custom marker icons, map margin control, and updated dependencies for improved security.
-
-## Upgrade Notice
-- Version 1.1.1 requires PHP version 7.4 or higher.
-- Version 1.1.0 requires WordPress version 5.8 or higher.
-
-For more details, including the full changelog and additional FAQs, please refer to the official plugin documentation and GitHub repository.
+For more details, including the full changelog and additional FAQs, please refer to the official [plugin GitHub repository](https://github.com/Woosmap/wp-store-locator-widget-block/).
