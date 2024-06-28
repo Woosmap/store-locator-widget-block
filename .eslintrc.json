@@ -8,6 +8,6 @@
 		"Event": "readonly"
 	},
 	"ignorePatterns": [
-		"test/**"
+		"tests/**"
 	]
 }
