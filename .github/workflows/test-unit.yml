@@ -35,4 +35,4 @@ jobs:
       - name: Check eslint
         run: npm run lint:js
       - name: Run tests
-        run: npm run tests:unit
+        run: npm run test:unit
