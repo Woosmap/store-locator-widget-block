@@ -26,7 +26,8 @@ class StoreLocator {
 			internationalization,
 			initialCenter,
 			zoom,
-			tileStyle,
+			tileColor,
+			tileSize,
 			breakPoint,
 			defaultStyle,
 			customMarkers,
@@ -36,11 +37,17 @@ class StoreLocator {
 			filtersOuterOperator,
 		} = this.element.dataset;
 
+		let typeRules = { typeRules: [] };
 		let styleRules = { rules: [] };
 
 		const jsonCustomMarkers = JSON.parse( customMarkers );
 
 		if ( jsonCustomMarkers ) {
+			typeRules = jsonCustomMarkers.map( ( marker ) => ( {
+				type: marker.storeType || 'store_type',
+				color: marker.customTyleColor || '#000',
+			} ) );
+
 			styleRules = jsonCustomMarkers.map( ( marker ) => ( {
 				type: marker.storeType || 'store_type',
 				icon: {
@@ -100,11 +107,11 @@ class StoreLocator {
 					lng: 0,
 				},
 				initialZoom: Number( zoom ) || 5,
-				tileStyle: JSON.parse( tileStyle ) || {
-					color: '#000',
-					size: 11,
+				tileStyle: {
+					color: tileColor || '#000',
+					size: Number( tileSize ) || 11,
 					minSize: 5,
-					typeRules: [],
+					typeRules,
 				},
 				breakPoint: Number( breakPoint ) || 10,
 				style: {
@@ -222,7 +229,8 @@ class StoreLocatorEdit extends StoreLocator {
 			internationalization,
 			initialCenter,
 			zoom,
-			tileStyle,
+			tileColor,
+			tileSize,
 			breakPoint,
 			defaultStyle,
 			language,
@@ -256,8 +264,11 @@ class StoreLocatorEdit extends StoreLocator {
 		if ( zoom ) {
 			this.element.dataset.zoom = zoom;
 		}
-		if ( tileStyle ) {
-			this.element.dataset.tileStyle = JSON.stringify( tileStyle );
+		if ( tileColor ) {
+			this.element.dataset.tileColor = tileColor;
+		}
+		if ( tileSize ) {
+			this.element.dataset.tileSize = tileSize;
 		}
 		if ( breakPoint ) {
 			this.element.dataset.breakPoint = breakPoint;

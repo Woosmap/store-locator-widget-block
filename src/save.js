@@ -9,7 +9,8 @@ export default function StoreLocatorBlockSave( props ) {
 			internationalization,
 			initialCenter,
 			zoom,
-			tileStyle,
+			tileColor,
+			tileSize,
 			breakPoint,
 			defaultStyle,
 			customMarkers,
@@ -33,11 +34,12 @@ export default function StoreLocatorBlockSave( props ) {
 			data-api-key={ apiKey }
 			data-theme={ JSON.stringify( theme ) }
 			data-internationalization={ JSON.stringify( internationalization ) }
-			data-initialCenter={ JSON.stringify( initialCenter ) }
+			data-initial-center={ JSON.stringify( initialCenter ) }
 			data-zoom={ zoom }
-			data-tileStyle={ JSON.stringify( tileStyle ) }
+			data-tile-color={ tileColor }
+			data-tile-size={ tileSize }
 			data-break-point={ breakPoint }
-			data-defaultStyle={ JSON.stringify( defaultStyle ) }
+			data-default-style={ JSON.stringify( defaultStyle ) }
 			data-custom-markers={ JSON.stringify( customMarkers ) }
 			data-filters-opened={ filtersOpened }
 			data-filters-custom-order={ filtersCustomOrder }

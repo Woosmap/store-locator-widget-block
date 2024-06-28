@@ -10,7 +10,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function MarkerSettings( props ) {
 	const {
-		attributes: { breakPoint, tileStyle, defaultStyle },
+		attributes: { tileColor, breakPoint, tileSize, defaultStyle },
 		setAttributes,
 	} = props;
 
@@ -25,35 +25,17 @@ export default function MarkerSettings( props ) {
 				</label>
 				<ColorIndicator
 					id="tile-color-control"
-					colorValue={ tileStyle.color }
+					colorValue={ tileColor }
 				/>
 			</PanelRow>
 			<ColorPalette
-				value={ tileStyle.color }
-				onChange={ ( value ) =>
-					setAttributes( {
-						tileStyle: {
-							color: value,
-							size: tileStyle.size,
-							minSize: tileStyle.minSize,
-							typeRules: tileStyle.typeRules,
-						},
-					} )
-				}
+				value={ tileColor }
+				onChange={ ( value ) => setAttributes( { tileColor: value } ) }
 			/>
 			<RangeControl
 				label={ __( 'Tile Size', 'wp-store-locator-widget-block' ) }
-				value={ tileStyle.size }
-				onChange={ ( value ) =>
-					setAttributes( {
-						tileStyle: {
-							color: tileStyle.color,
-							size: value,
-							minSize: tileStyle.minSize,
-							typeRules: tileStyle.typeRules,
-						},
-					} )
-				}
+				value={ tileSize }
+				onChange={ ( value ) => setAttributes( { tileSize: value } ) }
 				min={ 1 }
 				max={ 50 }
 				step={ 1 }

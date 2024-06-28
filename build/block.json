@@ -87,43 +87,13 @@
       "type": "number",
       "default": 6
     },
-    "tileStyle": {
-      "type": "object",
-      "properties": {
-        "color": {
-          "type": "string",
-          "default": "#000"
-        },
-        "size": {
-          "type": "number",
-          "default": 11
-        },
-        "minSize": {
-          "type": "number",
-          "default": 5
-        },
-        "typeRules": {
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              },
-              "color": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "default": {
-        "color": "#000",
-        "size": 11,
-        "minSize": 5,
-        "typeRules": []
-      }
+    "tileColor": {
+      "type": "string",
+      "default": "#000"
+    },
+    "tileSize": {
+      "type": "number",
+      "default": 11
     },
     "breakPoint": {
       "type": "number",
