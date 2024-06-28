@@ -15,8 +15,8 @@
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start",
 		"test:unit": "wp-scripts test-unit-js",
-		"test:e2e": "wp-scripts test-playwright --config test/e2e/playwright.config.js",
-		"test:e2e:debug": "wp-scripts test-playwright --config test/e2e/playwright.config.js --ui",
+		"test:e2e": "wp-scripts test-playwright --config tests/e2e/playwright.config.js",
+		"test:e2e:debug": "wp-scripts test-playwright --config tests/e2e/playwright.config.js --ui",
 		"wp-env": "wp-env",
 		"env:start": "wp-env start"
 	},
