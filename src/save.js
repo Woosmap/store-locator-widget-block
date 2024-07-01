@@ -7,8 +7,7 @@ export default function StoreLocatorBlockSave( props ) {
 			apiKey,
 			theme,
 			internationalization,
-			initialCenter,
-			zoom,
+			woosmapView,
 			tileColor,
 			tileSize,
 			breakPoint,
@@ -34,8 +33,7 @@ export default function StoreLocatorBlockSave( props ) {
 			data-api-key={ apiKey }
 			data-theme={ JSON.stringify( theme ) }
 			data-internationalization={ JSON.stringify( internationalization ) }
-			data-initial-center={ JSON.stringify( initialCenter ) }
-			data-zoom={ zoom }
+			data-woosmap-view={ JSON.stringify( woosmapView ) }
 			data-tile-color={ tileColor }
 			data-tile-size={ tileSize }
 			data-break-point={ breakPoint }

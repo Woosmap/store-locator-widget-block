@@ -7,11 +7,10 @@ describe("StoreLocatorBlockSave component", () => {
 	it("matches snapshot with default attributes", () => {
 		const attributes = {
 			height: 300,
-			initialCenter: {
-				lat: 0,
-				lng: 0
+			woosmapView: {
+				initialCenter: {lat: 50, lng: 0},
+				initialZoom: 13,
 			},
-			zoom: 13,
 			theme: {
 				primary_color: '#ffffff'
 			},
@@ -34,11 +33,10 @@ describe("StoreLocatorBlockSave component", () => {
 	it("matches snapshot with provided attributes", () => {
 		const attributes = {
 			height: 400,
-			initialCenter: {
-				lat: 51.5074,
-				lng: 0.1278
+			woosmapView: {
+				initialCenter: {lat: 51.5074, lng:  0.1278},
+				initialZoom: 15,
 			},
-			zoom: 15,
 			theme: {
 				primary_color: '#ffffff'
 			},

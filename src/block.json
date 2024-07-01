@@ -66,26 +66,15 @@
 				"unitSystem": 0
 			}
 		},
-		"initialCenter": {
+		"woosmapView": {
 			"type": "object",
-			"properties": {
-				"lat": {
-					"type": "number",
-					"default": 50
-				},
-				"lng": {
-					"type": "number",
-					"default": 0
-				}
-			},
 			"default": {
-				"lat": 50,
-				"lng": 0
+				"initialCenter": {
+					"lat": 50,
+					"lng": 0
+				},
+				"initialZoom": 6
 			}
-		},
-		"zoom": {
-			"type": "number",
-			"default": 6
 		},
 		"tileColor": {
 			"type": "string",

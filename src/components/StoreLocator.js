@@ -1,4 +1,5 @@
 import { dispatch } from '@wordpress/data';
+import { parseDataset, validateConfig } from '../utils/configUtils';
 
 class StoreLocator {
 	constructor( element ) {
@@ -20,122 +21,8 @@ class StoreLocator {
 	}
 
 	createStoreLocatorWidget() {
-		const {
-			apiKey,
-			theme,
-			internationalization,
-			initialCenter,
-			zoom,
-			tileColor,
-			tileSize,
-			breakPoint,
-			defaultStyle,
-			customMarkers,
-			filtersOpened,
-			filtersCustomOrder,
-			filters,
-			filtersOuterOperator,
-		} = this.element.dataset;
-
-		let typeRules = { typeRules: [] };
-		let styleRules = { rules: [] };
-
-		const jsonCustomMarkers = JSON.parse( customMarkers );
-
-		if ( jsonCustomMarkers ) {
-			typeRules = jsonCustomMarkers.map( ( marker ) => ( {
-				type: marker.storeType || 'store_type',
-				color: marker.customTyleColor || '#000',
-			} ) );
-
-			styleRules = jsonCustomMarkers.map( ( marker ) => ( {
-				type: marker.storeType || 'store_type',
-				icon: {
-					url:
-						marker.customDefaultMarkerUrl ||
-						'https://images.woosmap.com/marker-default.svg',
-				},
-				selectedIcon: {
-					url:
-						marker.customSelectedMarkerUrl ||
-						'https://images.woosmap.com/marker-selected.svg',
-				},
-				numberedIcon: {
-					url:
-						marker.customNumberedMarkerUrl ||
-						'https://images.woosmap.com/marker-default.svg',
-				},
-			} ) );
-		}
-
-		let allFilters = { filters: [] };
-
-		const jsonFilters = JSON.parse( filters );
-
-		if ( jsonFilters ) {
-			allFilters = jsonFilters.map( ( filter ) => ( {
-				propertyType: filter.propertyType || 'propertyType',
-				title: {
-					en: filter.title || 'title',
-				},
-				choices:
-					filter.choices.map( ( choice ) => ( {
-						key: choice.choiceKey || 'choiceKey',
-						en: choice.choiceTitle || 'choiceTitle',
-						selected: choice.choiceSelected || false,
-						hidden: choice.choiceHidden || false,
-					} ) ) || [],
-				innerOperator: filter.innerOperator || 'and',
-			} ) );
-		}
-
-		this.storeLocatorConfig = {
-			theme: JSON.parse( theme ) || { primary_color: '#000' },
-			datasource: {
-				max_responses: 5,
-				max_distance: 50000,
-			},
-			internationalization: JSON.parse( internationalization ) || {
-				lang: 'en',
-				period: 'fr',
-				unitSystem: 0,
-			},
-			maps: { provider: 'woosmap' },
-			woosmapview: {
-				initialCenter: JSON.parse( initialCenter ) || {
-					lat: 50,
-					lng: 0,
-				},
-				initialZoom: Number( zoom ) || 5,
-				tileStyle: {
-					color: tileColor || '#000',
-					size: Number( tileSize ) || 11,
-					minSize: 5,
-					typeRules,
-				},
-				breakPoint: Number( breakPoint ) || 10,
-				style: {
-					rules: styleRules,
-					default: JSON.parse( defaultStyle ) || {
-						icon: {
-							url: 'https://images.woosmap.com/marker-default.svg',
-						},
-						selectedIcon: {
-							url: 'https://images.woosmap.com/marker-selected.svg',
-						},
-						numberedIcon: {
-							url: 'https://images.woosmap.com/marker-default.svg',
-						},
-					},
-				},
-			},
-			filters: {
-				opened: filtersOpened || false,
-				customOrder: filtersCustomOrder || false,
-				filters: allFilters,
-				outerOperator: filtersOuterOperator || 'or',
-			},
-		};
+		const config = parseDataset( this.element.dataset );
+		this.storeLocatorConfig = validateConfig( config );
 
 		this.element.innerHTML = '';
 		const newElementId = 'store-locator-widget-id';
@@ -160,7 +47,10 @@ class StoreLocator {
 				this.storeLocatorConfig
 			);
 		}
-		this.storeLocatorWidget = new this.webAppLib( newElement.id, apiKey );
+		this.storeLocatorWidget = new this.webAppLib(
+			newElement.id,
+			this.storeLocatorConfig.maps.apiKey
+		);
 		this.storeLocatorWidget.isMobile = false;
 		this.storeLocatorWidget.confHandler.setInitConf(
 			this.storeLocatorConfig
@@ -203,11 +93,6 @@ class StoreLocatorEdit extends StoreLocator {
 		this.storeLocatorWidget = null;
 	}
 
-	/**
-	 * Attach different listeners to handle interactions
-	 * with the map and modify block settings accordingly
-	 * @see https://developers.woosmap.com/products/widgets/store-locator-widget/advanced-usages/#events
-	 */
 	addListeners() {
 		// select the block when the user interacts with the map
 		this.element.addEventListener( 'click', () => {
@@ -215,97 +100,23 @@ class StoreLocatorEdit extends StoreLocator {
 		} );
 	}
 
-	/**
-	 * Update options of the map
-	 *
-	 * @param {Object}  options         Settings to update
-	 * @param {boolean} rerenderLocator To rerender or not store locator
-	 */
+	updateDatasetProperty( key, value ) {
+		if ( typeof value === 'object' ) {
+			this.element.dataset[ key ] = JSON.stringify( value );
+		} else {
+			this.element.dataset[ key ] = value;
+		}
+	}
+
 	update( options, rerenderLocator = true ) {
-		const {
-			height,
-			apiKey,
-			theme,
-			internationalization,
-			initialCenter,
-			zoom,
-			tileColor,
-			tileSize,
-			breakPoint,
-			defaultStyle,
-			language,
-			period,
-			unitSystem,
-			customMarkers,
-			filtersOpened,
-			filtersCustomOrder,
-			filters,
-			filtersOuterOperator,
-		} = options;
+		Object.entries( options ).forEach( ( [ key, value ] ) => {
+			if ( key === 'height' ) {
+				this.element.style.height = `${ value }px`;
+			} else {
+				this.updateDatasetProperty( key, value );
+			}
+		} );
 
-		if ( height ) {
-			this.element.style.height = `${ height }px`;
-		}
-		if ( apiKey ) {
-			this.element.dataset.apiKey = apiKey;
-		}
-
-		if ( theme ) {
-			this.element.dataset.theme = JSON.stringify( theme );
-		}
-		if ( internationalization ) {
-			this.element.dataset.internationalization =
-				JSON.stringify( internationalization );
-		}
-		if ( initialCenter ) {
-			this.element.dataset.initialCenter =
-				JSON.stringify( initialCenter );
-		}
-		if ( zoom ) {
-			this.element.dataset.zoom = zoom;
-		}
-		if ( tileColor ) {
-			this.element.dataset.tileColor = tileColor;
-		}
-		if ( tileSize ) {
-			this.element.dataset.tileSize = tileSize;
-		}
-		if ( breakPoint ) {
-			this.element.dataset.breakPoint = breakPoint;
-		}
-		if ( defaultStyle ) {
-			this.element.dataset.defaultStyle = JSON.stringify( defaultStyle );
-		}
-
-		if ( language ) {
-			this.element.dataset.language = language;
-		}
-		if ( period ) {
-			this.element.dataset.period = period;
-		}
-		if ( unitSystem ) {
-			this.element.dataset.unitSystem = unitSystem;
-		}
-
-		if ( customMarkers ) {
-			this.element.dataset.customMarkers =
-				JSON.stringify( customMarkers );
-		}
-
-		if ( filtersOpened ) {
-			this.element.dataset.filtersOpened = filtersOpened;
-		}
-		if ( filtersCustomOrder ) {
-			this.element.dataset.filtersCustomOrder = filtersCustomOrder;
-		}
-		if ( filters ) {
-			this.element.dataset.filters = JSON.stringify( filters );
-		}
-		if ( filtersOuterOperator ) {
-			this.element.dataset.filtersOuterOperator = filtersOuterOperator;
-		}
-
-		// Only call init if options other than height are passed
 		if ( rerenderLocator ) {
 			this.init();
 		}
