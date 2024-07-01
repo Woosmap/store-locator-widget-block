@@ -8,14 +8,14 @@ const setAttributes = jest.fn();
 const defaultProps = {
 	attributes: {
 		height: 300,
-		zoom: 13,
+		woosmapView: {
+			initialCenter: {lat: 50, lng: 0},
+			initialZoom: 13,
+		},
 		theme: {
 			primary_color: '#000000'
 		},
-		initialCenter: {
-			lat: 50,
-			lng: 0
-		},
+
 	},
 	setAttributes,
 	setState: jest.fn(),

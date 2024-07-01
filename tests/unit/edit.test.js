@@ -12,10 +12,11 @@ describe("StoreLocatorBlockEdit component", () => {
 	it("matches snapshot", () => {
 		const attributes = {
 			height: 300,
-			latitude: 0,
-			longitude: 0,
-			zoom: 13,
-			themeColor: '#000000',
+			woosmapView: {
+				initialCenter: {lat: 50, lng: 0},
+				initialZoom: 13,
+			},
+			theme: {primary_color: '#000000'},
 			apiKey: ''
 		};
 

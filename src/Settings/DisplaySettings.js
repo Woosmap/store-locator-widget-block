@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function DisplaySettings( props ) {
 	const {
-		attributes: { height, theme, initialCenter, zoom },
+		attributes: { height, theme, woosmapView },
 		setAttributes,
 	} = props;
 
@@ -34,8 +34,15 @@ export default function DisplaySettings( props ) {
 			/>
 			<RangeControl
 				label={ __( 'Zoom', 'wp-store-locator-widget-block' ) }
-				value={ zoom }
-				onChange={ ( value ) => setAttributes( { zoom: value } ) }
+				value={ woosmapView.initialZoom }
+				onChange={ ( value ) =>
+					setAttributes( {
+						woosmapView: {
+							...woosmapView,
+							initialZoom: value,
+						},
+					} )
+				}
 				min={ 0 }
 				max={ 20 }
 				step={ 0.5 }
@@ -48,7 +55,7 @@ export default function DisplaySettings( props ) {
 				value={ Number( height ) }
 				onChange={ ( value ) => setAttributes( { height: value } ) }
 				min={ 250 }
-				max={ 5000 }
+				max={ 3000 }
 				step={ 5 }
 			/>
 			<RangeControl
@@ -56,12 +63,15 @@ export default function DisplaySettings( props ) {
 					'Default Latitude',
 					'wp-store-locator-widget-block'
 				) }
-				value={ initialCenter.lat }
+				value={ woosmapView.initialCenter.lat }
 				onChange={ ( value ) =>
 					setAttributes( {
-						initialCenter: {
-							lat: value,
-							lng: initialCenter.lng,
+						woosmapView: {
+							...woosmapView,
+							initialCenter: {
+								...woosmapView.initialCenter,
+								lat: value,
+							},
 						},
 					} )
 				}
@@ -74,12 +84,15 @@ export default function DisplaySettings( props ) {
 					'Default Longitude',
 					'wp-store-locator-widget-block'
 				) }
-				value={ initialCenter.lng }
+				value={ woosmapView.initialCenter.lng }
 				onChange={ ( value ) =>
 					setAttributes( {
-						initialCenter: {
-							lat: initialCenter.lat,
-							lng: value,
+						woosmapView: {
+							...woosmapView,
+							initialCenter: {
+								...woosmapView.initialCenter,
+								lng: value,
+							},
 						},
 					} )
 				}

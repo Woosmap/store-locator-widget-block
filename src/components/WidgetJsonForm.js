@@ -1,7 +1,9 @@
-import { useState, useCallback } from '@wordpress/element'; // Added useCallback import
+import { useState, useCallback } from '@wordpress/element';
 import { Placeholder, Button } from '@wordpress/components';
+import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { dispatch } from '@wordpress/data';
+import { processInputConfig } from '../utils/configUtils';
 
 export default function WidgetJsonForm( {
 	blockProps,
@@ -9,29 +11,24 @@ export default function WidgetJsonForm( {
 	initialConfig,
 	onValidateConfig,
 } ) {
-	const [ config, setConfig ] = useState(
-		JSON.stringify( initialConfig, null, 2 )
-	);
+	const { height, apiKey, ...filteredInitialConfig } = initialConfig;
 
-	const handleConfigChange = useCallback( ( event ) => {
-		setConfig( event.target.value );
-	}, [] );
+	const [ config, setConfig ] = useState(
+		JSON.stringify( filteredInitialConfig, null, 2 )
+	);
 
 	const handleValidateConfig = useCallback( () => {
 		try {
-			const parsedConfig = JSON.parse( config );
+			const modifiedConfig = processInputConfig( config );
+			setConfig( modifiedConfig );
+			const parsedConfig = JSON.parse( modifiedConfig );
 			onValidateConfig( parsedConfig );
 		} catch ( error ) {
-			dispatch( 'core/notices' ).createErrorNotice(
-				__(
-					'Invalid Widget Conf format',
-					'wp-store-locator-widget-block'
-				),
-				{
-					isDismissible: true,
-					type: 'snackbar',
-				}
-			);
+			const errorMessage = `Invalid Widget Conf format: ${ error.message }`;
+			dispatch( 'core/notices' ).createErrorNotice( errorMessage, {
+				isDismissible: true,
+				type: 'snackbar',
+			} );
 		}
 	}, [ config, onValidateConfig ] );
 
@@ -44,11 +41,18 @@ export default function WidgetJsonForm( {
 				) }
 				icon={ BlockIcon }
 			>
-				<textarea
-					value={ config }
-					onChange={ handleConfigChange }
-					style={ { width: '100%', height: '350px' } }
-				/>
+				<pre>
+					<RichText
+						value={ config }
+						onChange={ ( text ) => setConfig( text ) }
+						placeholder={ __( 'Write json conf…' ) }
+						aria-label={ __( 'Conf' ) }
+						preserveWhiteSpace={ true }
+						allowedFormats={ [] }
+						withoutInteractiveFormatting={ true }
+						__unstablePastePlainText={ true /* GB 9.5 */ }
+					/>
+				</pre>
 				<Button
 					isPrimary
 					onClick={ handleValidateConfig }
