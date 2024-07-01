@@ -1,9 +1,17 @@
 // Safe JSON parsing with default value
+import { dispatch } from '@wordpress/data';
+
 function safeParse( json, defaultValue = {} ) {
 	try {
 		return JSON.parse( json ) || defaultValue;
 	} catch ( e ) {
-		console.warn( 'JSON parsing error:', e );
+		dispatch( 'core/notices' ).createErrorNotice(
+			`Error parsing conf: ${ e }`,
+			{
+				isDismissible: true,
+				type: 'snackbar',
+			}
+		);
 		return defaultValue;
 	}
 }
