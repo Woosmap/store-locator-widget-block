@@ -4,7 +4,7 @@ import { StoreLocator } from './components/StoreLocator';
 
 domReady( async () => {
 	const storeLocatorBlock = document.querySelector(
-		'.wp-block-woosmap-wp-store-locator-widget-block'
+		'.wp-block-woosmap-store-locator-widget-block'
 	);
 
 	if ( ! storeLocatorBlock ) {

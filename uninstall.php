@@ -2,7 +2,7 @@
 /**
  * Uninstaller
  *
- * @package woosmap\wp-store-locator-widget-block
+ * @package woosmap\store-locator-widget-block
  */
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {

@@ -17,7 +17,7 @@ export default function CustomMarkerSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Store Type Title cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -48,7 +48,7 @@ export default function CustomMarkerSettings( props ) {
 		<PanelBody
 			title={ __(
 				'Custom Marker Settings',
-				'wp-store-locator-widget-block'
+				'store-locator-widget-block'
 			) }
 			initialOpen={ false }
 		>
@@ -61,18 +61,12 @@ export default function CustomMarkerSettings( props ) {
 				} }
 			>
 				<TextControl
-					label={ __(
-						'Store Type',
-						'wp-store-locator-widget-block'
-					) }
+					label={ __( 'Store Type', 'store-locator-widget-block' ) }
 					value={ storeType }
 					onChange={ ( value ) => setStoreType( value ) }
 				/>
 				<Button variant="primary" onClick={ addCustomMarker }>
-					{ __(
-						'Add Custom Marker',
-						'wp-store-locator-widget-block'
-					) }
+					{ __( 'Add Custom Marker', 'store-locator-widget-block' ) }
 				</Button>
 			</div>
 			{ customMarkers.map( ( marker, index ) => (

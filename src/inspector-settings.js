@@ -18,7 +18,7 @@ export default function InspectorSettings( props ) {
 					<p>
 						{ __(
 							'You need to confirm your access to Woosmap before you can continue.',
-							'wp-store-locator-widget-block'
+							'store-locator-widget-block'
 						) }
 					</p>
 				</PanelBody>

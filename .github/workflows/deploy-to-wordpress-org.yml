@@ -5,7 +5,7 @@ on:
     types: [published]
 
 env:
-  PLUGIN_SLUG: woosmap-store-locator-widget-block
+  PLUGIN_SLUG: store-locator-widget-block
 
 jobs:
   tag:

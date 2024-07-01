@@ -38,7 +38,7 @@ export default function EditFiltersSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Property Type cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -53,7 +53,7 @@ export default function EditFiltersSettings( props ) {
 	const validateTitle = ( value ) => {
 		if ( ! value.trim() ) {
 			dispatch( 'core/notices' ).createErrorNotice(
-				__( 'Title cannot be empty', 'wp-store-locator-widget-block' ),
+				__( 'Title cannot be empty', 'store-locator-widget-block' ),
 				{
 					isDismissible: true,
 					type: 'snackbar',
@@ -72,7 +72,7 @@ export default function EditFiltersSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Choice Key cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -86,7 +86,7 @@ export default function EditFiltersSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Choice Title cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -112,7 +112,7 @@ export default function EditFiltersSettings( props ) {
 	return (
 		<PanelBody
 			title={
-				__( 'Filter: ', 'wp-store-locator-widget-block' ) +
+				__( 'Filter: ', 'store-locator-widget-block' ) +
 				title +
 				' {' +
 				propertyType +
@@ -121,7 +121,7 @@ export default function EditFiltersSettings( props ) {
 			initialOpen={ false }
 		>
 			<TextControl
-				label={ __( 'Property Type', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Property Type', 'store-locator-widget-block' ) }
 				value={ propertyType }
 				onChange={ ( value ) => {
 					if ( validatePropertyType( value ) ) {
@@ -130,7 +130,7 @@ export default function EditFiltersSettings( props ) {
 				} }
 			/>
 			<TextControl
-				label={ __( 'title', 'wp-store-locator-widget-block' ) }
+				label={ __( 'title', 'store-locator-widget-block' ) }
 				value={ title }
 				onChange={ ( value ) => {
 					if ( validateTitle( value ) ) {
@@ -139,20 +139,17 @@ export default function EditFiltersSettings( props ) {
 				} }
 			/>
 			<SelectControl
-				label={ __(
-					'Inner Operator',
-					'wp-store-locator-widget-block'
-				) }
+				label={ __( 'Inner Operator', 'store-locator-widget-block' ) }
 				value={ innerOperator }
 				onChange={ ( value ) =>
 					updateFilter( { ...filter, innerOperator: value } )
 				}
 			>
 				<option value="and">
-					{ __( 'And', 'wp-store-locator-widget-block' ) }
+					{ __( 'And', 'store-locator-widget-block' ) }
 				</option>
 				<option value="or">
-					{ __( 'Or', 'wp-store-locator-widget-block' ) }
+					{ __( 'Or', 'store-locator-widget-block' ) }
 				</option>
 			</SelectControl>
 			<div
@@ -164,23 +161,17 @@ export default function EditFiltersSettings( props ) {
 				} }
 			>
 				<TextControl
-					label={ __(
-						'Choice Key',
-						'wp-store-locator-widget-block'
-					) }
+					label={ __( 'Choice Key', 'store-locator-widget-block' ) }
 					value={ choiceKey }
 					onChange={ ( value ) => setChoiceKey( value ) }
 				/>
 				<TextControl
-					label={ __(
-						'Choice Title',
-						'wp-store-locator-widget-block'
-					) }
+					label={ __( 'Choice Title', 'store-locator-widget-block' ) }
 					value={ choiceTitle }
 					onChange={ ( value ) => setChoiceTitle( value ) }
 				/>
 				<Button variant="primary" onClick={ addChoice }>
-					{ __( 'Add Choice', 'wp-store-locator-widget-block' ) }
+					{ __( 'Add Choice', 'store-locator-widget-block' ) }
 				</Button>
 			</div>
 			{ choices.map( ( choice, choiceIndex ) => (
@@ -204,7 +195,7 @@ export default function EditFiltersSettings( props ) {
 				onClick={ deleteFilter }
 				style={ { marginTop: 20 } }
 			>
-				{ __( 'Delete filter', 'wp-store-locator-widget-block' ) }
+				{ __( 'Delete filter', 'store-locator-widget-block' ) }
 			</Button>
 		</PanelBody>
 	);

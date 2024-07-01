@@ -31,7 +31,7 @@ export function ResizableMap( {
 				right: 0,
 				bottom: 0,
 			} }
-			className={ `wp-store-locator-widget-block__resize-container ${
+			className={ `store-locator-widget-block__resize-container ${
 				isResizing ? 'is-resizing' : ''
 			}` }
 			enable={ RESIZABLE_BOX_ENABLE_OPTION }

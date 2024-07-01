@@ -15,11 +15,11 @@ export default function DisplaySettings( props ) {
 
 	return (
 		<PanelBody
-			title={ __( 'Display Settings', 'wp-store-locator-widget-block' ) }
+			title={ __( 'Display Settings', 'store-locator-widget-block' ) }
 		>
 			<PanelRow>
 				<label htmlFor="theme-color-control">
-					{ __( 'Primary Color', 'wp-store-locator-widget-block' ) }
+					{ __( 'Primary Color', 'store-locator-widget-block' ) }
 				</label>
 				<ColorIndicator
 					id="theme-color-control"
@@ -33,7 +33,7 @@ export default function DisplaySettings( props ) {
 				}
 			/>
 			<RangeControl
-				label={ __( 'Zoom', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Zoom', 'store-locator-widget-block' ) }
 				value={ woosmapView.initialZoom }
 				onChange={ ( value ) =>
 					setAttributes( {
@@ -50,7 +50,7 @@ export default function DisplaySettings( props ) {
 			<RangeControl
 				label={ __(
 					'Height ( pixels )',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				) }
 				value={ Number( height ) }
 				onChange={ ( value ) => setAttributes( { height: value } ) }
@@ -59,10 +59,7 @@ export default function DisplaySettings( props ) {
 				step={ 5 }
 			/>
 			<RangeControl
-				label={ __(
-					'Default Latitude',
-					'wp-store-locator-widget-block'
-				) }
+				label={ __( 'Default Latitude', 'store-locator-widget-block' ) }
 				value={ woosmapView.initialCenter.lat }
 				onChange={ ( value ) =>
 					setAttributes( {
@@ -82,7 +79,7 @@ export default function DisplaySettings( props ) {
 			<RangeControl
 				label={ __(
 					'Default Longitude',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				) }
 				value={ woosmapView.initialCenter.lng }
 				onChange={ ( value ) =>

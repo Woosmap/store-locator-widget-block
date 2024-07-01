@@ -41,7 +41,7 @@ export default function EditCustomMarkerSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Store Type cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -55,13 +55,11 @@ export default function EditCustomMarkerSettings( props ) {
 
 	return (
 		<PanelBody
-			title={
-				__( 'Edit: ', 'wp-store-locator-widget-block' ) + storeType
-			}
+			title={ __( 'Edit: ', 'store-locator-widget-block' ) + storeType }
 			initialOpen={ false }
 		>
 			<TextControl
-				label={ __( 'Store Type', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Store Type', 'store-locator-widget-block' ) }
 				value={ storeType }
 				onChange={ ( value ) => {
 					if ( validateStoreType( value ) ) {
@@ -71,10 +69,7 @@ export default function EditCustomMarkerSettings( props ) {
 			/>
 			<PanelRow>
 				<label htmlFor="custom-tile-color-control">
-					{ __(
-						'Custom Tile Color',
-						'wp-store-locator-widget-block'
-					) }
+					{ __( 'Custom Tile Color', 'store-locator-widget-block' ) }
 				</label>
 				<ColorIndicator
 					id="custom-tile-color-control"
@@ -98,7 +93,7 @@ export default function EditCustomMarkerSettings( props ) {
 				<TextControl
 					label={ __(
 						'Custom Default Marker Url',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					value={ customDefaultMarkerUrl }
 					onChange={ ( value ) =>
@@ -127,7 +122,7 @@ export default function EditCustomMarkerSettings( props ) {
 				<TextControl
 					label={ __(
 						'Custom Selected Marker Url',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					value={ customSelectedMarkerUrl }
 					onChange={ ( value ) =>
@@ -156,7 +151,7 @@ export default function EditCustomMarkerSettings( props ) {
 				<TextControl
 					label={ __(
 						'Custom Numbered Marker Url',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					value={ customNumberedMarkerUrl }
 					onChange={ ( value ) =>
@@ -175,10 +170,7 @@ export default function EditCustomMarkerSettings( props ) {
 				) }
 			</div>
 			<Button variant="primary" onClick={ deleteMarker }>
-				{ __(
-					'Delete Custom Marker',
-					'wp-store-locator-widget-block'
-				) }
+				{ __( 'Delete Custom Marker', 'store-locator-widget-block' ) }
 			</Button>
 		</PanelBody>
 	);

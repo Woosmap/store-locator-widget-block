@@ -29,7 +29,7 @@ export default function FiltersSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Property Type cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -41,7 +41,7 @@ export default function FiltersSettings( props ) {
 
 		if ( ! title.trim() ) {
 			dispatch( 'core/notices' ).createErrorNotice(
-				__( 'Title cannot be empty', 'wp-store-locator-widget-block' ),
+				__( 'Title cannot be empty', 'store-locator-widget-block' ),
 				{
 					isDismissible: true,
 					type: 'snackbar',
@@ -66,14 +66,11 @@ export default function FiltersSettings( props ) {
 
 	return (
 		<PanelBody
-			title={ __( 'Filters Settings', 'wp-store-locator-widget-block' ) }
+			title={ __( 'Filters Settings', 'store-locator-widget-block' ) }
 			initialOpen={ false }
 		>
 			<CheckboxControl
-				label={ __(
-					'Filters Opened',
-					'wp-store-locator-widget-block'
-				) }
+				label={ __( 'Filters Opened', 'store-locator-widget-block' ) }
 				checked={ filtersOpened }
 				onChange={ ( checked ) =>
 					setAttributes( { filtersOpened: checked } )
@@ -82,7 +79,7 @@ export default function FiltersSettings( props ) {
 			<CheckboxControl
 				label={ __(
 					'Filters Custom Order',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				) }
 				checked={ filtersCustomOrder }
 				onChange={ ( checked ) =>
@@ -92,7 +89,7 @@ export default function FiltersSettings( props ) {
 			<SelectControl
 				label={ __(
 					'Filters Outer Operator',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				) }
 				value={ filtersOuterOperator }
 				onChange={ ( value ) =>
@@ -100,10 +97,10 @@ export default function FiltersSettings( props ) {
 				}
 			>
 				<option value="and">
-					{ __( 'And', 'wp-store-locator-widget-block' ) }
+					{ __( 'And', 'store-locator-widget-block' ) }
 				</option>
 				<option value="or">
-					{ __( 'Or', 'wp-store-locator-widget-block' ) }
+					{ __( 'Or', 'store-locator-widget-block' ) }
 				</option>
 			</SelectControl>
 			<div
@@ -117,27 +114,27 @@ export default function FiltersSettings( props ) {
 				<SelectControl
 					label={ __(
 						'Property Type',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					onChange={ ( value ) => setPropertyType( value ) }
 				>
 					<option value="type">
-						{ __( 'Type', 'wp-store-locator-widget-block' ) }
+						{ __( 'Type', 'store-locator-widget-block' ) }
 					</option>
 					<option value="tag">
-						{ __( 'Tag', 'wp-store-locator-widget-block' ) }
+						{ __( 'Tag', 'store-locator-widget-block' ) }
 					</option>
 					<option value="custom">
-						{ __( 'Custom', 'wp-store-locator-widget-block' ) }
+						{ __( 'Custom', 'store-locator-widget-block' ) }
 					</option>
 				</SelectControl>
 				<TextControl
-					label={ __( 'Title', 'wp-store-locator-widget-block' ) }
+					label={ __( 'Title', 'store-locator-widget-block' ) }
 					value={ title }
 					onChange={ ( value ) => setTitle( value ) }
 				/>
 				<Button variant="primary" onClick={ addFilter }>
-					{ __( 'Add Filter', 'wp-store-locator-widget-block' ) }
+					{ __( 'Add Filter', 'store-locator-widget-block' ) }
 				</Button>
 			</div>
 			{ filters.map( ( filter, index ) => (

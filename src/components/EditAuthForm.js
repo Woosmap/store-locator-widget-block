@@ -55,7 +55,7 @@ export default function EditAuthForm( { setApiKey } ) {
 			<TextControl
 				label={ __(
 					'Please enter your Public API Key',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				) }
 				readOnly={ isBusy }
 				name="woosmap_public_api_key"
@@ -72,7 +72,7 @@ export default function EditAuthForm( { setApiKey } ) {
 			>
 				{ __(
 					'Confirm Woosmap Credentials',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				) }
 			</Button>
 		</>

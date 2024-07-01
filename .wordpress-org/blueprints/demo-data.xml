@@ -57,9 +57,9 @@
 <p>This is a demo of the Sample Woosmap Store Locator Widget Block. You'll need to enter a valid <a href="https://developers.woosmap.com/support/api-keys/#registering-a-woosmap-public-api-key">Woosmap Public API Key</a> in the block below in order to test.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:woosmap/wp-store-locator-widget-block -->
-<div style="height:500px" id="storeLocatorWidget" class="wp-block-woosmap-wp-store-locator-widget-block" data-latitude="50" data-longitude="0" data-zoom="6" data-theme-color="#000" data-tile-color="#000" data-tile-size="11" data-break-point="10" data-default-marker-url="https://images.woosmap.com/marker-default.svg" data-selected-marker-url="https://images.woosmap.com/marker-selected.svg" data-numbered-marker-url="https://images.woosmap.com/marker-default.svg" data-language="en" data-period="fr" data-unit-system="0" data-custom-markers="[]" data-filters-opened="false" data-filters-custom-order="false" data-filters="[]" data-filters-outer-operator="or"></div>
-<!-- /wp:woosmap/wp-store-locator-widget-block -->]]></content:encoded>
+<!-- wp:woosmap/store-locator-widget-block -->
+<div style="height:500px" id="storeLocatorWidget" class="wp-block-woosmap-store-locator-widget-block" data-latitude="50" data-longitude="0" data-zoom="6" data-theme-color="#000" data-tile-color="#000" data-tile-size="11" data-break-point="10" data-default-marker-url="https://images.woosmap.com/marker-default.svg" data-selected-marker-url="https://images.woosmap.com/marker-selected.svg" data-numbered-marker-url="https://images.woosmap.com/marker-default.svg" data-language="en" data-period="fr" data-unit-system="0" data-custom-markers="[]" data-filters-opened="false" data-filters-custom-order="false" data-filters="[]" data-filters-outer-operator="or"></div>
+<!-- /wp:woosmap/store-locator-widget-block -->]]></content:encoded>
 			<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 			<wp:post_id>9</wp:post_id>
 			<wp:post_date><![CDATA[2024-06-28 09:11:03]]></wp:post_date>
