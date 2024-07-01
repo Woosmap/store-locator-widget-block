@@ -35,4 +35,4 @@ Configuration involves creating a Woosmap account and generating the necessary P
 
 ---
 
-For more details, including the full changelog and additional FAQs, please refer to the official [plugin GitHub repository](https://github.com/Woosmap/wp-store-locator-widget-block/).
+For more details, including the full changelog and additional FAQs, please refer to the official [plugin GitHub repository](https://github.com/Woosmap/store-locator-widget-block/).

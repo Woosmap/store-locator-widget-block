@@ -12,7 +12,7 @@ test.describe( 'Store Locator Widget Editor Block Functionality', () => {
 	test( 'Authentication Form Displays Correctly', async ( { editor } ) => {
 		// Insert the Store Locator Widget block.
 		await editor.insertBlock( {
-			name: 'woosmap/wp-store-locator-widget-block',
+			name: 'woosmap/store-locator-widget-block',
 		} );
 
 		// Fill in the API key field with a test value.

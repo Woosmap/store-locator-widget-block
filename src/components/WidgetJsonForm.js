@@ -37,7 +37,7 @@ export default function WidgetJsonForm( {
 			<Placeholder
 				label={ __(
 					'Store Locator Widget Configuration',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				) }
 				icon={ BlockIcon }
 			>
@@ -60,7 +60,7 @@ export default function WidgetJsonForm( {
 				>
 					{ __(
 						'Validate Configuration',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 				</Button>
 			</Placeholder>

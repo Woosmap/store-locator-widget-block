@@ -15,7 +15,7 @@ jobs:
   e2e:
     name: Playwright - ${{ matrix.part }}
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'Woosmap/wp-store-locator-widget-block' || github.event_name == 'pull_request' }}
+    if: ${{ github.repository == 'Woosmap/store-locator-widget-block' || github.event_name == 'pull_request' }}
     strategy:
       fail-fast: false
       matrix:

@@ -6,7 +6,7 @@ import EditAuthForm from '../components/EditAuthForm';
 export default function AuthenticationSettings() {
 	return (
 		<PanelBody
-			title={ __( 'Authentication', 'wp-store-locator-widget-block' ) }
+			title={ __( 'Authentication', 'store-locator-widget-block' ) }
 			initialOpen={ false }
 		>
 			<EditAuthForm />

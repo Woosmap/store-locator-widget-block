@@ -46,7 +46,7 @@ export default function EditchoicesSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Choice Key cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -63,7 +63,7 @@ export default function EditchoicesSettings( props ) {
 			dispatch( 'core/notices' ).createErrorNotice(
 				__(
 					'Choice Title cannot be empty',
-					'wp-store-locator-widget-block'
+					'store-locator-widget-block'
 				),
 				{
 					isDismissible: true,
@@ -78,7 +78,7 @@ export default function EditchoicesSettings( props ) {
 	return (
 		<PanelBody
 			title={
-				__( 'Choice: ', 'wp-store-locator-widget-block' ) +
+				__( 'Choice: ', 'store-locator-widget-block' ) +
 				choiceTitle +
 				' {' +
 				choiceKey +
@@ -87,7 +87,7 @@ export default function EditchoicesSettings( props ) {
 			initialOpen={ false }
 		>
 			<TextControl
-				label={ __( 'Choice Key', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Choice Key', 'store-locator-widget-block' ) }
 				value={ choiceKey }
 				onChange={ ( value ) => {
 					if ( validateChoiceKey( value ) ) {
@@ -96,7 +96,7 @@ export default function EditchoicesSettings( props ) {
 				} }
 			/>
 			<TextControl
-				label={ __( 'Choice Tile', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Choice Tile', 'store-locator-widget-block' ) }
 				value={ choiceTitle }
 				onChange={ ( value ) => {
 					if ( validateChoiceTitle( value ) ) {
@@ -105,21 +105,21 @@ export default function EditchoicesSettings( props ) {
 				} }
 			/>
 			<CheckboxControl
-				label={ __( 'Selected', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Selected', 'store-locator-widget-block' ) }
 				checked={ choiceSelected }
 				onChange={ ( checked ) =>
 					updateChoice( { ...choice, choiceSelected: checked } )
 				}
 			/>
 			<CheckboxControl
-				label={ __( 'Hidden', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Hidden', 'store-locator-widget-block' ) }
 				checked={ choiceHidden }
 				onChange={ ( checked ) =>
 					updateChoice( { ...choice, choiceHidden: checked } )
 				}
 			/>
 			<Button variant="primary" onClick={ deleteChoice }>
-				{ __( 'Delete choice', 'wp-store-locator-widget-block' ) }
+				{ __( 'Delete choice', 'store-locator-widget-block' ) }
 			</Button>
 		</PanelBody>
 	);

@@ -16,12 +16,12 @@ export default function MarkerSettings( props ) {
 
 	return (
 		<PanelBody
-			title={ __( 'Marker Settings', 'wp-store-locator-widget-block' ) }
+			title={ __( 'Marker Settings', 'store-locator-widget-block' ) }
 			initialOpen={ false }
 		>
 			<PanelRow>
 				<label htmlFor="tile-color-control">
-					{ __( 'Tile Color', 'wp-store-locator-widget-block' ) }
+					{ __( 'Tile Color', 'store-locator-widget-block' ) }
 				</label>
 				<ColorIndicator
 					id="tile-color-control"
@@ -33,7 +33,7 @@ export default function MarkerSettings( props ) {
 				onChange={ ( value ) => setAttributes( { tileColor: value } ) }
 			/>
 			<RangeControl
-				label={ __( 'Tile Size', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Tile Size', 'store-locator-widget-block' ) }
 				value={ tileSize }
 				onChange={ ( value ) => setAttributes( { tileSize: value } ) }
 				min={ 1 }
@@ -41,7 +41,7 @@ export default function MarkerSettings( props ) {
 				step={ 1 }
 			/>
 			<RangeControl
-				label={ __( 'Break Point', 'wp-store-locator-widget-block' ) }
+				label={ __( 'Break Point', 'store-locator-widget-block' ) }
 				value={ breakPoint }
 				onChange={ ( value ) => setAttributes( { breakPoint: value } ) }
 				min={ 1 }
@@ -59,7 +59,7 @@ export default function MarkerSettings( props ) {
 				<TextControl
 					label={ __(
 						'Default Marker Url',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					value={ defaultStyle.icon.url }
 					onChange={ ( value ) =>
@@ -95,7 +95,7 @@ export default function MarkerSettings( props ) {
 				<TextControl
 					label={ __(
 						'Selected Marker Url',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					value={ defaultStyle.selectedIcon.url }
 					onChange={ ( value ) =>
@@ -130,7 +130,7 @@ export default function MarkerSettings( props ) {
 				<TextControl
 					label={ __(
 						'Numbered Marker Url',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					value={ defaultStyle.numberedIcon.url }
 					onChange={ ( value ) =>

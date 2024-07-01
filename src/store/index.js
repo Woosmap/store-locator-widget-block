@@ -10,7 +10,7 @@ import reducer from './reducer';
 import * as selectors from './selectors';
 import * as actions from './actions';
 
-const STORE_NAME = 'woosmap/wp-store-locator-widget-block';
+const STORE_NAME = 'woosmap/store-locator-widget-block';
 
 /**
  * Store definition for the icons namespace.

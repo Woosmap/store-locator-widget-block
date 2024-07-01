@@ -174,7 +174,7 @@ export default function StoreLocatorBlockEdit( props ) {
 					style={ { height: `${ height }px` } }
 					label={ __(
 						'Block for Woosmap Store Locator Widget',
-						'wp-store-locator-widget-block'
+						'store-locator-widget-block'
 					) }
 					icon={ BlockIcon }
 				>
@@ -197,7 +197,7 @@ export default function StoreLocatorBlockEdit( props ) {
 						style={ { minHeight: `${ height }px` } }
 						label={ __(
 							'Authorize Woosmap Access',
-							'wp-store-locator-widget-block'
+							'store-locator-widget-block'
 						) }
 						icon={ BlockIcon }
 						isColumnLayout={ true }
@@ -205,7 +205,7 @@ export default function StoreLocatorBlockEdit( props ) {
 						<div style={ { marginBottom: '1em' } }>
 							{ __(
 								'To embed a Woosmap Store Locator Widget in your website, you need to provide your Public API Key. Follow the instructions in the documentation to obtain this key: ',
-								'wp-store-locator-widget-block'
+								'store-locator-widget-block'
 							) }
 							<a
 								href="https://developers.woosmap.com/support/api-keys/#registering-a-woosmap-public-api-key"
@@ -214,7 +214,7 @@ export default function StoreLocatorBlockEdit( props ) {
 							>
 								{ __(
 									'Guide to register a Woosmap Public API Key.',
-									'wp-store-locator-widget-block'
+									'store-locator-widget-block'
 								) }
 							</a>
 						</div>
@@ -243,7 +243,7 @@ export default function StoreLocatorBlockEdit( props ) {
 						icon="admin-generic"
 						label={ __(
 							'Show Configuration',
-							'wp-store-locator-widget-block'
+							'store-locator-widget-block'
 						) }
 						onClick={ () =>
 							setShowConfigPlaceholder( ! showConfigPlaceholder )
