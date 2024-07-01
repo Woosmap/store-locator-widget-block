@@ -7,10 +7,14 @@ describe("StoreLocatorBlockSave component", () => {
 	it("matches snapshot with default attributes", () => {
 		const attributes = {
 			height: 300,
-			latitude: 0,
-			longitude: 0,
+			initialCenter: {
+				lat: 0,
+				lng: 0
+			},
 			zoom: 13,
-			themeColor: '#000000',
+			theme: {
+				primary_color: '#ffffff'
+			},
 			apiKey: ''
 		};
 
@@ -30,10 +34,14 @@ describe("StoreLocatorBlockSave component", () => {
 	it("matches snapshot with provided attributes", () => {
 		const attributes = {
 			height: 400,
-			latitude: 51.5074,
-			longitude: 0.1278,
+			initialCenter: {
+				lat: 51.5074,
+				lng: 0.1278
+			},
 			zoom: 15,
-			themeColor: '#ffffff',
+			theme: {
+				primary_color: '#ffffff'
+			},
 			apiKey: 'your-api-key'
 		};
 

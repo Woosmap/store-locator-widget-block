@@ -9,9 +9,13 @@ const defaultProps = {
 	attributes: {
 		height: 300,
 		zoom: 13,
-		themeColor: '#000000',
-		latitude: 50,
-		longitude: 0
+		theme: {
+			primary_color: '#000000'
+		},
+		initialCenter: {
+			lat: 50,
+			lng: 0
+		},
 	},
 	setAttributes,
 	setState: jest.fn(),

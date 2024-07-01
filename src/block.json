@@ -25,28 +25,67 @@
 		"multiple": false
 	},
 	"attributes": {
-		"apiKey": {
-			"type": "string"
-		},
 		"height": {
 			"type": "string",
 			"default": "500"
 		},
-		"latitude": {
-			"type": "number",
-			"default": 50
+		"apiKey": {
+			"type": "string"
 		},
-		"longitude": {
-			"type": "number",
-			"default": 0
+		"theme": {
+			"type": "object",
+			"properties": {
+				"primary_color": {
+					"type": "string",
+					"default": "#000"
+				}
+			},
+			"default": {
+				"primary_color": "#000"
+			}
+		},
+		"internationalization": {
+			"type": "object",
+			"properties": {
+				"lang": {
+					"type": "string",
+					"default": "en"
+				},
+				"period": {
+					"type": "string",
+					"default": "fr"
+				},
+				"unitSystem": {
+					"type": "number",
+					"default": 0
+				}
+			},
+			"default": {
+				"lang": "en",
+				"period": "fr",
+				"unitSystem": 0
+			}
+		},
+		"initialCenter": {
+			"type": "object",
+			"properties": {
+				"lat": {
+					"type": "number",
+					"default": 50
+				},
+				"lng": {
+					"type": "number",
+					"default": 0
+				}
+			},
+			"default": {
+				"lat": 50,
+				"lng": 0
+			}
 		},
 		"zoom": {
 			"type": "number",
 			"default": 6
-		},
-		"themeColor": {
-			"type": "string",
-			"default": "#000"
 		},
 		"tileColor": {
 			"type": "string",
@@ -60,29 +99,57 @@
 			"type": "number",
 			"default": 10
 		},
-		"defaultMarkerUrl": {
-			"type": "string",
-			"default": "https://images.woosmap.com/marker-default.svg"
-		},
-		"selectedMarkerUrl": {
-			"type": "string",
-			"default": "https://images.woosmap.com/marker-selected.svg"
-		},
-		"numberedMarkerUrl": {
-			"type": "string",
-			"default": "https://images.woosmap.com/marker-default.svg"
-		},
-		"language": {
-			"type": "string",
-			"default": "en"
-		},
-		"period": {
-			"type": "string",
-			"default": "fr"
-		},
-		"unitSystem": {
-			"type": "number",
-			"default": 0
+		"defaultStyle": {
+			"type": "object",
+			"properties": {
+				"icon": {
+					"type": "object",
+					"properties": {
+						"url": {
+							"type": "string",
+							"default": "https://images.woosmap.com/marker-default.svg"
+						}
+					},
+					"default": {
+						"url": "https://images.woosmap.com/marker-default.svg"
+					}
+				},
+				"selectedIcon": {
+					"type": "object",
+					"properties": {
+						"url": {
+							"type": "string",
+							"default": "https://images.woosmap.com/marker-selected.svg"
+						}
+					},
+					"default": {
+						"url": "https://images.woosmap.com/marker-selected.svg"
+					}
+				},
+				"numberedIcon": {
+					"type": "object",
+					"properties": {
+						"url": {
+							"type": "string",
+							"default": "https://images.woosmap.com/marker-default.svg"
+						}
+					},
+					"default": {
+						"url": "https://images.woosmap.com/marker-default.svg"
+					}
+				}
+			},
+			"default": {
+				"icon": {
+					"url": "https://images.woosmap.com/marker-default.svg"
+				},
+				"selectedIcon": {
+					"url": "https://images.woosmap.com/marker-selected.svg"
+				},
+				"numberedIcon": {
+					"url": "https://images.woosmap.com/marker-default.svg"
+				}
+			}
 		},
 		"customMarkers": {
 			"type": "array",

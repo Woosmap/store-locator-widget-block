@@ -4,20 +4,15 @@ export default function StoreLocatorBlockSave( props ) {
 	const {
 		attributes: {
 			height,
-			latitude,
-			longitude,
-			zoom,
-			themeColor,
 			apiKey,
+			theme,
+			internationalization,
+			initialCenter,
+			zoom,
 			tileColor,
 			tileSize,
 			breakPoint,
-			defaultMarkerUrl,
-			selectedMarkerUrl,
-			numberedMarkerUrl,
-			language,
-			period,
-			unitSystem,
+			defaultStyle,
 			customMarkers,
 			filtersOpened,
 			filtersCustomOrder,
@@ -36,20 +31,15 @@ export default function StoreLocatorBlockSave( props ) {
 	return (
 		<div
 			{ ...blockProps }
-			data-latitude={ latitude }
-			data-longitude={ longitude }
-			data-zoom={ zoom }
-			data-theme-color={ themeColor }
 			data-api-key={ apiKey }
+			data-theme={ JSON.stringify( theme ) }
+			data-internationalization={ JSON.stringify( internationalization ) }
+			data-initial-center={ JSON.stringify( initialCenter ) }
+			data-zoom={ zoom }
 			data-tile-color={ tileColor }
 			data-tile-size={ tileSize }
 			data-break-point={ breakPoint }
-			data-default-marker-url={ defaultMarkerUrl }
-			data-selected-marker-url={ selectedMarkerUrl }
-			data-numbered-marker-url={ numberedMarkerUrl }
-			data-language={ language }
-			data-period={ period }
-			data-unit-system={ unitSystem }
+			data-default-style={ JSON.stringify( defaultStyle ) }
 			data-custom-markers={ JSON.stringify( customMarkers ) }
 			data-filters-opened={ filtersOpened }
 			data-filters-custom-order={ filtersCustomOrder }

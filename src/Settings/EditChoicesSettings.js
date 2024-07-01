@@ -9,7 +9,7 @@ import { dispatch } from '@wordpress/data';
 
 export default function EditchoicesSettings( props ) {
 	const {
-		key,
+		choiceIndex,
 		choice,
 		choiceKey,
 		choiceTitle,
@@ -31,13 +31,13 @@ export default function EditchoicesSettings( props ) {
 
 	const updateChoice = ( updatedChoice ) => {
 		const newChoices = choices.map( ( m, i ) =>
-			i === key ? updatedChoice : m
+			i === choiceIndex ? updatedChoice : m
 		);
 		updateFilter( { ...filter, choices: newChoices } );
 	};
 
 	const deleteChoice = () => {
-		const newChoices = choices.filter( ( _, i ) => i !== key );
+		const newChoices = choices.filter( ( _, i ) => i !== choiceIndex );
 		updateFilter( { ...filter, choices: newChoices } );
 	};
 

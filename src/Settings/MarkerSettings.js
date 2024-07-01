@@ -10,14 +10,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function MarkerSettings( props ) {
 	const {
-		attributes: {
-			tileColor,
-			tileSize,
-			breakPoint,
-			defaultMarkerUrl,
-			selectedMarkerUrl,
-			numberedMarkerUrl,
-		},
+		attributes: { tileColor, breakPoint, tileSize, defaultStyle },
 		setAttributes,
 	} = props;
 
@@ -68,14 +61,24 @@ export default function MarkerSettings( props ) {
 						'Default Marker Url',
 						'wp-store-locator-widget-block'
 					) }
-					value={ defaultMarkerUrl }
+					value={ defaultStyle.icon.url }
 					onChange={ ( value ) =>
-						setAttributes( { defaultMarkerUrl: value } )
+						setAttributes( {
+							defaultStyle: {
+								icon: { url: value },
+								selectedIcon: {
+									url: defaultStyle.selectedIcon.url,
+								},
+								numberedIcon: {
+									url: defaultStyle.numberedIcon.url,
+								},
+							},
+						} )
 					}
 				/>
-				{ defaultMarkerUrl && (
+				{ defaultStyle.icon.url && (
 					<img
-						src={ defaultMarkerUrl }
+						src={ defaultStyle.icon.url }
 						alt="Default Marker Url"
 						style={ { maxWidth: '100%', height: 'auto' } }
 					/>
@@ -94,14 +97,24 @@ export default function MarkerSettings( props ) {
 						'Selected Marker Url',
 						'wp-store-locator-widget-block'
 					) }
-					value={ selectedMarkerUrl }
+					value={ defaultStyle.selectedIcon.url }
 					onChange={ ( value ) =>
-						setAttributes( { selectedMarkerUrl: value } )
+						setAttributes( {
+							defaultStyle: {
+								icon: { url: defaultStyle.icon.url },
+								selectedIcon: {
+									url: value,
+								},
+								numberedIcon: {
+									url: defaultStyle.numberedIcon.url,
+								},
+							},
+						} )
 					}
 				/>
-				{ selectedMarkerUrl && (
+				{ defaultStyle.selectedIcon.url && (
 					<img
-						src={ selectedMarkerUrl }
+						src={ defaultStyle.selectedIcon.url }
 						alt="Selected Marker Url"
 						style={ { maxWidth: '100%', height: 'auto' } }
 					/>
@@ -119,14 +132,24 @@ export default function MarkerSettings( props ) {
 						'Numbered Marker Url',
 						'wp-store-locator-widget-block'
 					) }
-					value={ numberedMarkerUrl }
+					value={ defaultStyle.numberedIcon.url }
 					onChange={ ( value ) =>
-						setAttributes( { numberedMarkerUrl: value } )
+						setAttributes( {
+							defaultStyle: {
+								icon: { url: defaultStyle.icon.url },
+								selectedIcon: {
+									url: defaultStyle.selectedIcon.url,
+								},
+								numberedIcon: {
+									url: value,
+								},
+							},
+						} )
 					}
 				/>
-				{ numberedMarkerUrl && (
+				{ defaultStyle.numberedIcon.url && (
 					<img
-						src={ numberedMarkerUrl }
+						src={ defaultStyle.numberedIcon.url }
 						alt="Numbered Marker Url"
 						style={ { maxWidth: '100%', height: 'auto' } }
 					/>

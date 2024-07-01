@@ -114,14 +114,23 @@ export default function FiltersSettings( props ) {
 					borderRadius: 5,
 				} }
 			>
-				<TextControl
+				<SelectControl
 					label={ __(
 						'Property Type',
 						'wp-store-locator-widget-block'
 					) }
-					value={ propertyType }
 					onChange={ ( value ) => setPropertyType( value ) }
-				/>
+				>
+					<option value="type">
+						{ __( 'Type', 'wp-store-locator-widget-block' ) }
+					</option>
+					<option value="tag">
+						{ __( 'Tag', 'wp-store-locator-widget-block' ) }
+					</option>
+					<option value="custom">
+						{ __( 'Custom', 'wp-store-locator-widget-block' ) }
+					</option>
+				</SelectControl>
 				<TextControl
 					label={ __( 'Title', 'wp-store-locator-widget-block' ) }
 					value={ title }
@@ -134,6 +143,7 @@ export default function FiltersSettings( props ) {
 			{ filters.map( ( filter, index ) => (
 				<EditFiltersSettings
 					key={ index }
+					index={ index }
 					filter={ filter }
 					propertyType={ filter.propertyType }
 					title={ filter.title }

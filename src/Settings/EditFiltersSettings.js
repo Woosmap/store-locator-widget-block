@@ -11,7 +11,7 @@ import { dispatch } from '@wordpress/data';
 
 export default function EditFiltersSettings( props ) {
 	const {
-		key,
+		index,
 		filter,
 		propertyType,
 		title,
@@ -23,13 +23,13 @@ export default function EditFiltersSettings( props ) {
 
 	const updateFilter = ( updatedFilter ) => {
 		const newFilters = filters.map( ( m, i ) =>
-			i === key ? updatedFilter : m
+			i === index ? updatedFilter : m
 		);
 		setAttributes( { filters: newFilters } );
 	};
 
 	const deleteFilter = () => {
-		const newFilters = filters.filter( ( _, i ) => i !== key );
+		const newFilters = filters.filter( ( _, i ) => i !== index );
 		setAttributes( { filters: newFilters } );
 	};
 
@@ -186,13 +186,14 @@ export default function EditFiltersSettings( props ) {
 			{ choices.map( ( choice, choiceIndex ) => (
 				<EditChoicesSettings
 					key={ choiceIndex }
+					choiceIndex={ choiceIndex }
 					choice={ choice }
 					choiceKey={ choice.choiceKey }
 					choiceTitle={ choice.choiceTitle }
 					choiceSelected={ choice.choiceSelected }
 					choiceHidden={ choice.choiceHidden }
 					choices={ choices }
-					index={ key }
+					index={ index }
 					filter={ filter }
 					filters={ filters }
 					setAttributes={ setAttributes }
