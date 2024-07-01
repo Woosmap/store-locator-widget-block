@@ -69,74 +69,26 @@
     "woosmapView": {
       "type": "object",
       "default": {
+        "tileColor": "#000",
+        "tileSize": 11,
+        "breakPoint": 10,
         "initialCenter": {
           "lat": 50,
           "lng": 0
         },
-        "initialZoom": 6
-      }
-    },
-    "tileColor": {
-      "type": "string",
-      "default": "#000"
-    },
-    "tileSize": {
-      "type": "number",
-      "default": 11
-    },
-    "breakPoint": {
-      "type": "number",
-      "default": 10
-    },
-    "defaultStyle": {
-      "type": "object",
-      "properties": {
-        "icon": {
-          "type": "object",
-          "properties": {
-            "url": {
-              "type": "string",
-              "default": "https://images.woosmap.com/marker-default.svg"
-            }
-          },
+        "initialZoom": 6,
+        "style": {
           "default": {
-            "url": "https://images.woosmap.com/marker-default.svg"
-          }
-        },
-        "selectedIcon": {
-          "type": "object",
-          "properties": {
-            "url": {
-              "type": "string",
-              "default": "https://images.woosmap.com/marker-selected.svg"
+            "icon": {
+              "url": "https://images.woosmap.com/marker-default.svg"
+            },
+            "selectedIcon": {
+              "url": "https://images.woosmap.com/marker-selected.svg"
+            },
+            "numberedIcon": {
+              "url": "https://images.woosmap.com/marker-default.svg"
             }
-          },
-          "default": {
-            "url": "https://images.woosmap.com/marker-selected.svg"
           }
-        },
-        "numberedIcon": {
-          "type": "object",
-          "properties": {
-            "url": {
-              "type": "string",
-              "default": "https://images.woosmap.com/marker-default.svg"
-            }
-          },
-          "default": {
-            "url": "https://images.woosmap.com/marker-default.svg"
-          }
-        }
-      },
-      "default": {
-        "icon": {
-          "url": "https://images.woosmap.com/marker-default.svg"
-        },
-        "selectedIcon": {
-          "url": "https://images.woosmap.com/marker-selected.svg"
-        },
-        "numberedIcon": {
-          "url": "https://images.woosmap.com/marker-default.svg"
         }
       }
     },

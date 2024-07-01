@@ -62,19 +62,31 @@ export function parseDataset( dataset ) {
 		theme = '{}',
 		internationalization = '{}',
 		woosmapView = '{}',
-		defaultStyle = '{}',
 		apiKey,
-		tileColor = '#000',
-		tileSize = '11',
-		breakPoint = '10',
 		filtersOpened = 'false',
 		filtersCustomOrder = 'false',
 		filtersOuterOperator = 'or',
 	} = dataset;
 
 	const parsedWoosmapView = safeParse( woosmapView, {
+		tileColor: '#000',
+		tileSize: 11,
+		breakPoint: 10,
 		initialCenter: { lat: 50, lng: 0 },
 		initialZoom: 13,
+		style: {
+			default: {
+				icon: {
+					url: 'https://images.woosmap.com/marker-default.svg',
+				},
+				selectedIcon: {
+					url: 'https://images.woosmap.com/marker-selected.svg',
+				},
+				numberedIcon: {
+					url: 'https://images.woosmap.com/marker-default.svg',
+				},
+			},
+		},
 	} );
 
 	return {
@@ -90,25 +102,15 @@ export function parseDataset( dataset ) {
 			initialCenter: parsedWoosmapView.initialCenter,
 			initialZoom: parsedWoosmapView.initialZoom,
 			tileStyle: {
-				color: tileColor,
-				size: Number( tileSize ),
+				color: parsedWoosmapView.tileColor,
+				size: Number( parsedWoosmapView.tileSize ),
 				minSize: 5,
 				typeRules: processCustomMarkers( safeParse( customMarkers ) ),
 			},
-			breakPoint: Number( breakPoint ),
+			breakPoint: Number( parsedWoosmapView.breakPoint ),
 			style: {
 				rules: processCustomMarkers( safeParse( customMarkers ) ),
-				default: safeParse( defaultStyle, {
-					icon: {
-						url: 'https://images.woosmap.com/marker-default.svg',
-					},
-					selectedIcon: {
-						url: 'https://images.woosmap.com/marker-selected.svg',
-					},
-					numberedIcon: {
-						url: 'https://images.woosmap.com/marker-default.svg',
-					},
-				} ),
+				default: parsedWoosmapView.style.default,
 			},
 		},
 		filters: {
