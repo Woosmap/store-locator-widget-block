@@ -55,9 +55,7 @@ export default function EditCustomMarkerSettings( props ) {
 
 	return (
 		<PanelBody
-			title={
-				__( 'Edit: ', 'store-locator-widget-block' ) + storeType
-			}
+			title={ __( 'Edit: ', 'store-locator-widget-block' ) + storeType }
 			initialOpen={ false }
 		>
 			<TextControl
@@ -71,10 +69,7 @@ export default function EditCustomMarkerSettings( props ) {
 			/>
 			<PanelRow>
 				<label htmlFor="custom-tile-color-control">
-					{ __(
-						'Custom Tile Color',
-						'store-locator-widget-block'
-					) }
+					{ __( 'Custom Tile Color', 'store-locator-widget-block' ) }
 				</label>
 				<ColorIndicator
 					id="custom-tile-color-control"
@@ -175,10 +170,7 @@ export default function EditCustomMarkerSettings( props ) {
 				) }
 			</div>
 			<Button variant="primary" onClick={ deleteMarker }>
-				{ __(
-					'Delete Custom Marker',
-					'store-locator-widget-block'
-				) }
+				{ __( 'Delete Custom Marker', 'store-locator-widget-block' ) }
 			</Button>
 		</PanelBody>
 	);

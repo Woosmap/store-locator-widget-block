@@ -139,10 +139,7 @@ export default function EditFiltersSettings( props ) {
 				} }
 			/>
 			<SelectControl
-				label={ __(
-					'Inner Operator',
-					'store-locator-widget-block'
-				) }
+				label={ __( 'Inner Operator', 'store-locator-widget-block' ) }
 				value={ innerOperator }
 				onChange={ ( value ) =>
 					updateFilter( { ...filter, innerOperator: value } )
@@ -164,18 +161,12 @@ export default function EditFiltersSettings( props ) {
 				} }
 			>
 				<TextControl
-					label={ __(
-						'Choice Key',
-						'store-locator-widget-block'
-					) }
+					label={ __( 'Choice Key', 'store-locator-widget-block' ) }
 					value={ choiceKey }
 					onChange={ ( value ) => setChoiceKey( value ) }
 				/>
 				<TextControl
-					label={ __(
-						'Choice Title',
-						'store-locator-widget-block'
-					) }
+					label={ __( 'Choice Title', 'store-locator-widget-block' ) }
 					value={ choiceTitle }
 					onChange={ ( value ) => setChoiceTitle( value ) }
 				/>

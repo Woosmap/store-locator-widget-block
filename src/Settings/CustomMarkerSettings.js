@@ -61,18 +61,12 @@ export default function CustomMarkerSettings( props ) {
 				} }
 			>
 				<TextControl
-					label={ __(
-						'Store Type',
-						'store-locator-widget-block'
-					) }
+					label={ __( 'Store Type', 'store-locator-widget-block' ) }
 					value={ storeType }
 					onChange={ ( value ) => setStoreType( value ) }
 				/>
 				<Button variant="primary" onClick={ addCustomMarker }>
-					{ __(
-						'Add Custom Marker',
-						'store-locator-widget-block'
-					) }
+					{ __( 'Add Custom Marker', 'store-locator-widget-block' ) }
 				</Button>
 			</div>
 			{ customMarkers.map( ( marker, index ) => (

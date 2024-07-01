@@ -59,10 +59,7 @@ export default function DisplaySettings( props ) {
 				step={ 5 }
 			/>
 			<RangeControl
-				label={ __(
-					'Default Latitude',
-					'store-locator-widget-block'
-				) }
+				label={ __( 'Default Latitude', 'store-locator-widget-block' ) }
 				value={ woosmapView.initialCenter.lat }
 				onChange={ ( value ) =>
 					setAttributes( {

@@ -70,10 +70,7 @@ export default function FiltersSettings( props ) {
 			initialOpen={ false }
 		>
 			<CheckboxControl
-				label={ __(
-					'Filters Opened',
-					'store-locator-widget-block'
-				) }
+				label={ __( 'Filters Opened', 'store-locator-widget-block' ) }
 				checked={ filtersOpened }
 				onChange={ ( checked ) =>
 					setAttributes( { filtersOpened: checked } )
