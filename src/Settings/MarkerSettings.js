@@ -14,7 +14,7 @@ export default function MarkerSettings( props ) {
 		setAttributes,
 	} = props;
 
-	const { tileColor, tileSize, breakPoint, style } = woosmapView || {};
+	const { breakPoint, tileStyle, style } = woosmapView || {};
 
 	return (
 		<PanelBody
@@ -27,23 +27,35 @@ export default function MarkerSettings( props ) {
 				</label>
 				<ColorIndicator
 					id="tile-color-control"
-					colorValue={ tileColor }
+					colorValue={ tileStyle.color }
 				/>
 			</PanelRow>
 			<ColorPalette
-				value={ tileColor }
+				value={ tileStyle.color }
 				onChange={ ( value ) =>
 					setAttributes( {
-						woosmapView: { ...woosmapView, tileColor: value },
+						woosmapView: {
+							...woosmapView,
+							tileStyle: {
+								...tileStyle,
+								color: value,
+							},
+						},
 					} )
 				}
 			/>
 			<RangeControl
 				label={ __( 'Tile Size', 'store-locator-widget-block' ) }
-				value={ tileSize }
+				value={ tileStyle.size }
 				onChange={ ( value ) =>
 					setAttributes( {
-						woosmapView: { ...woosmapView, tileSize: value },
+						woosmapView: {
+							...woosmapView,
+							tileStyle: {
+								...tileStyle,
+								size: value,
+							},
+						},
 					} )
 				}
 				min={ 1 }
@@ -55,7 +67,10 @@ export default function MarkerSettings( props ) {
 				value={ breakPoint }
 				onChange={ ( value ) =>
 					setAttributes( {
-						woosmapView: { ...woosmapView, breakPoint: value },
+						woosmapView: {
+							...woosmapView,
+							breakPoint: value,
+						},
 					} )
 				}
 				min={ 1 }

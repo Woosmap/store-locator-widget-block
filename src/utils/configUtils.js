@@ -1,12 +1,28 @@
 // Safe JSON parsing with default value
 import { dispatch } from '@wordpress/data';
+import { defaultConfig } from './configDefaults';
+
+function deepMerge( target, source ) {
+	Object.keys( source ).forEach( ( key ) => {
+		if ( source[ key ] && typeof source[ key ] === 'object' ) {
+			if ( ! target[ key ] ) {
+				target[ key ] = {};
+			}
+			deepMerge( target[ key ], source[ key ] );
+		} else {
+			target[ key ] = source[ key ];
+		}
+	} );
+	return target;
+}
 
 function safeParse( json, defaultValue = {} ) {
 	try {
-		return JSON.parse( json ) || defaultValue;
+		const parsed = JSON.parse( json );
+		return deepMerge( defaultValue, parsed ); // Use deepMerge to combine defaults and parsed values
 	} catch ( e ) {
 		dispatch( 'core/notices' ).createErrorNotice(
-			`Error parsing conf: ${ e }`,
+			`Error parsing conf: ${ e.message }`,
 			{
 				isDismissible: true,
 				type: 'snackbar',
@@ -16,43 +32,62 @@ function safeParse( json, defaultValue = {} ) {
 	}
 }
 
-// Process custom markers
 function processCustomMarkers( customMarkers = [] ) {
-	return customMarkers.map( ( marker ) => ( {
-		type: marker.storeType || 'store_type',
-		color: marker.customTyleColor || '#000',
-		icon: {
-			url:
-				marker.customDefaultMarkerUrl ||
-				'https://images.woosmap.com/marker-default.svg',
-		},
-		selectedIcon: {
-			url:
-				marker.customSelectedMarkerUrl ||
-				'https://images.woosmap.com/marker-selected.svg',
-		},
-		numberedIcon: {
-			url:
-				marker.customNumberedMarkerUrl ||
-				'https://images.woosmap.com/marker-default.svg',
-		},
-	} ) );
+	return customMarkers.map(
+		( {
+			storeType = 'store_type',
+			customTyleColor = '#000',
+			customDefaultMarkerUrl,
+			customSelectedMarkerUrl,
+			customNumberedMarkerUrl,
+		} ) => ( {
+			type: storeType,
+			color: customTyleColor,
+			icon: {
+				url:
+					customDefaultMarkerUrl ||
+					'https://images.woosmap.com/marker-default.svg',
+			},
+			selectedIcon: {
+				url:
+					customSelectedMarkerUrl ||
+					'https://images.woosmap.com/marker-selected.svg',
+			},
+			numberedIcon: {
+				url:
+					customNumberedMarkerUrl ||
+					'https://images.woosmap.com/marker-default.svg',
+			},
+		} )
+	);
 }
 
-// Process filters
 function processFilters( filters = [] ) {
-	return filters.map( ( filter ) => ( {
-		propertyType: filter.propertyType || 'propertyType',
-		title: { en: filter.title || 'title' },
-		choices:
-			filter.choices.map( ( choice ) => ( {
-				key: choice.choiceKey || 'choiceKey',
-				en: choice.choiceTitle || 'choiceTitle',
-				selected: choice.choiceSelected || false,
-				hidden: choice.choiceHidden || false,
-			} ) ) || [],
-		innerOperator: filter.innerOperator || 'and',
-	} ) );
+	return filters.map(
+		( {
+			propertyType = 'propertyType',
+			title,
+			choices = [],
+			innerOperator = 'and',
+		} ) => ( {
+			propertyType,
+			title: { en: title || 'title' },
+			choices: choices.map(
+				( {
+					choiceKey = 'choiceKey',
+					choiceTitle = 'choiceTitle',
+					choiceSelected = false,
+					choiceHidden = false,
+				} ) => ( {
+					key: choiceKey,
+					en: choiceTitle,
+					selected: choiceSelected,
+					hidden: choiceHidden,
+				} )
+			),
+			innerOperator,
+		} )
+	);
 }
 
 export function parseDataset( dataset ) {
@@ -60,6 +95,7 @@ export function parseDataset( dataset ) {
 		customMarkers = '[]',
 		filters = '[]',
 		theme = '{}',
+		datasource = '{}',
 		internationalization = '{}',
 		woosmapView = '{}',
 		apiKey,
@@ -68,75 +104,62 @@ export function parseDataset( dataset ) {
 		filtersOuterOperator = 'or',
 	} = dataset;
 
-	const parsedWoosmapView = safeParse( woosmapView, {
-		tileColor: '#000',
-		tileSize: 11,
-		breakPoint: 10,
-		initialCenter: { lat: 50, lng: 0 },
-		initialZoom: 13,
-		style: {
-			default: {
-				icon: {
-					url: 'https://images.woosmap.com/marker-default.svg',
-				},
-				selectedIcon: {
-					url: 'https://images.woosmap.com/marker-selected.svg',
-				},
-				numberedIcon: {
-					url: 'https://images.woosmap.com/marker-default.svg',
-				},
-			},
-		},
-	} );
+	const parsedWoosmapView = safeParse(
+		woosmapView,
+		defaultConfig.woosmapview
+	);
 
 	return {
-		theme: safeParse( theme, { primary_color: '#000' } ),
-		datasource: { max_responses: 5, max_distance: 50000 },
-		internationalization: safeParse( internationalization, {
-			lang: 'en',
-			period: 'fr',
-			unitSystem: 0,
-		} ),
+		theme: safeParse( theme, defaultConfig.theme ),
+		datasource: safeParse( datasource, defaultConfig.datasource ),
+		internationalization: safeParse(
+			internationalization,
+			defaultConfig.internationalization
+		),
 		maps: { apiKey, provider: 'woosmap' },
 		woosmapview: {
 			initialCenter: parsedWoosmapView.initialCenter,
 			initialZoom: parsedWoosmapView.initialZoom,
 			tileStyle: {
-				color: parsedWoosmapView.tileColor,
-				size: Number( parsedWoosmapView.tileSize ),
-				minSize: 5,
-				typeRules: processCustomMarkers( safeParse( customMarkers ) ),
+				color: parsedWoosmapView.tileStyle.color,
+				size: Number( parsedWoosmapView.tileStyle.size ),
+				minSize: Number( parsedWoosmapView.tileStyle.minSize ),
+				typeRules: processCustomMarkers(
+					safeParse( customMarkers, [] )
+				),
 			},
 			breakPoint: Number( parsedWoosmapView.breakPoint ),
 			style: {
-				rules: processCustomMarkers( safeParse( customMarkers ) ),
+				rules: processCustomMarkers( safeParse( customMarkers, [] ) ),
 				default: parsedWoosmapView.style.default,
 			},
 		},
 		filters: {
 			opened: filtersOpened === 'true',
 			customOrder: filtersCustomOrder === 'true',
-			filters: processFilters( safeParse( filters ) ),
+			filters: processFilters( safeParse( filters, [] ) ),
 			outerOperator: filtersOuterOperator,
 		},
 	};
 }
 
 export function validateConfig( config ) {
-	if ( ! config.maps.apiKey ) {
+	if (
+		! config.maps.apiKey ||
+		typeof config.maps.apiKey !== 'string' ||
+		! config.maps.apiKey.trim()
+	) {
 		throw new Error(
-			'StoreLocator configuration error: apiKey is required.'
+			'StoreLocator configuration error: apiKey is required and must be a non-empty string.'
 		);
 	}
-	// Add more validations as necessary
+	// Additional validations can be added here
 	return config;
 }
 
 export function processInputConfig( config ) {
-	const trimmedConfig = config.trim();
-	return trimmedConfig
-		.replace( /\\\"/g, '\\\\"' ) // Escape existing double quotes
+	return config
+		.trim()
 		.replace( /([,{]\s*)([a-zA-Z0-9_]+):/g, '$1"$2":' ) // Ensure property names are quoted
-		.replace( /,\s*}/g, '}' ) // Remove trailing commas in objects
-		.replace( /,\s*]/g, ']' ); // Remove trailing commas in arrays
+		.replace( /,\s*([}\]])/g, '$1' ); // Remove trailing commas in objects and arrays
 }

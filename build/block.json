@@ -69,9 +69,12 @@
     "woosmapView": {
       "type": "object",
       "default": {
-        "tileColor": "#000",
-        "tileSize": 11,
         "breakPoint": 10,
+        "tileStyle": {
+          "color": "#000",
+          "size": 11,
+          "minSize": 5
+        },
         "initialCenter": {
           "lat": 50,
           "lng": 0
@@ -145,16 +148,16 @@
             "items": {
               "type": "object",
               "properties": {
-                "choiceKey": {
+                "key": {
                   "type": "string"
                 },
-                "choiceTitle": {
+                "title": {
                   "type": "string"
                 },
-                "choiceSelected": {
+                "selected": {
                   "type": "boolean"
                 },
-                "choiceHidden": {
+                "hidden": {
                   "type": "boolean"
                 }
               }
