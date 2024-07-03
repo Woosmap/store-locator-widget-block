@@ -10,9 +10,11 @@ import { __ } from '@wordpress/i18n';
 
 export default function MarkerSettings( props ) {
 	const {
-		attributes: { tileColor, breakPoint, tileSize, defaultStyle },
+		attributes: { woosmapView },
 		setAttributes,
 	} = props;
+
+	const { breakPoint, tileStyle, style } = woosmapView || {};
 
 	return (
 		<PanelBody
@@ -25,17 +27,37 @@ export default function MarkerSettings( props ) {
 				</label>
 				<ColorIndicator
 					id="tile-color-control"
-					colorValue={ tileColor }
+					colorValue={ tileStyle.color }
 				/>
 			</PanelRow>
 			<ColorPalette
-				value={ tileColor }
-				onChange={ ( value ) => setAttributes( { tileColor: value } ) }
+				value={ tileStyle.color }
+				onChange={ ( value ) =>
+					setAttributes( {
+						woosmapView: {
+							...woosmapView,
+							tileStyle: {
+								...tileStyle,
+								color: value,
+							},
+						},
+					} )
+				}
 			/>
 			<RangeControl
 				label={ __( 'Tile Size', 'store-locator-widget-block' ) }
-				value={ tileSize }
-				onChange={ ( value ) => setAttributes( { tileSize: value } ) }
+				value={ tileStyle.size }
+				onChange={ ( value ) =>
+					setAttributes( {
+						woosmapView: {
+							...woosmapView,
+							tileStyle: {
+								...tileStyle,
+								size: value,
+							},
+						},
+					} )
+				}
 				min={ 1 }
 				max={ 50 }
 				step={ 1 }
@@ -43,7 +65,14 @@ export default function MarkerSettings( props ) {
 			<RangeControl
 				label={ __( 'Break Point', 'store-locator-widget-block' ) }
 				value={ breakPoint }
-				onChange={ ( value ) => setAttributes( { breakPoint: value } ) }
+				onChange={ ( value ) =>
+					setAttributes( {
+						woosmapView: {
+							...woosmapView,
+							breakPoint: value,
+						},
+					} )
+				}
 				min={ 1 }
 				max={ 20 }
 				step={ 1 }
@@ -61,24 +90,25 @@ export default function MarkerSettings( props ) {
 						'Default Marker Url',
 						'store-locator-widget-block'
 					) }
-					value={ defaultStyle.icon.url }
+					value={ style.default.icon.url }
 					onChange={ ( value ) =>
 						setAttributes( {
-							defaultStyle: {
-								icon: { url: value },
-								selectedIcon: {
-									url: defaultStyle.selectedIcon.url,
-								},
-								numberedIcon: {
-									url: defaultStyle.numberedIcon.url,
+							woosmapView: {
+								...woosmapView,
+								style: {
+									...style,
+									default: {
+										...style.default,
+										icon: { url: value },
+									},
 								},
 							},
 						} )
 					}
 				/>
-				{ defaultStyle.icon.url && (
+				{ style.default.icon.url && (
 					<img
-						src={ defaultStyle.icon.url }
+						src={ style.default.icon.url }
 						alt="Default Marker Url"
 						style={ { maxWidth: '100%', height: 'auto' } }
 					/>
@@ -97,24 +127,25 @@ export default function MarkerSettings( props ) {
 						'Selected Marker Url',
 						'store-locator-widget-block'
 					) }
-					value={ defaultStyle.selectedIcon.url }
+					value={ style.default.selectedIcon.url }
 					onChange={ ( value ) =>
 						setAttributes( {
-							defaultStyle: {
-								icon: { url: defaultStyle.icon.url },
-								selectedIcon: {
-									url: value,
-								},
-								numberedIcon: {
-									url: defaultStyle.numberedIcon.url,
+							woosmapView: {
+								...woosmapView,
+								style: {
+									...style,
+									default: {
+										...style.default,
+										selectedIcon: { url: value },
+									},
 								},
 							},
 						} )
 					}
 				/>
-				{ defaultStyle.selectedIcon.url && (
+				{ style.default.selectedIcon.url && (
 					<img
-						src={ defaultStyle.selectedIcon.url }
+						src={ style.default.selectedIcon.url }
 						alt="Selected Marker Url"
 						style={ { maxWidth: '100%', height: 'auto' } }
 					/>
@@ -132,24 +163,25 @@ export default function MarkerSettings( props ) {
 						'Numbered Marker Url',
 						'store-locator-widget-block'
 					) }
-					value={ defaultStyle.numberedIcon.url }
+					value={ style.default.numberedIcon.url }
 					onChange={ ( value ) =>
 						setAttributes( {
-							defaultStyle: {
-								icon: { url: defaultStyle.icon.url },
-								selectedIcon: {
-									url: defaultStyle.selectedIcon.url,
-								},
-								numberedIcon: {
-									url: value,
+							woosmapView: {
+								...woosmapView,
+								style: {
+									...style,
+									default: {
+										...style.default,
+										numberedIcon: { url: value },
+									},
 								},
 							},
 						} )
 					}
 				/>
-				{ defaultStyle.numberedIcon.url && (
+				{ style.default.numberedIcon.url && (
 					<img
-						src={ defaultStyle.numberedIcon.url }
+						src={ style.default.numberedIcon.url }
 						alt="Numbered Marker Url"
 						style={ { maxWidth: '100%', height: 'auto' } }
 					/>

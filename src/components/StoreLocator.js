@@ -32,29 +32,13 @@ class StoreLocator {
 		newElement.id = newElementId;
 		this.element.appendChild( newElement );
 
-		// Create a new WebApp instance
-		// TODO fix internally or find why it's not working here.
-		// normally we should render the widget using this.storeLocatorWidget.render(isMobile);
-		// but it causes the following error on host localhost
-		// DOMException: Failed to execute 'open' on 'XMLHttpRequest': Invalid URL
-		// the render() method try to load a protocol-relative url
-		//     var req = new XMLHttpRequest();
-		//     req.open('GET', '//webapp-woosmap.woosmap.com/webapp-conf.json', true);
-		// fallback to this
-		if ( this.storeLocatorWidget ) {
-			this.storeLocatorWidget.isMobile = false;
-			this.storeLocatorWidget.confHandler.setInitConf(
-				this.storeLocatorConfig
-			);
-		}
 		this.storeLocatorWidget = new this.webAppLib(
 			newElement.id,
 			this.storeLocatorConfig.maps.apiKey
 		);
 		this.storeLocatorWidget.isMobile = false;
-		this.storeLocatorWidget.confHandler.setInitConf(
-			this.storeLocatorConfig
-		);
+		this.storeLocatorWidget.setConf( this.storeLocatorConfig );
+		this.storeLocatorWidget.render();
 	}
 }
 
@@ -68,7 +52,6 @@ class StoreLocatorEdit extends StoreLocator {
 	 */
 	constructor( element, clientId, setAttributes ) {
 		super( element );
-		this.isEditor = true;
 		this.clientId = clientId;
 		this.setAttributes = setAttributes;
 
@@ -80,6 +63,56 @@ class StoreLocatorEdit extends StoreLocator {
 	 */
 	initEdit() {
 		this.addListeners();
+	}
+
+	/**
+	 * Recreate webapp.js script and reset global vars.
+	 * This ensures to remove persistent states from the store locator widget for editing mode.
+	 * @param {Function} callback - The function to call once the script is successfully loaded.
+	 */
+	refreshScript( callback ) {
+		const scriptSource = 'https://webapp.woosmap.com/webapp.js';
+		const loadingScript = this.element.ownerDocument.querySelector(
+			`script[src="${ scriptSource }"][data-loading]`
+		);
+		if ( loadingScript ) {
+			return;
+		}
+		const existingScript = this.element.ownerDocument.querySelector(
+			`script[src="${ scriptSource }"]`
+		);
+		if ( existingScript ) {
+			const globalVars = [ 'WebApp', 'woosmap' ];
+			globalVars.forEach( ( varName ) => {
+				if (
+					this.element.ownerDocument.defaultView[ varName ] !==
+					undefined
+				) {
+					this.element.ownerDocument.defaultView[ varName ] = null;
+				}
+			} );
+			existingScript.parentNode.removeChild( existingScript );
+		}
+
+		const script = this.element.ownerDocument.createElement( 'script' );
+		script.src = scriptSource;
+		script.setAttribute( 'data-loading', 'true' );
+		script.onload = () => {
+			script.removeAttribute( 'data-loading' );
+			this.webAppLib = this.element.ownerDocument.defaultView.WebApp;
+			callback();
+		};
+		script.onerror = ( error ) => {
+			dispatch( 'core/notices' ).createErrorNotice(
+				`Failed to load the script:${ error }`,
+				{
+					isDismissible: true,
+					type: 'snackbar',
+				}
+			);
+			script.removeAttribute( 'data-loading' );
+		};
+		this.element.ownerDocument.head.appendChild( script );
 	}
 
 	/**
@@ -118,7 +151,7 @@ class StoreLocatorEdit extends StoreLocator {
 		} );
 
 		if ( rerenderLocator ) {
-			this.init();
+			this.refreshScript( () => this.init() );
 		}
 	}
 }

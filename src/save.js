@@ -8,15 +8,8 @@ export default function StoreLocatorBlockSave( props ) {
 			theme,
 			internationalization,
 			woosmapView,
-			tileColor,
-			tileSize,
-			breakPoint,
-			defaultStyle,
 			customMarkers,
-			filtersOpened,
-			filtersCustomOrder,
 			filters,
-			filtersOuterOperator,
 		},
 	} = props;
 
@@ -34,15 +27,8 @@ export default function StoreLocatorBlockSave( props ) {
 			data-theme={ JSON.stringify( theme ) }
 			data-internationalization={ JSON.stringify( internationalization ) }
 			data-woosmap-view={ JSON.stringify( woosmapView ) }
-			data-tile-color={ tileColor }
-			data-tile-size={ tileSize }
-			data-break-point={ breakPoint }
-			data-default-style={ JSON.stringify( defaultStyle ) }
 			data-custom-markers={ JSON.stringify( customMarkers ) }
-			data-filters-opened={ filtersOpened }
-			data-filters-custom-order={ filtersCustomOrder }
 			data-filters={ JSON.stringify( filters ) }
-			data-filters-outer-operator={ filtersOuterOperator }
 		></div>
 	);
 }
