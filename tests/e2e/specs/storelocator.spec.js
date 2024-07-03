@@ -9,7 +9,7 @@ test.describe('Store Locator Widget Editor Block Functionality', () => {
 		await admin.createNewPost();
 	});
 
-	test('Authentication Form Displays Correctly', async ({editor}) => {
+	test('Authentication Form Displays Correctly', async ({editor, page}) => {
 		// Insert the Store Locator Widget block.
 		await editor.insertBlock({
 			name: 'woosmap/store-locator-widget-block',
@@ -18,7 +18,7 @@ test.describe('Store Locator Widget Editor Block Functionality', () => {
 		// Fill in the API key field with a test value.
 		await editor.canvas
 			.locator("[name='woosmap_public_api_key']")
-			.fill('test-apikey');
+			.fill('foodmarkets-woos');
 
 		// Confirm the API key.
 		await editor.canvas
@@ -31,8 +31,8 @@ test.describe('Store Locator Widget Editor Block Functionality', () => {
 		).toBeVisible();
 
 		// Navigate to JSON Conf.
-		await editor.canvas
-			.locator('[aria-label="Show Configuration"')
+		await page
+			.locator('[aria-label="Show Configuration"]')
 			.click();
 
 		// Confirm the JSON Conf.
