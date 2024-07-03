@@ -21,6 +21,7 @@ export default function InternationalizationSettings( props ) {
 				onChange={ ( value ) =>
 					setAttributes( {
 						internationalization: {
+							...internationalization,
 							lang: value,
 							period: internationalization.period,
 							unitSystem: internationalization.unitSystem,
@@ -102,6 +103,7 @@ export default function InternationalizationSettings( props ) {
 				onChange={ ( value ) =>
 					setAttributes( {
 						internationalization: {
+							...internationalization,
 							lang: internationalization.lang,
 							period: value,
 							unitSystem: internationalization.unitSystem,
@@ -123,6 +125,7 @@ export default function InternationalizationSettings( props ) {
 				onChange={ ( value ) =>
 					setAttributes( {
 						internationalization: {
+							...internationalization,
 							lang: internationalization.lang,
 							period: internationalization.period,
 							unitSystem: Number( value ),

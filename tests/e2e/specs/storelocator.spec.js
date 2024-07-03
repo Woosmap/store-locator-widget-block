@@ -27,7 +27,7 @@ test.describe( 'Store Locator Widget Editor Block Functionality', () => {
 
 		// Verify that the store locator map is visible.
 		await expect(
-			editor.canvas.locator( '[id="store-locator-widget-id"]' )
+			editor.canvas.locator( '[id="store-locator-widget-conf"]' )
 		).toBeVisible();
 	} );
 } );

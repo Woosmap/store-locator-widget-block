@@ -49,6 +49,10 @@ export function parseDataset( dataset ) {
 		defaultConfig.woosmapview
 	);
 
+	console.log(
+		safeParse( internationalization, defaultConfig.internationalization )
+	);
+
 	return {
 		theme: safeParse( theme, defaultConfig.theme ),
 		datasource: safeParse( datasource, defaultConfig.datasource ),

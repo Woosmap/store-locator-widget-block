@@ -41,7 +41,7 @@ export default function WidgetJsonForm( {
 				) }
 				icon={ BlockIcon }
 			>
-				<pre>
+				<pre id="store-locator-widget-conf">
 					<RichText
 						value={ config }
 						onChange={ ( text ) => setConfig( text ) }

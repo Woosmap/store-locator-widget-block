@@ -375,6 +375,7 @@ function InternationalizationSettings(props) {
     value: internationalization.lang,
     onChange: value => setAttributes({
       internationalization: {
+        ...internationalization,
         lang: value,
         period: internationalization.period,
         unitSystem: internationalization.unitSystem
@@ -425,6 +426,7 @@ function InternationalizationSettings(props) {
     value: internationalization.period,
     onChange: value => setAttributes({
       internationalization: {
+        ...internationalization,
         lang: internationalization.lang,
         period: value,
         unitSystem: internationalization.unitSystem
@@ -439,6 +441,7 @@ function InternationalizationSettings(props) {
     value: internationalization.unitSystem,
     onChange: value => setAttributes({
       internationalization: {
+        ...internationalization,
         lang: internationalization.lang,
         period: internationalization.period,
         unitSystem: Number(value)
@@ -1756,6 +1759,7 @@ function parseDataset(dataset) {
     apiKey
   } = dataset;
   const parsedWoosmapView = safeParse(woosmapView, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.woosmapview);
+  console.log(safeParse(internationalization, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.internationalization));
   return {
     theme: safeParse(theme, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.theme),
     datasource: safeParse(datasource, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.datasource),

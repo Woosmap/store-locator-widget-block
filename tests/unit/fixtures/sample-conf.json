@@ -8,7 +8,14 @@
 	},
 	"internationalization": {
 		"lang": "en",
-		"unitSystem": 0
+		"unitSystem": 0,
+		"customTranslations": {
+			"en": {
+				"storeView": {
+					"visitStorePage": "Visit Store Page"
+				}
+			}
+		}
 	},
 	"maps": {
 		"provider": "woosmap",

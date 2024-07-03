@@ -5,7 +5,7 @@ exports[`StoreLocatorBlockSave component matches snapshot with default attribute
   <div
     data-api-key=""
     data-theme="{"primary_color":"#ffffff"}"
-    data-woosmapView="{"initialCenter":{"lat":50,"lng":0},"initialZoom":13}"
+    data-woosmap-view="{"initialCenter":{"lat":50,"lng":0},"initialZoom":13}"
     id="storeLocatorWidget"
     style="height: 300px;"
   />
@@ -17,7 +17,7 @@ exports[`StoreLocatorBlockSave component matches snapshot with provided attribut
   <div
     data-api-key="your-api-key"
     data-theme="{"primary_color":"#ffffff"}"
-    data-woosmapView="{"initialCenter":{"lat":51.5074,"lng":0.1278},"initialZoom":15}"
+    data-woosmap-view="{"initialCenter":{"lat":51.5074,"lng":0.1278},"initialZoom":15}"
     id="storeLocatorWidget"
     style="height: 400px;"
   />
