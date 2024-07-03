@@ -1,1 +1,441 @@
-(()=>{"use strict";var e={n:t=>{var o=t&&t.__esModule?()=>t.default:()=>t;return e.d(o,{a:o}),o},d:(t,o)=>{for(var r in o)e.o(o,r)&&!e.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:o[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)};const t=window.wp.domReady;var o=e.n(t);const r=window.wp.data,i={primary_color:"#000"},s={max_responses:5,max_distance:5e4},a={lang:"en",period:"fr",unitSystem:0},n={initialCenter:{lat:50,lng:0},initialZoom:13,tileStyle:{color:"#000",size:11,minSize:5,typeRules:[]},breakPoint:10,style:{rules:[],default:{icon:{url:"https://images.woosmap.com/marker-default.svg"},selectedIcon:{url:"https://images.woosmap.com/marker-selected.svg"},numberedIcon:{url:"https://images.woosmap.com/marker-default.svg"}}}};function c(e,t){return Object.keys(t).forEach((o=>{t[o]&&"object"==typeof t[o]?(e[o]||(e[o]={}),c(e[o],t[o])):e[o]=t[o]})),e}function l(e,t={}){try{return c(t,JSON.parse(e))}catch(e){return(0,r.dispatch)("core/notices").createErrorNotice(`Error parsing conf: ${e.message}`,{isDismissible:!0,type:"snackbar"}),t}}function p(e=[]){return e.map((({storeType:e="store_type",customTyleColor:t="#000",customDefaultMarkerUrl:o,customSelectedMarkerUrl:r,customNumberedMarkerUrl:i})=>({type:e,color:t,icon:{url:o||"https://images.woosmap.com/marker-default.svg"},selectedIcon:{url:r||"https://images.woosmap.com/marker-selected.svg"},numberedIcon:{url:i||"https://images.woosmap.com/marker-default.svg"}})))}function m(e=[]){return e.map((({propertyType:e="propertyType",title:t,choices:o=[],innerOperator:r="and"})=>({propertyType:e,title:{en:t||"title"},choices:o.map((({choiceKey:e="choiceKey",choiceTitle:t="choiceTitle",choiceSelected:o=!1,choiceHidden:r=!1})=>({key:e,en:t,selected:o,hidden:r}))),innerOperator:r})))}class d{constructor(e){this.element=e,this.storeLocatorConfig={},this.webAppLib=e.ownerDocument.defaultView.WebApp,this.webAppLib&&this.element.dataset.apiKey&&this.init()}init(){this.createStoreLocatorWidget()}createStoreLocatorWidget(){const e=function(e){const{customMarkers:t="[]",filters:o="[]",theme:r="{}",datasource:c="{}",internationalization:d="{}",woosmapView:u="{}",apiKey:h,filtersOpened:y="false",filtersCustomOrder:f="false",filtersOuterOperator:g="or"}=e,w=l(u,n);return{theme:l(r,i),datasource:l(c,s),internationalization:l(d,a),maps:{apiKey:h,provider:"woosmap"},woosmapview:{initialCenter:w.initialCenter,initialZoom:w.initialZoom,tileStyle:{color:w.tileStyle.color,size:Number(w.tileStyle.size),minSize:Number(w.tileStyle.minSize),typeRules:p(l(t,[]))},breakPoint:Number(w.breakPoint),style:{rules:p(l(t,[])),default:w.style.default}},filters:{opened:"true"===y,customOrder:"true"===f,filters:m(l(o,[])),outerOperator:g}}}(this.element.dataset);this.storeLocatorConfig=function(e){if(!e.maps.apiKey||"string"!=typeof e.maps.apiKey||!e.maps.apiKey.trim())throw new Error("StoreLocator configuration error: apiKey is required and must be a non-empty string.");return e}(e),this.element.innerHTML="";const t=document.createElement("div");t.style="width:100%; height:100%",t.id="store-locator-widget-id",this.element.appendChild(t),this.storeLocatorWidget&&(this.storeLocatorWidget.isMobile=!1,this.storeLocatorWidget.confHandler.setInitConf(this.storeLocatorConfig)),this.storeLocatorWidget=new this.webAppLib(t.id,this.storeLocatorConfig.maps.apiKey),this.storeLocatorWidget.isMobile=!1,this.storeLocatorWidget.confHandler.setInitConf(this.storeLocatorConfig)}}o()((async()=>{const e=document.querySelector(".wp-block-woosmap-store-locator-widget-block");e&&new d(e)}))})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/components/StoreLocator.js":
+/*!****************************************!*\
+  !*** ./src/components/StoreLocator.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   StoreLocator: () => (/* binding */ StoreLocator),
+/* harmony export */   StoreLocatorEdit: () => (/* binding */ StoreLocatorEdit)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_configUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/configUtils */ "./src/utils/configUtils.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+class StoreLocator {
+  constructor(element) {
+    this.element = element;
+    this.storeLocatorConfig = {};
+
+    // get the webapp object on the current window object to account for iframe editors
+    this.webAppLib = element.ownerDocument.defaultView.WebApp;
+    if (!this.webAppLib || !this.element.dataset.apiKey) {
+      return;
+    }
+    this.init();
+  }
+  init() {
+    this.createStoreLocatorWidget();
+  }
+  createStoreLocatorWidget() {
+    const config = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_1__.parseDataset)(this.element.dataset);
+    this.storeLocatorConfig = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_1__.validateConfig)(config);
+    this.element.innerHTML = '';
+    const newElementId = 'store-locator-widget-id';
+    const newElement = document.createElement('div');
+    newElement.style = 'width:100%; height:100%';
+    newElement.id = newElementId;
+    this.element.appendChild(newElement);
+    this.storeLocatorWidget = new this.webAppLib(newElement.id, this.storeLocatorConfig.maps.apiKey);
+    this.storeLocatorWidget.isMobile = false;
+    this.storeLocatorWidget.setConf(this.storeLocatorConfig);
+    this.storeLocatorWidget.render();
+  }
+}
+class StoreLocatorEdit extends StoreLocator {
+  /**
+   * Constructor of the StoreLocatorEdit Class
+   *
+   * @param {HTMLElement} element       Element to initialize the map on
+   * @param {string}      clientId      ClientId of the Block
+   * @param {Function}    setAttributes to update attributes of the block
+   */
+  constructor(element, clientId, setAttributes) {
+    super(element);
+    this.clientId = clientId;
+    this.setAttributes = setAttributes;
+    this.initEdit();
+  }
+
+  /**
+   * Initialize Edit version of StoreLocator
+   */
+  initEdit() {
+    this.addListeners();
+  }
+
+  /**
+   * Recreate webapp.js script and reset global vars.
+   * This ensures to remove persistent states from the store locator widget for editing mode.
+   * @param {Function} callback - The function to call once the script is successfully loaded.
+   */
+  refreshScript(callback) {
+    const scriptSource = 'https://webapp.woosmap.com/webapp.js';
+    const loadingScript = this.element.ownerDocument.querySelector(`script[src="${scriptSource}"][data-loading]`);
+    if (loadingScript) {
+      return;
+    }
+    const existingScript = this.element.ownerDocument.querySelector(`script[src="${scriptSource}"]`);
+    if (existingScript) {
+      const globalVars = ['WebApp', 'woosmap'];
+      globalVars.forEach(varName => {
+        if (this.element.ownerDocument.defaultView[varName] !== undefined) {
+          this.element.ownerDocument.defaultView[varName] = null;
+        }
+      });
+      existingScript.parentNode.removeChild(existingScript);
+    }
+    const script = this.element.ownerDocument.createElement('script');
+    script.src = scriptSource;
+    script.setAttribute('data-loading', 'true');
+    script.onload = () => {
+      script.removeAttribute('data-loading');
+      this.webAppLib = this.element.ownerDocument.defaultView.WebApp;
+      callback();
+    };
+    script.onerror = error => {
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/notices').createErrorNotice(`Failed to load the script:${error}`, {
+        isDismissible: true,
+        type: 'snackbar'
+      });
+      script.removeAttribute('data-loading');
+    };
+    this.element.ownerDocument.head.appendChild(script);
+  }
+
+  /**
+   * Remove the widget's element from the DOM and release internal ref
+   */
+  remove() {
+    if (!this.storeLocatorWidget) {
+      return;
+    }
+    this.element.parentNode.removeChild(this.element);
+    this.storeLocatorWidget = null;
+  }
+  addListeners() {
+    // select the block when the user interacts with the map
+    this.element.addEventListener('click', () => {
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/block-editor').selectBlock(this.clientId);
+    });
+  }
+  updateDatasetProperty(key, value) {
+    if (typeof value === 'object') {
+      this.element.dataset[key] = JSON.stringify(value);
+    } else {
+      this.element.dataset[key] = value;
+    }
+  }
+  update(options, rerenderLocator = true) {
+    Object.entries(options).forEach(([key, value]) => {
+      if (key === 'height') {
+        this.element.style.height = `${value}px`;
+      } else {
+        this.updateDatasetProperty(key, value);
+      }
+    });
+    if (rerenderLocator) {
+      this.refreshScript(() => this.init());
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./src/utils/configDefaults.js":
+/*!*************************************!*\
+  !*** ./src/utils/configDefaults.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   defaultConfig: () => (/* binding */ defaultConfig)
+/* harmony export */ });
+const defaultConfig = {
+  theme: {
+    primary_color: '#000'
+  },
+  datasource: {
+    max_responses: 5,
+    max_distance: 50000
+  },
+  internationalization: {
+    lang: 'en',
+    period: 'fr',
+    unitSystem: 0
+  },
+  maps: {
+    apiKey: '',
+    // This needs to be provided by the user
+    provider: 'woosmap'
+  },
+  woosmapView: {
+    initialCenter: {
+      lat: 50,
+      lng: 0
+    },
+    initialZoom: 13,
+    tileStyle: {
+      color: '#000',
+      size: 11,
+      minSize: 5,
+      typeRules: []
+    },
+    breakPoint: 10,
+    style: {
+      rules: [],
+      default: {
+        icon: {
+          url: 'https://images.woosmap.com/marker-default.svg'
+        },
+        selectedIcon: {
+          url: 'https://images.woosmap.com/marker-selected.svg'
+        },
+        numberedIcon: {
+          url: 'https://images.woosmap.com/marker-default.svg'
+        }
+      }
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./src/utils/configUtils.js":
+/*!**********************************!*\
+  !*** ./src/utils/configUtils.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseDataset: () => (/* binding */ parseDataset),
+/* harmony export */   processInputConfig: () => (/* binding */ processInputConfig),
+/* harmony export */   validateConfig: () => (/* binding */ validateConfig)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _configDefaults__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./configDefaults */ "./src/utils/configDefaults.js");
+// Safe JSON parsing with default value
+
+
+function deepMerge(target, source) {
+  Object.keys(source).forEach(key => {
+    if (Array.isArray(source[key])) {
+      target[key] = source[key];
+    } else if (source[key] && typeof source[key] === 'object') {
+      if (!target[key]) {
+        target[key] = {};
+      }
+      deepMerge(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  });
+  return target;
+}
+function safeParse(json, defaultValue = {}) {
+  try {
+    const parsed = JSON.parse(json);
+    return deepMerge(defaultValue, parsed); // Use deepMerge to combine defaults and parsed values
+  } catch (e) {
+    (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/notices').createErrorNotice(`Error parsing conf: ${e.message}`, {
+      isDismissible: true,
+      type: 'snackbar'
+    });
+    return defaultValue;
+  }
+}
+function parseDataset(dataset) {
+  const {
+    filters = '{}',
+    theme = '{}',
+    datasource = '{}',
+    internationalization = '{}',
+    woosmapView = '{}',
+    apiKey
+  } = dataset;
+  const parsedWoosmapView = safeParse(woosmapView, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.woosmapview);
+  return {
+    theme: safeParse(theme, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.theme),
+    datasource: safeParse(datasource, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.datasource),
+    internationalization: safeParse(internationalization, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.internationalization),
+    maps: {
+      apiKey,
+      provider: 'woosmap'
+    },
+    woosmapview: {
+      ...parsedWoosmapView,
+      initialCenter: parsedWoosmapView.initialCenter,
+      initialZoom: parsedWoosmapView.initialZoom,
+      tileStyle: {
+        color: parsedWoosmapView.tileStyle.color,
+        size: Number(parsedWoosmapView.tileStyle.size),
+        minSize: Number(parsedWoosmapView.tileStyle.minSize),
+        typeRules: parsedWoosmapView.tileStyle.typeRules
+      },
+      breakPoint: Number(parsedWoosmapView.breakPoint),
+      style: {
+        rules: parsedWoosmapView.style.rules,
+        default: parsedWoosmapView.style.default
+      }
+    },
+    filters: safeParse(filters, {})
+  };
+}
+function validateConfig(config) {
+  if (!config.maps.apiKey || typeof config.maps.apiKey !== 'string' || !config.maps.apiKey.trim()) {
+    throw new Error('StoreLocator configuration error: apiKey is required and must be a non-empty string.');
+  }
+  // Additional validations can be added here
+  return config;
+}
+function processInputConfig(config) {
+  const fixedConfig = config.replace(/'/g, '"') // Replace single quotes with double quotes
+  .replace(/([,{]\s*)([a-zA-Z0-9_]+):/g, '$1"$2":') // Ensure keys are quoted
+  .replace(/\b(true|false|null)\b/g, match => match.toLowerCase()) // Correct boolean and null literals
+  .replace(/,\s*([}\]])/g, '$1') // Remove trailing commas
+  .trim();
+  try {
+    // Attempt to parse and then stringify to ensure valid JSON format
+    return JSON.stringify(JSON.parse(fixedConfig), null, 2);
+  } catch (error) {
+    throw new Error('Failed to process input config into valid JSON: ' + error.message);
+  }
+}
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
+/***/ "@wordpress/dom-ready":
+/*!**********************************!*\
+  !*** external ["wp","domReady"] ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["domReady"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!*********************!*\
+  !*** ./src/view.js ***!
+  \*********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/dom-ready */ "@wordpress/dom-ready");
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_StoreLocator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/StoreLocator */ "./src/components/StoreLocator.js");
+
+
+_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default()(async () => {
+  const storeLocatorBlock = document.querySelector('.wp-block-woosmap-store-locator-widget-block');
+  if (!storeLocatorBlock) {
+    return;
+  }
+  new _components_StoreLocator__WEBPACK_IMPORTED_MODULE_1__.StoreLocator(storeLocatorBlock);
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=view.js.map

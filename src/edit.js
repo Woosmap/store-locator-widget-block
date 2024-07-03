@@ -99,8 +99,9 @@ export default function StoreLocatorBlockEdit( props ) {
 		setAttributes( conf );
 		setShowConfigPlaceholder( false );
 	};
+
 	/**
-	 * setup the initial authentication of Woosmap
+	 * Set the initial authentication of Woosmap
 	 *
 	 * ensures that the WebApp object gets initialized on the correct window which is
 	 * needed for the iframe editors.
@@ -110,7 +111,7 @@ export default function StoreLocatorBlockEdit( props ) {
 		const localWebAppLib = !! element.ownerDocument.defaultView.WebApp;
 
 		// return early if the WebApp script has not yet been loaded. The editor iframe
-		// will re render the element after the scripts have been loaded
+		// will re-render the element after the scripts have been loaded
 		if ( ! localWebAppLib ) {
 			setWebAppLib( null );
 			return;

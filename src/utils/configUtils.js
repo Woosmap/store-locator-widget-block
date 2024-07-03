@@ -4,7 +4,9 @@ import { defaultConfig } from './configDefaults';
 
 function deepMerge( target, source ) {
 	Object.keys( source ).forEach( ( key ) => {
-		if ( source[ key ] && typeof source[ key ] === 'object' ) {
+		if ( Array.isArray( source[ key ] ) ) {
+			target[ key ] = source[ key ];
+		} else if ( source[ key ] && typeof source[ key ] === 'object' ) {
 			if ( ! target[ key ] ) {
 				target[ key ] = {};
 			}
@@ -32,76 +34,14 @@ function safeParse( json, defaultValue = {} ) {
 	}
 }
 
-function processCustomMarkers( customMarkers = [] ) {
-	return customMarkers.map(
-		( {
-			storeType = 'store_type',
-			customTyleColor = '#000',
-			customDefaultMarkerUrl,
-			customSelectedMarkerUrl,
-			customNumberedMarkerUrl,
-		} ) => ( {
-			type: storeType,
-			color: customTyleColor,
-			icon: {
-				url:
-					customDefaultMarkerUrl ||
-					'https://images.woosmap.com/marker-default.svg',
-			},
-			selectedIcon: {
-				url:
-					customSelectedMarkerUrl ||
-					'https://images.woosmap.com/marker-selected.svg',
-			},
-			numberedIcon: {
-				url:
-					customNumberedMarkerUrl ||
-					'https://images.woosmap.com/marker-default.svg',
-			},
-		} )
-	);
-}
-
-function processFilters( filters = [] ) {
-	return filters.map(
-		( {
-			propertyType = 'propertyType',
-			title,
-			choices = [],
-			innerOperator = 'and',
-		} ) => ( {
-			propertyType,
-			title: { en: title || 'title' },
-			choices: choices.map(
-				( {
-					choiceKey = 'choiceKey',
-					choiceTitle = 'choiceTitle',
-					choiceSelected = false,
-					choiceHidden = false,
-				} ) => ( {
-					key: choiceKey,
-					en: choiceTitle,
-					selected: choiceSelected,
-					hidden: choiceHidden,
-				} )
-			),
-			innerOperator,
-		} )
-	);
-}
-
 export function parseDataset( dataset ) {
 	const {
-		customMarkers = '[]',
-		filters = '[]',
+		filters = '{}',
 		theme = '{}',
 		datasource = '{}',
 		internationalization = '{}',
 		woosmapView = '{}',
 		apiKey,
-		filtersOpened = 'false',
-		filtersCustomOrder = 'false',
-		filtersOuterOperator = 'or',
 	} = dataset;
 
 	const parsedWoosmapView = safeParse(
@@ -118,28 +58,22 @@ export function parseDataset( dataset ) {
 		),
 		maps: { apiKey, provider: 'woosmap' },
 		woosmapview: {
+			...parsedWoosmapView,
 			initialCenter: parsedWoosmapView.initialCenter,
 			initialZoom: parsedWoosmapView.initialZoom,
 			tileStyle: {
 				color: parsedWoosmapView.tileStyle.color,
 				size: Number( parsedWoosmapView.tileStyle.size ),
 				minSize: Number( parsedWoosmapView.tileStyle.minSize ),
-				typeRules: processCustomMarkers(
-					safeParse( customMarkers, [] )
-				),
+				typeRules: parsedWoosmapView.tileStyle.typeRules,
 			},
 			breakPoint: Number( parsedWoosmapView.breakPoint ),
 			style: {
-				rules: processCustomMarkers( safeParse( customMarkers, [] ) ),
+				rules: parsedWoosmapView.style.rules,
 				default: parsedWoosmapView.style.default,
 			},
 		},
-		filters: {
-			opened: filtersOpened === 'true',
-			customOrder: filtersCustomOrder === 'true',
-			filters: processFilters( safeParse( filters, [] ) ),
-			outerOperator: filtersOuterOperator,
-		},
+		filters: safeParse( filters, {} ),
 	};
 }
 
@@ -158,8 +92,19 @@ export function validateConfig( config ) {
 }
 
 export function processInputConfig( config ) {
-	return config
-		.trim()
-		.replace( /([,{]\s*)([a-zA-Z0-9_]+):/g, '$1"$2":' ) // Ensure property names are quoted
-		.replace( /,\s*([}\]])/g, '$1' ); // Remove trailing commas in objects and arrays
+	const fixedConfig = config
+		.replace( /'/g, '"' ) // Replace single quotes with double quotes
+		.replace( /([,{]\s*)([a-zA-Z0-9_]+):/g, '$1"$2":' ) // Ensure keys are quoted
+		.replace( /\b(true|false|null)\b/g, ( match ) => match.toLowerCase() ) // Correct boolean and null literals
+		.replace( /,\s*([}\]])/g, '$1' ) // Remove trailing commas
+		.trim();
+
+	try {
+		// Attempt to parse and then stringify to ensure valid JSON format
+		return JSON.stringify( JSON.parse( fixedConfig ), null, 2 );
+	} catch ( error ) {
+		throw new Error(
+			'Failed to process input config into valid JSON: ' + error.message
+		);
+	}
 }

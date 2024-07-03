@@ -1,180 +1,133 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "woosmap/store-locator-widget-block",
-  "version": "0.1.0",
-  "title": "Woosmap Store Locator Widget Block",
-  "category": "widgets",
-  "keywords": [
-    "Woosmap",
-    "Store Locator",
-    "Store Finder",
-    "Map"
-  ],
-  "description": "Easily display your stores on a Map using Woosmap platform",
-  "example": {},
-  "supports": {
-    "align": [
-      "wide",
-      "full"
-    ],
-    "spacing": {
-      "margin": true
-    },
-    "html": false,
-    "multiple": false
-  },
-  "attributes": {
-    "height": {
-      "type": "string",
-      "default": "500"
-    },
-    "apiKey": {
-      "type": "string"
-    },
-    "theme": {
-      "type": "object",
-      "properties": {
-        "primary_color": {
-          "type": "string",
-          "default": "#000"
-        }
-      },
-      "default": {
-        "primary_color": "#000"
-      }
-    },
-    "internationalization": {
-      "type": "object",
-      "properties": {
-        "lang": {
-          "type": "string",
-          "default": "en"
-        },
-        "period": {
-          "type": "string",
-          "default": "fr"
-        },
-        "unitSystem": {
-          "type": "number",
-          "default": 0
-        }
-      },
-      "default": {
-        "lang": "en",
-        "period": "fr",
-        "unitSystem": 0
-      }
-    },
-    "woosmapView": {
-      "type": "object",
-      "default": {
-        "breakPoint": 10,
-        "tileStyle": {
-          "color": "#000",
-          "size": 11,
-          "minSize": 5
-        },
-        "initialCenter": {
-          "lat": 50,
-          "lng": 0
-        },
-        "initialZoom": 6,
-        "style": {
-          "default": {
-            "icon": {
-              "url": "https://images.woosmap.com/marker-default.svg"
-            },
-            "selectedIcon": {
-              "url": "https://images.woosmap.com/marker-selected.svg"
-            },
-            "numberedIcon": {
-              "url": "https://images.woosmap.com/marker-default.svg"
-            }
-          }
-        }
-      }
-    },
-    "customMarkers": {
-      "type": "array",
-      "default": [],
-      "items": {
-        "type": "object",
-        "properties": {
-          "storeType": {
-            "type": "string"
-          },
-          "customTyleColor": {
-            "type": "string"
-          },
-          "customDefaultMarkerUrl": {
-            "type": "string"
-          },
-          "customSelectedMarkerUrl": {
-            "type": "string"
-          },
-          "customNumberedMarkerUrl": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "filtersOpened": {
-      "type": "boolean",
-      "default": false
-    },
-    "filtersCustomOrder": {
-      "type": "boolean",
-      "default": false
-    },
-    "filters": {
-      "type": "array",
-      "default": [],
-      "items": {
-        "type": "object",
-        "properties": {
-          "propertyType": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "innerOperator": {
-            "type": "string"
-          },
-          "choices": {
-            "type": "array",
-            "default": [],
-            "items": {
-              "type": "object",
-              "properties": {
-                "key": {
-                  "type": "string"
-                },
-                "title": {
-                  "type": "string"
-                },
-                "selected": {
-                  "type": "boolean"
-                },
-                "hidden": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "filtersOuterOperator": {
-      "type": "string",
-      "default": "or"
-    }
-  },
-  "textdomain": "store-locator-widget-block",
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
-  "viewScript": "file:./view.js",
-  "script": "woosmap-webapp-js"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "woosmap/store-locator-widget-block",
+	"version": "0.1.0",
+	"title": "Woosmap Store Locator Widget Block",
+	"category": "widgets",
+	"keywords": [
+		"Woosmap",
+		"Store Locator",
+		"Store Finder",
+		"Map"
+	],
+	"description": "Easily display your stores on a Map using Woosmap platform",
+	"example": {},
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"margin": true
+		},
+		"html": false,
+		"multiple": false
+	},
+	"attributes": {
+		"height": {
+			"type": "string",
+			"default": "500"
+		},
+		"apiKey": {
+			"type": "string"
+		},
+		"theme": {
+			"type": "object",
+			"properties": {
+				"primary_color": {
+					"type": "string",
+					"default": "#000"
+				}
+			},
+			"default": {
+				"primary_color": "#000"
+			}
+		},
+		"internationalization": {
+			"type": "object",
+			"properties": {
+				"lang": {
+					"type": "string",
+					"default": "en"
+				},
+				"period": {
+					"type": "string",
+					"default": "fr"
+				},
+				"unitSystem": {
+					"type": "number",
+					"default": 0
+				}
+			},
+			"default": {
+				"lang": "en",
+				"period": "fr",
+				"unitSystem": 0
+			}
+		},
+		"woosmapView": {
+			"type": "object",
+			"default": {
+				"breakPoint": 10,
+				"tileStyle": {
+					"color": "#000",
+					"size": 11,
+					"minSize": 5
+				},
+				"initialCenter": {
+					"lat": 50,
+					"lng": 0
+				},
+				"initialZoom": 6,
+				"style": {
+					"default": {
+						"icon": {
+							"url": "https://images.woosmap.com/marker-default.svg"
+						},
+						"selectedIcon": {
+							"url": "https://images.woosmap.com/marker-selected.svg"
+						},
+						"numberedIcon": {
+							"url": "https://images.woosmap.com/marker-default.svg"
+						}
+					}
+				}
+			}
+		},
+		"filters": {
+			"type": "object",
+			"default": {}
+		},
+		"customMarkers": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"storeType": {
+						"type": "string"
+					},
+					"customTyleColor": {
+						"type": "string"
+					},
+					"customDefaultMarkerUrl": {
+						"type": "string"
+					},
+					"customSelectedMarkerUrl": {
+						"type": "string"
+					},
+					"customNumberedMarkerUrl": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	},
+	"textdomain": "store-locator-widget-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"script": "woosmap-webapp-js"
 }

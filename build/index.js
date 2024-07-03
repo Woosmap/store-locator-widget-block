@@ -1,1 +1,2089 @@
-(()=>{"use strict";var e,t={822:(e,t,o)=>{var r={};o.r(r),o.d(r,{isAuthenticated:()=>T});var i={};o.r(i),o.d(i,{updateAuthenticationStatus:()=>x});const l=window.wp.blocks,a=window.React,n=function(){return(0,a.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 1024 771.444"},(0,a.createElement)("rect",{x:"427.842",width:"166.721",height:"172.249",fill:"#4FC3F7"}),(0,a.createElement)("rect",{x:"338.962",y:"172.249",width:"255.601",height:"166.721",fill:"#5586FF"}),(0,a.createElement)("rect",{x:"172.241",y:"172.249",width:"166.721",height:"255.609",fill:"#3D5AFE"}),(0,a.createElement)("rect",{y:"427.858",width:"338.962",height:"166.721",fill:"#3949AB"}),(0,a.createElement)("rect",{x:"851.743",y:"176.865",width:"172.257",height:"166.721",fill:"#FFAB00"}),(0,a.createElement)("rect",{x:"685.022",y:"176.865",width:"166.721",height:"255.609",fill:"#FF5252"}),(0,a.createElement)("rect",{x:"596.142",y:"432.474",width:"255.601",height:"166.721",fill:"#F50057"}),(0,a.createElement)("rect",{x:"429.421",y:"432.483",width:"166.721",height:"338.961",fill:"#C51162"}))},c=JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"woosmap/store-locator-widget-block","version":"0.1.0","title":"Woosmap Store Locator Widget Block","category":"widgets","keywords":["Woosmap","Store Locator","Store Finder","Map"],"description":"Easily display your stores on a Map using Woosmap platform","example":{},"supports":{"align":["wide","full"],"spacing":{"margin":true},"html":false,"multiple":false},"attributes":{"height":{"type":"string","default":"500"},"apiKey":{"type":"string"},"theme":{"type":"object","properties":{"primary_color":{"type":"string","default":"#000"}},"default":{"primary_color":"#000"}},"internationalization":{"type":"object","properties":{"lang":{"type":"string","default":"en"},"period":{"type":"string","default":"fr"},"unitSystem":{"type":"number","default":0}},"default":{"lang":"en","period":"fr","unitSystem":0}},"woosmapView":{"type":"object","default":{"breakPoint":10,"tileStyle":{"color":"#000","size":11,"minSize":5},"initialCenter":{"lat":50,"lng":0},"initialZoom":6,"style":{"default":{"icon":{"url":"https://images.woosmap.com/marker-default.svg"},"selectedIcon":{"url":"https://images.woosmap.com/marker-selected.svg"},"numberedIcon":{"url":"https://images.woosmap.com/marker-default.svg"}}}}},"customMarkers":{"type":"array","default":[],"items":{"type":"object","properties":{"storeType":{"type":"string"},"customTyleColor":{"type":"string"},"customDefaultMarkerUrl":{"type":"string"},"customSelectedMarkerUrl":{"type":"string"},"customNumberedMarkerUrl":{"type":"string"}}}},"filtersOpened":{"type":"boolean","default":false},"filtersCustomOrder":{"type":"boolean","default":false},"filters":{"type":"array","default":[],"items":{"type":"object","properties":{"propertyType":{"type":"string"},"title":{"type":"string"},"innerOperator":{"type":"string"},"choices":{"type":"array","default":[],"items":{"type":"object","properties":{"key":{"type":"string"},"title":{"type":"string"},"selected":{"type":"boolean"},"hidden":{"type":"boolean"}}}}}}},"filtersOuterOperator":{"type":"string","default":"or"}},"textdomain":"store-locator-widget-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","script":"woosmap-webapp-js"}'),s=window.wp.components,d=window.wp.i18n,m=window.wp.blockEditor,u=window.wp.element,p=window.wp.data,g=window.wp.compose,b={primary_color:"#000"},h={max_responses:5,max_distance:5e4},y={lang:"en",period:"fr",unitSystem:0},w={initialCenter:{lat:50,lng:0},initialZoom:13,tileStyle:{color:"#000",size:11,minSize:5,typeRules:[]},breakPoint:10,style:{rules:[],default:{icon:{url:"https://images.woosmap.com/marker-default.svg"},selectedIcon:{url:"https://images.woosmap.com/marker-selected.svg"},numberedIcon:{url:"https://images.woosmap.com/marker-default.svg"}}}};function k(e,t){return Object.keys(t).forEach((o=>{t[o]&&"object"==typeof t[o]?(e[o]||(e[o]={}),k(e[o],t[o])):e[o]=t[o]})),e}function _(e,t={}){try{return k(t,JSON.parse(e))}catch(e){return(0,p.dispatch)("core/notices").createErrorNotice(`Error parsing conf: ${e.message}`,{isDismissible:!0,type:"snackbar"}),t}}function f(e=[]){return e.map((({storeType:e="store_type",customTyleColor:t="#000",customDefaultMarkerUrl:o,customSelectedMarkerUrl:r,customNumberedMarkerUrl:i})=>({type:e,color:t,icon:{url:o||"https://images.woosmap.com/marker-default.svg"},selectedIcon:{url:r||"https://images.woosmap.com/marker-selected.svg"},numberedIcon:{url:i||"https://images.woosmap.com/marker-default.svg"}})))}function E(e=[]){return e.map((({propertyType:e="propertyType",title:t,choices:o=[],innerOperator:r="and"})=>({propertyType:e,title:{en:t||"title"},choices:o.map((({choiceKey:e="choiceKey",choiceTitle:t="choiceTitle",choiceSelected:o=!1,choiceHidden:r=!1})=>({key:e,en:t,selected:o,hidden:r}))),innerOperator:r})))}class C{constructor(e){this.element=e,this.storeLocatorConfig={},this.webAppLib=e.ownerDocument.defaultView.WebApp,this.webAppLib&&this.element.dataset.apiKey&&this.init()}init(){this.createStoreLocatorWidget()}createStoreLocatorWidget(){const e=function(e){const{customMarkers:t="[]",filters:o="[]",theme:r="{}",datasource:i="{}",internationalization:l="{}",woosmapView:a="{}",apiKey:n,filtersOpened:c="false",filtersCustomOrder:s="false",filtersOuterOperator:d="or"}=e,m=_(a,w);return{theme:_(r,b),datasource:_(i,h),internationalization:_(l,y),maps:{apiKey:n,provider:"woosmap"},woosmapview:{initialCenter:m.initialCenter,initialZoom:m.initialZoom,tileStyle:{color:m.tileStyle.color,size:Number(m.tileStyle.size),minSize:Number(m.tileStyle.minSize),typeRules:f(_(t,[]))},breakPoint:Number(m.breakPoint),style:{rules:f(_(t,[])),default:m.style.default}},filters:{opened:"true"===c,customOrder:"true"===s,filters:E(_(o,[])),outerOperator:d}}}(this.element.dataset);this.storeLocatorConfig=function(e){if(!e.maps.apiKey||"string"!=typeof e.maps.apiKey||!e.maps.apiKey.trim())throw new Error("StoreLocator configuration error: apiKey is required and must be a non-empty string.");return e}(e),this.element.innerHTML="";const t=document.createElement("div");t.style="width:100%; height:100%",t.id="store-locator-widget-id",this.element.appendChild(t),this.storeLocatorWidget&&(this.storeLocatorWidget.isMobile=!1,this.storeLocatorWidget.confHandler.setInitConf(this.storeLocatorConfig)),this.storeLocatorWidget=new this.webAppLib(t.id,this.storeLocatorConfig.maps.apiKey),this.storeLocatorWidget.isMobile=!1,this.storeLocatorWidget.confHandler.setInitConf(this.storeLocatorConfig)}}class v extends C{constructor(e,t,o){super(e),this.isEditor=!0,this.clientId=t,this.setAttributes=o,this.initEdit()}initEdit(){this.addListeners()}remove(){this.storeLocatorWidget&&(this.element.parentNode.removeChild(this.element),this.storeLocatorWidget=null)}addListeners(){this.element.addEventListener("click",(()=>{(0,p.dispatch)("core/block-editor").selectBlock(this.clientId)}))}updateDatasetProperty(e,t){this.element.dataset[e]="object"==typeof t?JSON.stringify(t):t}update(e,t=!0){Object.entries(e).forEach((([e,t])=>{"height"===e?this.element.style.height=`${t}px`:this.updateDatasetProperty(e,t)})),t&&this.init()}}const S=(0,p.combineReducers)({authenticationReducer:function(e,t){return"UPDATE_AUTHENTICATION"===t.type?{...e,authenticated:t.isAuthenticated}:e}});function T(e){return Boolean(e?.authenticationReducer?.authenticated)}function x(e){return{type:"UPDATE_AUTHENTICATION",isAuthenticated:e}}const O=(0,p.createReduxStore)("woosmap/store-locator-widget-block",{reducer:S,selectors:r,actions:i});function A(e){const{attributes:{height:t,theme:o,woosmapView:r},setAttributes:i}=e;return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Display Settings","store-locator-widget-block")},(0,a.createElement)(s.PanelRow,null,(0,a.createElement)("label",{htmlFor:"theme-color-control"},(0,d.__)("Primary Color","store-locator-widget-block")),(0,a.createElement)(s.ColorIndicator,{id:"theme-color-control",colorValue:o.primary_color})),(0,a.createElement)(s.ColorPalette,{value:o.primary_color,onChange:e=>i({theme:{primary_color:e}})}),(0,a.createElement)(s.RangeControl,{label:(0,d.__)("Zoom","store-locator-widget-block"),value:r.initialZoom,onChange:e=>i({woosmapView:{...r,initialZoom:e}}),min:0,max:20,step:.5}),(0,a.createElement)(s.RangeControl,{label:(0,d.__)("Height ( pixels )","store-locator-widget-block"),value:Number(t),onChange:e=>i({height:e}),min:250,max:3e3,step:5}),(0,a.createElement)(s.RangeControl,{label:(0,d.__)("Default Latitude","store-locator-widget-block"),value:r.initialCenter.lat,onChange:e=>i({woosmapView:{...r,initialCenter:{...r.initialCenter,lat:e}}}),min:-90,max:90,step:.1}),(0,a.createElement)(s.RangeControl,{label:(0,d.__)("Default Longitude","store-locator-widget-block"),value:r.initialCenter.lng,onChange:e=>i({woosmapView:{...r,initialCenter:{...r.initialCenter,lng:e}}}),min:-180,max:180,step:.1}))}function P(e){const{attributes:{woosmapView:t},setAttributes:o}=e,{breakPoint:r,tileStyle:i,style:l}=t||{};return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Marker Settings","store-locator-widget-block"),initialOpen:!1},(0,a.createElement)(s.PanelRow,null,(0,a.createElement)("label",{htmlFor:"tile-color-control"},(0,d.__)("Tile Color","store-locator-widget-block")),(0,a.createElement)(s.ColorIndicator,{id:"tile-color-control",colorValue:i.color})),(0,a.createElement)(s.ColorPalette,{value:i.color,onChange:e=>o({woosmapView:{...t,tileStyle:{...i,color:e}}})}),(0,a.createElement)(s.RangeControl,{label:(0,d.__)("Tile Size","store-locator-widget-block"),value:i.size,onChange:e=>o({woosmapView:{...t,tileStyle:{...i,size:e}}}),min:1,max:50,step:1}),(0,a.createElement)(s.RangeControl,{label:(0,d.__)("Break Point","store-locator-widget-block"),value:r,onChange:e=>o({woosmapView:{...t,breakPoint:e}}),min:1,max:20,step:1}),(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Default Marker Url","store-locator-widget-block"),value:l.default.icon.url,onChange:e=>o({woosmapView:{...t,style:{...l,default:{...l.default,icon:{url:e}}}}})}),l.default.icon.url&&(0,a.createElement)("img",{src:l.default.icon.url,alt:"Default Marker Url",style:{maxWidth:"100%",height:"auto"}})),(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Selected Marker Url","store-locator-widget-block"),value:l.default.selectedIcon.url,onChange:e=>o({woosmapView:{...t,style:{...l,default:{...l.default,selectedIcon:{url:e}}}}})}),l.default.selectedIcon.url&&(0,a.createElement)("img",{src:l.default.selectedIcon.url,alt:"Selected Marker Url",style:{maxWidth:"100%",height:"auto"}})),(0,a.createElement)("div",{style:{padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Numbered Marker Url","store-locator-widget-block"),value:l.default.numberedIcon.url,onChange:e=>o({woosmapView:{...t,style:{...l,default:{...l.default,numberedIcon:{url:e}}}}})}),l.default.numberedIcon.url&&(0,a.createElement)("img",{src:l.default.numberedIcon.url,alt:"Numbered Marker Url",style:{maxWidth:"100%",height:"auto"}})))}function M(e){const{index:t,marker:o,storeType:r,customTyleColor:i,customDefaultMarkerUrl:l,customSelectedMarkerUrl:n,customNumberedMarkerUrl:c,customMarkers:m,setAttributes:u}=e,g=e=>{const o=m.map(((o,r)=>r===t?e:o));u({customMarkers:o})};return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Edit: ","store-locator-widget-block")+r,initialOpen:!1},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Store Type","store-locator-widget-block"),value:r,onChange:e=>{(e=>!!e.trim()||((0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Store Type cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"}),!1))(e)&&g({...o,storeType:e})}}),(0,a.createElement)(s.PanelRow,null,(0,a.createElement)("label",{htmlFor:"custom-tile-color-control"},(0,d.__)("Custom Tile Color","store-locator-widget-block")),(0,a.createElement)(s.ColorIndicator,{id:"custom-tile-color-control",colorValue:i})),(0,a.createElement)(s.ColorPalette,{value:i,onChange:e=>g({...o,customTyleColor:e})}),(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Custom Default Marker Url","store-locator-widget-block"),value:l,onChange:e=>g({...o,customDefaultMarkerUrl:e})}),l&&(0,a.createElement)("img",{src:l,alt:"Custom Default Marker",style:{maxWidth:"100%",height:"auto"}})),(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Custom Selected Marker Url","store-locator-widget-block"),value:n,onChange:e=>g({...o,customSelectedMarkerUrl:e})}),n&&(0,a.createElement)("img",{src:n,alt:"Custom Selected Marker",style:{maxWidth:"100%",height:"auto"}})),(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Custom Numbered Marker Url","store-locator-widget-block"),value:c,onChange:e=>g({...o,customNumberedMarkerUrl:e})}),c&&(0,a.createElement)("img",{src:c,alt:"Custom Numbered Marker",style:{maxWidth:"100%",height:"auto"}})),(0,a.createElement)(s.Button,{variant:"primary",onClick:()=>{const e=m.filter(((e,o)=>o!==t));u({customMarkers:e})}},(0,d.__)("Delete Custom Marker","store-locator-widget-block")))}function L(e){const{attributes:{customMarkers:t},setAttributes:o}=e,[r,i]=(0,u.useState)("");return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Custom Marker Settings","store-locator-widget-block"),initialOpen:!1},(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Store Type","store-locator-widget-block"),value:r,onChange:e=>i(e)}),(0,a.createElement)(s.Button,{variant:"primary",onClick:()=>{if(!r.trim())return void(0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Store Type Title cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"});const e={storeType:r,customTyleColor:"#000",customDefaultMarkerUrl:"https://images.woosmap.com/marker-default.svg",customSelectedMarkerUrl:"https://images.woosmap.com/marker-selected.svg",customNumberedMarkerUrl:"https://images.woosmap.com/marker-default.svg"},l=[...t,e];o({customMarkers:l}),i("")}},(0,d.__)("Add Custom Marker","store-locator-widget-block"))),t.map(((e,r)=>(0,a.createElement)(M,{key:r,index:r,marker:e,storeType:e.storeType,customTyleColor:e.customTyleColor,customDefaultMarkerUrl:e.customDefaultMarkerUrl,customSelectedMarkerUrl:e.customSelectedMarkerUrl,customNumberedMarkerUrl:e.customNumberedMarkerUrl,customMarkers:t,setAttributes:o}))))}function I(e){const{attributes:{internationalization:t},setAttributes:o}=e;return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Internationalization Settings","store-locator-widget-block"),initialOpen:!1},(0,a.createElement)(s.SelectControl,{label:(0,d.__)("Language","store-locator-widget-block"),value:t.lang,onChange:e=>o({internationalization:{lang:e,period:t.period,unitSystem:t.unitSystem}})},(0,a.createElement)("option",{value:"pt-br"},(0,d.__)("Brazilian Portuguese","store-locator-widget-block")),(0,a.createElement)("option",{value:"ca"},(0,d.__)("Catalan","store-locator-widget-block")),(0,a.createElement)("option",{value:"zh"},(0,d.__)("Chinese","store-locator-widget-block")),(0,a.createElement)("option",{value:"zh-HK"},(0,d.__)("Chinese (Hong Kong)","store-locator-widget-block")),(0,a.createElement)("option",{value:"hr"},(0,d.__)("Croatian","store-locator-widget-block")),(0,a.createElement)("option",{value:"de"},(0,d.__)("Deutsch","store-locator-widget-block")),(0,a.createElement)("option",{value:"nl"},(0,d.__)("Dutch","store-locator-widget-block")),(0,a.createElement)("option",{value:"en"},(0,d.__)("English","store-locator-widget-block")),(0,a.createElement)("option",{value:"fr"},(0,d.__)("French","store-locator-widget-block")),(0,a.createElement)("option",{value:"el"},(0,d.__)("Greek","store-locator-widget-block")),(0,a.createElement)("option",{value:"he"},(0,d.__)("Hebrew","store-locator-widget-block")),(0,a.createElement)("option",{value:"it"},(0,d.__)("Italian","store-locator-widget-block")),(0,a.createElement)("option",{value:"ja"},(0,d.__)("Japanese","store-locator-widget-block")),(0,a.createElement)("option",{value:"pl"},(0,d.__)("Polish","store-locator-widget-block")),(0,a.createElement)("option",{value:"pt"},(0,d.__)("Portuguese","store-locator-widget-block")),(0,a.createElement)("option",{value:"ro"},(0,d.__)("Romanian","store-locator-widget-block")),(0,a.createElement)("option",{value:"ru"},(0,d.__)("Russian","store-locator-widget-block")),(0,a.createElement)("option",{value:"es"},(0,d.__)("Spanish","store-locator-widget-block")),(0,a.createElement)("option",{value:"sv"},(0,d.__)("Swedish","store-locator-widget-block")),(0,a.createElement)("option",{value:"uk"},(0,d.__)("Ukrainian","store-locator-widget-block"))),(0,a.createElement)(s.SelectControl,{label:(0,d.__)("Period","store-locator-widget-block"),value:t.period,onChange:e=>o({internationalization:{lang:t.lang,period:e,unitSystem:t.unitSystem}})},(0,a.createElement)("option",{value:"fr"},(0,d.__)("24h","store-locator-widget-block")),(0,a.createElement)("option",{value:"en-US"},(0,d.__)("12h","store-locator-widget-block"))),(0,a.createElement)(s.SelectControl,{label:(0,d.__)("Unit System","store-locator-widget-block"),value:t.unitSystem,onChange:e=>o({internationalization:{lang:t.lang,period:t.period,unitSystem:Number(e)}})},(0,a.createElement)("option",{value:"0"},(0,d.__)("Metric","store-locator-widget-block")),(0,a.createElement)("option",{value:"1"},(0,d.__)("Imperial","store-locator-widget-block"))))}function N(e){const{choiceIndex:t,choice:o,choiceKey:r,choiceTitle:i,choiceSelected:l,choiceHidden:n,choices:c,index:m,filter:u,filters:g,setAttributes:b}=e,h=e=>{const t=g.map(((t,o)=>o===m?e:t));b({filters:t})},y=e=>{const o=c.map(((o,r)=>r===t?e:o));h({...u,choices:o})};return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Choice: ","store-locator-widget-block")+i+" {"+r+"}",initialOpen:!1},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Choice Key","store-locator-widget-block"),value:r,onChange:e=>{(e=>!!e.trim()||((0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Choice Key cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"}),!1))(e)&&y({...o,choiceKey:e})}}),(0,a.createElement)(s.TextControl,{label:(0,d.__)("Choice Tile","store-locator-widget-block"),value:i,onChange:e=>{(e=>!!e.trim()||((0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Choice Title cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"}),!1))(e)&&y({...o,choiceTitle:e})}}),(0,a.createElement)(s.CheckboxControl,{label:(0,d.__)("Selected","store-locator-widget-block"),checked:l,onChange:e=>y({...o,choiceSelected:e})}),(0,a.createElement)(s.CheckboxControl,{label:(0,d.__)("Hidden","store-locator-widget-block"),checked:n,onChange:e=>y({...o,choiceHidden:e})}),(0,a.createElement)(s.Button,{variant:"primary",onClick:()=>{const e=c.filter(((e,o)=>o!==t));h({...u,choices:e})}},(0,d.__)("Delete choice","store-locator-widget-block")))}function B(e){const{index:t,filter:o,propertyType:r,title:i,innerOperator:l,choices:n,filters:c,setAttributes:m}=e,g=e=>{const o=c.map(((o,r)=>r===t?e:o));m({filters:o})},[b,h]=(0,u.useState)(""),[y,w]=(0,u.useState)("");return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Filter: ","store-locator-widget-block")+i+" {"+r+"}",initialOpen:!1},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Property Type","store-locator-widget-block"),value:r,onChange:e=>{(e=>!!e.trim()||((0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Property Type cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"}),!1))(e)&&g({...o,propertyType:e})}}),(0,a.createElement)(s.TextControl,{label:(0,d.__)("title","store-locator-widget-block"),value:i,onChange:e=>{(e=>!!e.trim()||((0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Title cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"}),!1))(e)&&g({...o,title:e})}}),(0,a.createElement)(s.SelectControl,{label:(0,d.__)("Inner Operator","store-locator-widget-block"),value:l,onChange:e=>g({...o,innerOperator:e})},(0,a.createElement)("option",{value:"and"},(0,d.__)("And","store-locator-widget-block")),(0,a.createElement)("option",{value:"or"},(0,d.__)("Or","store-locator-widget-block"))),(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.TextControl,{label:(0,d.__)("Choice Key","store-locator-widget-block"),value:b,onChange:e=>h(e)}),(0,a.createElement)(s.TextControl,{label:(0,d.__)("Choice Title","store-locator-widget-block"),value:y,onChange:e=>w(e)}),(0,a.createElement)(s.Button,{variant:"primary",onClick:()=>{if(!b.trim())return void(0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Choice Key cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"});if(!y.trim())return void(0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Choice Title cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"});const e={choiceKey:b,choiceTitle:y,choiceSelected:!1},t=[...n,e];g({...o,choices:t}),h(""),w("")}},(0,d.__)("Add Choice","store-locator-widget-block"))),n.map(((e,r)=>(0,a.createElement)(N,{key:r,choiceIndex:r,choice:e,choiceKey:e.choiceKey,choiceTitle:e.choiceTitle,choiceSelected:e.choiceSelected,choiceHidden:e.choiceHidden,choices:n,index:t,filter:o,filters:c,setAttributes:m}))),(0,a.createElement)(s.Button,{variant:"primary",onClick:()=>{const e=c.filter(((e,o)=>o!==t));m({filters:e})},style:{marginTop:20}},(0,d.__)("Delete filter","store-locator-widget-block")))}function R(e){const{attributes:{filtersOpened:t,filtersCustomOrder:o,filters:r,filtersOuterOperator:i},setAttributes:l}=e,[n,c]=(0,u.useState)(""),[m,g]=(0,u.useState)("");return(0,a.createElement)(s.PanelBody,{title:(0,d.__)("Filters Settings","store-locator-widget-block"),initialOpen:!1},(0,a.createElement)(s.CheckboxControl,{label:(0,d.__)("Filters Opened","store-locator-widget-block"),checked:t,onChange:e=>l({filtersOpened:e})}),(0,a.createElement)(s.CheckboxControl,{label:(0,d.__)("Filters Custom Order","store-locator-widget-block"),checked:o,onChange:e=>l({filtersCustomOrder:e})}),(0,a.createElement)(s.SelectControl,{label:(0,d.__)("Filters Outer Operator","store-locator-widget-block"),value:i,onChange:e=>l({filtersOuterOperator:e})},(0,a.createElement)("option",{value:"and"},(0,d.__)("And","store-locator-widget-block")),(0,a.createElement)("option",{value:"or"},(0,d.__)("Or","store-locator-widget-block"))),(0,a.createElement)("div",{style:{marginBottom:20,padding:10,border:"1px solid lightgray",borderRadius:5}},(0,a.createElement)(s.SelectControl,{label:(0,d.__)("Property Type","store-locator-widget-block"),onChange:e=>c(e)},(0,a.createElement)("option",{value:"type"},(0,d.__)("Type","store-locator-widget-block")),(0,a.createElement)("option",{value:"tag"},(0,d.__)("Tag","store-locator-widget-block")),(0,a.createElement)("option",{value:"custom"},(0,d.__)("Custom","store-locator-widget-block"))),(0,a.createElement)(s.TextControl,{label:(0,d.__)("Title","store-locator-widget-block"),value:m,onChange:e=>g(e)}),(0,a.createElement)(s.Button,{variant:"primary",onClick:()=>{if(!n.trim())return void(0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Property Type cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"});if(!m.trim())return void(0,p.dispatch)("core/notices").createErrorNotice((0,d.__)("Title cannot be empty","store-locator-widget-block"),{isDismissible:!0,type:"snackbar"});const e={propertyType:n,title:m,innerOperator:"and",choices:[]},t=[...r,e];l({filters:t}),c(""),g("")}},(0,d.__)("Add Filter","store-locator-widget-block"))),r.map(((e,t)=>(0,a.createElement)(B,{key:t,index:t,filter:e,propertyType:e.propertyType,title:e.title,innerOperator:e.innerOperator,choices:e.choices,filters:r,setAttributes:l}))))}function D(e){const{isAuthenticated:t}=e;return t?(0,a.createElement)(m.InspectorControls,null,(0,a.createElement)(A,{...e}),(0,a.createElement)(I,{...e}),(0,a.createElement)(P,{...e}),(0,a.createElement)(L,{...e}),(0,a.createElement)(R,{...e})):(0,a.createElement)(m.InspectorControls,null,(0,a.createElement)(s.PanelBody,null,(0,a.createElement)("p",null,(0,d.__)("You need to confirm your access to Woosmap before you can continue.","store-locator-widget-block"))))}function W({setApiKey:e}){const[t,o]=(0,u.useState)(""),[r,i]=(0,u.useState)(!1),l=(0,p.useSelect)((e=>e("core").getEntityRecord("root","site")),[]);return(0,u.useEffect)((()=>{if(l){const{woosmap_settings:{woosmap_public_api_key:e}}=l;o(e)}}),[l]),(0,a.createElement)(a.Fragment,null,(0,a.createElement)(s.TextControl,{label:(0,d.__)("Please enter your Public API Key","store-locator-widget-block"),readOnly:r,name:"woosmap_public_api_key",value:t,onChange:e=>o(e)}),(0,a.createElement)(s.Button,{isPrimary:!0,disabled:r,isBusy:r,onClick:()=>{i(!0),(0,p.dispatch)("core").saveEntityRecord("root","site",{woosmap_settings:{woosmap_public_api_key:t}}).then((({woosmap_settings:{woosmap_public_api_key:t}})=>{o(t),i(!1),e(t),window.dispatchEvent(new CustomEvent("woosmapSettingsSaved"))})).catch((e=>{(0,p.dispatch)("core/notices").createErrorNotice(e.message,{isDismissible:!0,type:"snackbar"}),i(!1)}))}},(0,d.__)("Confirm Woosmap Credentials","store-locator-widget-block")))}(0,p.register)(O);const z={top:!1,right:!1,bottom:!0,left:!1,topRight:!1,bottomRight:!1,bottomLeft:!1,topLeft:!1};function U({onResizeStart:e,onResize:t,onResizeStop:o,...r}){const[i,l]=(0,u.useState)(!1);return(0,a.createElement)(s.ResizableBox,{style:{position:"absolute",top:0,left:0,right:0,bottom:0},className:"store-locator-widget-block__resize-container "+(i?"is-resizing":""),enable:z,onResizeStart:(o,r,i)=>{e(i.clientHeight),t(i.clientHeight)},onResize:(e,o,r)=>{t(r.clientHeight),i||l(!0)},onResizeStop:(e,t,r)=>{o(r.clientHeight),l(!1)},minHeight:250,...r})}function K({blockProps:e,BlockIcon:t,initialConfig:o,onValidateConfig:r}){const{height:i,apiKey:l,...n}=o,[c,g]=(0,u.useState)(JSON.stringify(n,null,2)),b=(0,u.useCallback)((()=>{try{const e=function(e){return e.trim().replace(/([,{]\s*)([a-zA-Z0-9_]+):/g,'$1"$2":').replace(/,\s*([}\]])/g,"$1")}(c);g(e);const t=JSON.parse(e);r(t)}catch(e){const t=`Invalid Widget Conf format: ${e.message}`;(0,p.dispatch)("core/notices").createErrorNotice(t,{isDismissible:!0,type:"snackbar"})}}),[c,r]);return(0,a.createElement)("div",{...e},(0,a.createElement)(s.Placeholder,{label:(0,d.__)("Store Locator Widget Configuration","store-locator-widget-block"),icon:t},(0,a.createElement)("pre",null,(0,a.createElement)(m.RichText,{value:c,onChange:e=>g(e),placeholder:(0,d.__)("Write json conf…"),"aria-label":(0,d.__)("Conf"),preserveWhiteSpace:!0,allowedFormats:[],withoutInteractiveFormatting:!0,__unstablePastePlainText:!0})),(0,a.createElement)(s.Button,{isPrimary:!0,onClick:b,style:{marginTop:"10px"}},(0,d.__)("Validate Configuration","store-locator-widget-block"))))}const F=(0,u.memo)((e=>{const{storeLocatorWidget:t,isAuthenticated:o,clientId:r,setAttributes:i,setStoreLocatorWidget:l,webAppLib:n,apiKey:c}=e,s=!!t,d=(0,g.useRefEffect)((e=>{if(n)return o&&!s&&l(new v(e,r,i)),()=>{s&&(t.remove(),l(null))}}),[n,c,o,t,r,i]);return(0,a.createElement)("div",{id:"storeLocatorWidgetEdit",ref:d})}));(0,l.registerBlockType)(c,{attributes:{...c.attributes},icon:n,edit:function(e){const{attributes:t,setAttributes:o,clientId:r,isSelected:i}=e,{height:l,apiKey:c}=t,[b,h]=(0,u.useState)(null),[y,w]=(0,u.useState)(null),[k,_]=(0,u.useState)(c),f=!!b,[E,C]=(0,u.useState)(!0),[v,S]=(0,u.useState)(!1),T=(0,p.useSelect)((e=>e(O).isAuthenticated())),{updateAuthenticationStatus:x}=(0,p.useDispatch)(O),{toggleSelection:A}=(0,p.useDispatch)(m.store),P=(0,g.useDebounce)((e=>{b.update(e)}),500),M=(0,g.useRefEffect)((e=>{const t=!!e.ownerDocument.defaultView.WebApp;if(!t)return void w(null);w(t);const o=()=>{(({status:e})=>{"Initialized"===e&&(C(!1),x(!0))})({status:"Initialized"})};return t&&(C(!1),k&&o()),window.addEventListener("woosmapSettingsSaved",o),()=>{window.removeEventListener("woosmapSettingsSaved",o),w(null)}}));(0,u.useEffect)((()=>{T&&C(!1)}),[T]),(0,u.useEffect)((()=>{T&&f&&P(t)}),[t,T,b,f]);const L=(0,m.useBlockProps)({ref:M});return E?(0,a.createElement)("div",{...L},(0,a.createElement)(s.Placeholder,{style:{height:`${l}px`},label:(0,d.__)("Block for Woosmap Store Locator Widget","store-locator-widget-block"),icon:n},(0,a.createElement)(s.Spinner,null))):T?v?(0,a.createElement)(K,{blockProps:L,BlockIcon:n,initialConfig:t,onValidateConfig:e=>{o(e),S(!1)}}):(0,a.createElement)(a.Fragment,null,(0,a.createElement)(m.BlockControls,null,(0,a.createElement)(s.ToolbarGroup,null,(0,a.createElement)(s.ToolbarButton,{icon:"admin-generic",label:(0,d.__)("Show Configuration","store-locator-widget-block"),onClick:()=>S(!v)}))),(0,a.createElement)(D,{...e,isAuthenticated:T,storeLocatorWidget:b,webAppLib:y}),(0,a.createElement)("div",{...L},(0,a.createElement)(U,{onResizeStart:()=>{A(!1)},onResize:e=>{b.update({height:e},!1)},onResizeStop:e=>{o({height:e}),A(!0)},showHandle:i,size:{height:l}}),(0,a.createElement)(F,{clientId:r,setAttributes:o,isAuthenticated:T,webAppLib:y,storeLocatorWidget:b,setStoreLocatorWidget:h,apiKey:k}))):(0,a.createElement)(a.Fragment,null,(0,a.createElement)(D,{...e,isAuthenticated:T,storeLocatorWidget:b,webAppLib:y}),(0,a.createElement)("div",{...L},(0,a.createElement)(s.Placeholder,{style:{minHeight:`${l}px`},label:(0,d.__)("Authorize Woosmap Access","store-locator-widget-block"),icon:n,isColumnLayout:!0},(0,a.createElement)("div",{style:{marginBottom:"1em"}},(0,d.__)("To embed a Woosmap Store Locator Widget in your website, you need to provide your Public API Key. Follow the instructions in the documentation to obtain this key: ","store-locator-widget-block"),(0,a.createElement)("a",{href:"https://developers.woosmap.com/support/api-keys/#registering-a-woosmap-public-api-key",target:"_blank",rel:"noopener noreferrer"},(0,d.__)("Guide to register a Woosmap Public API Key.","store-locator-widget-block"))),(0,a.createElement)(W,{setApiKey:e=>{_(e),o({apiKey:e})}}))))},save:function(e){const{attributes:{height:t,apiKey:o,theme:r,internationalization:i,woosmapView:l,customMarkers:n,filtersOpened:c,filtersCustomOrder:s,filters:d,filtersOuterOperator:u}}=e,p=m.useBlockProps.save({style:{height:`${t}px`},id:"storeLocatorWidget"});return(0,a.createElement)("div",{...p,"data-api-key":o,"data-theme":JSON.stringify(r),"data-internationalization":JSON.stringify(i),"data-woosmap-view":JSON.stringify(l),"data-custom-markers":JSON.stringify(n),"data-filters-opened":c,"data-filters-custom-order":s,"data-filters":JSON.stringify(d),"data-filters-outer-operator":u})}})}},o={};function r(e){var i=o[e];if(void 0!==i)return i.exports;var l=o[e]={exports:{}};return t[e](l,l.exports,r),l.exports}r.m=t,e=[],r.O=(t,o,i,l)=>{if(!o){var a=1/0;for(d=0;d<e.length;d++){for(var[o,i,l]=e[d],n=!0,c=0;c<o.length;c++)(!1&l||a>=l)&&Object.keys(r.O).every((e=>r.O[e](o[c])))?o.splice(c--,1):(n=!1,l<a&&(a=l));if(n){e.splice(d--,1);var s=i();void 0!==s&&(t=s)}}return t}l=l||0;for(var d=e.length;d>0&&e[d-1][2]>l;d--)e[d]=e[d-1];e[d]=[o,i,l]},r.d=(e,t)=>{for(var o in t)r.o(t,o)&&!r.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:t[o]})},r.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},(()=>{var e={57:0,350:0};r.O.j=t=>0===e[t];var t=(t,o)=>{var i,l,[a,n,c]=o,s=0;if(a.some((t=>0!==e[t]))){for(i in n)r.o(n,i)&&(r.m[i]=n[i]);if(c)var d=c(r)}for(t&&t(o);s<a.length;s++)l=a[s],r.o(e,l)&&e[l]&&e[l][0](),e[l]=0;return r.O(d)},o=globalThis.webpackChunkstore_locator_widget_block=globalThis.webpackChunkstore_locator_widget_block||[];o.forEach(t.bind(null,0)),o.push=t.bind(null,o.push.bind(o))})();var i=r.O(void 0,[350],(()=>r(822)));i=r.O(i)})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/Settings/CustomMarkerSettings.js":
+/*!**********************************************!*\
+  !*** ./src/Settings/CustomMarkerSettings.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CustomMarkerSettings)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _EditCustomMarkerSettings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EditCustomMarkerSettings */ "./src/Settings/EditCustomMarkerSettings.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+function CustomMarkerSettings(props) {
+  const {
+    attributes: {
+      customMarkers
+    },
+    setAttributes
+  } = props;
+  const [storeType, setStoreType] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)('');
+  const addCustomMarker = () => {
+    if (!storeType.trim()) {
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.dispatch)('core/notices').createErrorNotice((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Store Type Title cannot be empty', 'store-locator-widget-block'), {
+        isDismissible: true,
+        type: 'snackbar'
+      });
+      return;
+    }
+    const newMarker = {
+      storeType,
+      customTyleColor: '#000',
+      customDefaultMarkerUrl: 'https://images.woosmap.com/marker-default.svg',
+      customSelectedMarkerUrl: 'https://images.woosmap.com/marker-selected.svg',
+      customNumberedMarkerUrl: 'https://images.woosmap.com/marker-default.svg'
+    };
+    const newCustomMarkers = [...customMarkers, newMarker];
+    setAttributes({
+      customMarkers: newCustomMarkers
+    });
+    setStoreType('');
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Marker Settings', 'store-locator-widget-block'),
+    initialOpen: false
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: 20,
+      padding: 10,
+      border: '1px solid lightgray',
+      borderRadius: 5
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Store Type', 'store-locator-widget-block'),
+    value: storeType,
+    onChange: value => setStoreType(value)
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    variant: "primary",
+    onClick: addCustomMarker
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add Custom Marker', 'store-locator-widget-block'))), customMarkers.map((marker, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_EditCustomMarkerSettings__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    key: index,
+    index: index,
+    marker: marker,
+    storeType: marker.storeType,
+    customTyleColor: marker.customTyleColor,
+    customDefaultMarkerUrl: marker.customDefaultMarkerUrl,
+    customSelectedMarkerUrl: marker.customSelectedMarkerUrl,
+    customNumberedMarkerUrl: marker.customNumberedMarkerUrl,
+    customMarkers: customMarkers,
+    setAttributes: setAttributes
+  })));
+}
+
+/***/ }),
+
+/***/ "./src/Settings/DisplaySettings.js":
+/*!*****************************************!*\
+  !*** ./src/Settings/DisplaySettings.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DisplaySettings)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+function DisplaySettings(props) {
+  const {
+    attributes: {
+      height,
+      theme,
+      woosmapView
+    },
+    setAttributes
+  } = props;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Display Settings', 'store-locator-widget-block')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "theme-color-control"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Primary Color', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ColorIndicator, {
+    id: "theme-color-control",
+    colorValue: theme.primary_color
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ColorPalette, {
+    value: theme.primary_color,
+    onChange: value => setAttributes({
+      theme: {
+        primary_color: value
+      }
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Zoom', 'store-locator-widget-block'),
+    value: woosmapView.initialZoom,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        initialZoom: value
+      }
+    }),
+    min: 0,
+    max: 20,
+    step: 0.5
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Height ( pixels )', 'store-locator-widget-block'),
+    value: Number(height),
+    onChange: value => setAttributes({
+      height: value
+    }),
+    min: 250,
+    max: 3000,
+    step: 5
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Default Latitude', 'store-locator-widget-block'),
+    value: woosmapView.initialCenter.lat,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        initialCenter: {
+          ...woosmapView.initialCenter,
+          lat: value
+        }
+      }
+    }),
+    min: -90,
+    max: 90,
+    step: 0.1
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Default Longitude', 'store-locator-widget-block'),
+    value: woosmapView.initialCenter.lng,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        initialCenter: {
+          ...woosmapView.initialCenter,
+          lng: value
+        }
+      }
+    }),
+    min: -180,
+    max: 180,
+    step: 0.1
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/Settings/EditCustomMarkerSettings.js":
+/*!**************************************************!*\
+  !*** ./src/Settings/EditCustomMarkerSettings.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EditCustomMarkerSettings)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+function EditCustomMarkerSettings(props) {
+  const {
+    index,
+    marker,
+    storeType,
+    customTyleColor,
+    customDefaultMarkerUrl,
+    customSelectedMarkerUrl,
+    customNumberedMarkerUrl,
+    customMarkers,
+    setAttributes
+  } = props;
+  const updateMarker = updatedMarker => {
+    const newCustomMarkers = customMarkers.map((m, i) => i === index ? updatedMarker : m);
+    setAttributes({
+      customMarkers: newCustomMarkers
+    });
+  };
+  const deleteMarker = () => {
+    const newCustomMarkers = customMarkers.filter((_, i) => i !== index);
+    setAttributes({
+      customMarkers: newCustomMarkers
+    });
+  };
+  const validateStoreType = value => {
+    if (!value.trim()) {
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.dispatch)('core/notices').createErrorNotice((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Store Type cannot be empty', 'store-locator-widget-block'), {
+        isDismissible: true,
+        type: 'snackbar'
+      });
+      return false;
+    }
+    return true;
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Edit: ', 'store-locator-widget-block') + storeType,
+    initialOpen: false
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Store Type', 'store-locator-widget-block'),
+    value: storeType,
+    onChange: value => {
+      if (validateStoreType(value)) {
+        updateMarker({
+          ...marker,
+          storeType: value
+        });
+      }
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "custom-tile-color-control"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Tile Color', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ColorIndicator, {
+    id: "custom-tile-color-control",
+    colorValue: customTyleColor
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ColorPalette, {
+    value: customTyleColor,
+    onChange: value => updateMarker({
+      ...marker,
+      customTyleColor: value
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: 20,
+      padding: 10,
+      border: '1px solid lightgray',
+      borderRadius: 5
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Default Marker Url', 'store-locator-widget-block'),
+    value: customDefaultMarkerUrl,
+    onChange: value => updateMarker({
+      ...marker,
+      customDefaultMarkerUrl: value
+    })
+  }), customDefaultMarkerUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: customDefaultMarkerUrl,
+    alt: "Custom Default Marker",
+    style: {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: 20,
+      padding: 10,
+      border: '1px solid lightgray',
+      borderRadius: 5
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Selected Marker Url', 'store-locator-widget-block'),
+    value: customSelectedMarkerUrl,
+    onChange: value => updateMarker({
+      ...marker,
+      customSelectedMarkerUrl: value
+    })
+  }), customSelectedMarkerUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: customSelectedMarkerUrl,
+    alt: "Custom Selected Marker",
+    style: {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: 20,
+      padding: 10,
+      border: '1px solid lightgray',
+      borderRadius: 5
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Custom Numbered Marker Url', 'store-locator-widget-block'),
+    value: customNumberedMarkerUrl,
+    onChange: value => updateMarker({
+      ...marker,
+      customNumberedMarkerUrl: value
+    })
+  }), customNumberedMarkerUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: customNumberedMarkerUrl,
+    alt: "Custom Numbered Marker",
+    style: {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    variant: "primary",
+    onClick: deleteMarker
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Delete Custom Marker', 'store-locator-widget-block')));
+}
+
+/***/ }),
+
+/***/ "./src/Settings/InternationalizationSettings.js":
+/*!******************************************************!*\
+  !*** ./src/Settings/InternationalizationSettings.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ InternationalizationSettings)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+function InternationalizationSettings(props) {
+  const {
+    attributes: {
+      internationalization
+    },
+    setAttributes
+  } = props;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Internationalization Settings', 'store-locator-widget-block'),
+    initialOpen: false
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Language', 'store-locator-widget-block'),
+    value: internationalization.lang,
+    onChange: value => setAttributes({
+      internationalization: {
+        lang: value,
+        period: internationalization.period,
+        unitSystem: internationalization.unitSystem
+      }
+    })
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "pt-br"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Brazilian Portuguese', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "ca"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Catalan', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "zh"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Chinese', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "zh-HK"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Chinese (Hong Kong)', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "hr"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Croatian', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "de"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Deutsch', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "nl"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Dutch', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "en"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('English', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "fr"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('French', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "el"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Greek', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "he"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Hebrew', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "it"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Italian', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "ja"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Japanese', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "pl"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Polish', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "pt"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Portuguese', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "ro"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Romanian', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "ru"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Russian', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "es"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Spanish', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "sv"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Swedish', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "uk"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Ukrainian', 'store-locator-widget-block'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Period', 'store-locator-widget-block'),
+    value: internationalization.period,
+    onChange: value => setAttributes({
+      internationalization: {
+        lang: internationalization.lang,
+        period: value,
+        unitSystem: internationalization.unitSystem
+      }
+    })
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "fr"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('24h', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "en-US"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('12h', 'store-locator-widget-block'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Unit System', 'store-locator-widget-block'),
+    value: internationalization.unitSystem,
+    onChange: value => setAttributes({
+      internationalization: {
+        lang: internationalization.lang,
+        period: internationalization.period,
+        unitSystem: Number(value)
+      }
+    })
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "0"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Metric', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "1"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Imperial', 'store-locator-widget-block'))));
+}
+
+/***/ }),
+
+/***/ "./src/Settings/MarkerSettings.js":
+/*!****************************************!*\
+  !*** ./src/Settings/MarkerSettings.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MarkerSettings)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+function MarkerSettings(props) {
+  const {
+    attributes: {
+      woosmapView
+    },
+    setAttributes
+  } = props;
+  const {
+    breakPoint,
+    tileStyle,
+    style
+  } = woosmapView || {};
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Marker Settings', 'store-locator-widget-block'),
+    initialOpen: false
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "tile-color-control"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Tile Color', 'store-locator-widget-block')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ColorIndicator, {
+    id: "tile-color-control",
+    colorValue: tileStyle.color
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ColorPalette, {
+    value: tileStyle.color,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        tileStyle: {
+          ...tileStyle,
+          color: value
+        }
+      }
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Tile Size', 'store-locator-widget-block'),
+    value: tileStyle.size,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        tileStyle: {
+          ...tileStyle,
+          size: value
+        }
+      }
+    }),
+    min: 1,
+    max: 50,
+    step: 1
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Break Point', 'store-locator-widget-block'),
+    value: breakPoint,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        breakPoint: value
+      }
+    }),
+    min: 1,
+    max: 20,
+    step: 1
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: 20,
+      padding: 10,
+      border: '1px solid lightgray',
+      borderRadius: 5
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Default Marker Url', 'store-locator-widget-block'),
+    value: style.default.icon.url,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        style: {
+          ...style,
+          default: {
+            ...style.default,
+            icon: {
+              url: value
+            }
+          }
+        }
+      }
+    })
+  }), style.default.icon.url && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: style.default.icon.url,
+    alt: "Default Marker Url",
+    style: {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: 20,
+      padding: 10,
+      border: '1px solid lightgray',
+      borderRadius: 5
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Selected Marker Url', 'store-locator-widget-block'),
+    value: style.default.selectedIcon.url,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        style: {
+          ...style,
+          default: {
+            ...style.default,
+            selectedIcon: {
+              url: value
+            }
+          }
+        }
+      }
+    })
+  }), style.default.selectedIcon.url && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: style.default.selectedIcon.url,
+    alt: "Selected Marker Url",
+    style: {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      padding: 10,
+      border: '1px solid lightgray',
+      borderRadius: 5
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Numbered Marker Url', 'store-locator-widget-block'),
+    value: style.default.numberedIcon.url,
+    onChange: value => setAttributes({
+      woosmapView: {
+        ...woosmapView,
+        style: {
+          ...style,
+          default: {
+            ...style.default,
+            numberedIcon: {
+              url: value
+            }
+          }
+        }
+      }
+    })
+  }), style.default.numberedIcon.url && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: style.default.numberedIcon.url,
+    alt: "Numbered Marker Url",
+    style: {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  })));
+}
+
+/***/ }),
+
+/***/ "./src/block-icon.js":
+/*!***************************!*\
+  !*** ./src/block-icon.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function BlockIcon() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 1024 771.444"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    x: "427.842",
+    width: "166.721",
+    height: "172.249",
+    fill: "#4FC3F7"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    x: "338.962",
+    y: "172.249",
+    width: "255.601",
+    height: "166.721",
+    fill: "#5586FF"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    x: "172.241",
+    y: "172.249",
+    width: "166.721",
+    height: "255.609",
+    fill: "#3D5AFE"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    y: "427.858",
+    width: "338.962",
+    height: "166.721",
+    fill: "#3949AB"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    x: "851.743",
+    y: "176.865",
+    width: "172.257",
+    height: "166.721",
+    fill: "#FFAB00"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    x: "685.022",
+    y: "176.865",
+    width: "166.721",
+    height: "255.609",
+    fill: "#FF5252"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    x: "596.142",
+    y: "432.474",
+    width: "255.601",
+    height: "166.721",
+    fill: "#F50057"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    x: "429.421",
+    y: "432.483",
+    width: "166.721",
+    height: "338.961",
+    fill: "#C51162"
+  }));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlockIcon);
+
+/***/ }),
+
+/***/ "./src/components/EditAuthForm.js":
+/*!****************************************!*\
+  !*** ./src/components/EditAuthForm.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EditAuthForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+function EditAuthForm({
+  setApiKey
+}) {
+  const [publicApiKey, setPublicApiKey] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('');
+  const [isBusy, setIsBusy] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  const siteSettings = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+    return select('core').getEntityRecord('root', 'site');
+  }, []);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    if (siteSettings) {
+      const {
+        woosmap_settings: {
+          woosmap_public_api_key: apiKey
+        }
+      } = siteSettings;
+      setPublicApiKey(apiKey);
+    }
+  }, [siteSettings]);
+  const handleSave = () => {
+    setIsBusy(true);
+    (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.dispatch)('core').saveEntityRecord('root', 'site', {
+      woosmap_settings: {
+        woosmap_public_api_key: publicApiKey
+      }
+    }).then(({
+      woosmap_settings: {
+        woosmap_public_api_key: apiKey
+      }
+    }) => {
+      setPublicApiKey(apiKey);
+      setIsBusy(false);
+      setApiKey(apiKey);
+      window.dispatchEvent(new CustomEvent('woosmapSettingsSaved'));
+    }).catch(error => {
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.dispatch)('core/notices').createErrorNotice(error.message, {
+        isDismissible: true,
+        type: 'snackbar'
+      });
+      setIsBusy(false);
+    });
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please enter your Public API Key', 'store-locator-widget-block'),
+    readOnly: isBusy,
+    name: "woosmap_public_api_key",
+    value: publicApiKey,
+    onChange: newPublicApiKeyKey => setPublicApiKey(newPublicApiKeyKey)
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    isPrimary: true,
+    disabled: isBusy,
+    isBusy: isBusy,
+    onClick: handleSave
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Confirm Woosmap Credentials', 'store-locator-widget-block')));
+}
+
+/***/ }),
+
+/***/ "./src/components/ResizableMap.js":
+/*!****************************************!*\
+  !*** ./src/components/ResizableMap.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ResizableMap: () => (/* binding */ ResizableMap)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const RESIZABLE_BOX_ENABLE_OPTION = {
+  top: false,
+  right: false,
+  bottom: true,
+  left: false,
+  topRight: false,
+  bottomRight: false,
+  bottomLeft: false,
+  topLeft: false
+};
+const MAP_MIN_HEIGHT = 250;
+function ResizableMap({
+  onResizeStart,
+  onResize,
+  onResizeStop,
+  ...props
+}) {
+  const [isResizing, setIsResizing] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ResizableBox, {
+    style: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    },
+    className: `store-locator-widget-block__resize-container ${isResizing ? 'is-resizing' : ''}`,
+    enable: RESIZABLE_BOX_ENABLE_OPTION,
+    onResizeStart: (_event, _direction, elt) => {
+      onResizeStart(elt.clientHeight);
+      onResize(elt.clientHeight);
+    },
+    onResize: (_event, _direction, elt) => {
+      onResize(elt.clientHeight);
+      if (!isResizing) {
+        setIsResizing(true);
+      }
+    },
+    onResizeStop: (_event, _direction, elt) => {
+      onResizeStop(elt.clientHeight);
+      setIsResizing(false);
+    },
+    minHeight: MAP_MIN_HEIGHT,
+    ...props
+  });
+}
+
+/***/ }),
+
+/***/ "./src/components/StoreLocator.js":
+/*!****************************************!*\
+  !*** ./src/components/StoreLocator.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   StoreLocator: () => (/* binding */ StoreLocator),
+/* harmony export */   StoreLocatorEdit: () => (/* binding */ StoreLocatorEdit)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_configUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/configUtils */ "./src/utils/configUtils.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+class StoreLocator {
+  constructor(element) {
+    this.element = element;
+    this.storeLocatorConfig = {};
+
+    // get the webapp object on the current window object to account for iframe editors
+    this.webAppLib = element.ownerDocument.defaultView.WebApp;
+    if (!this.webAppLib || !this.element.dataset.apiKey) {
+      return;
+    }
+    this.init();
+  }
+  init() {
+    this.createStoreLocatorWidget();
+  }
+  createStoreLocatorWidget() {
+    const config = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_1__.parseDataset)(this.element.dataset);
+    this.storeLocatorConfig = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_1__.validateConfig)(config);
+    this.element.innerHTML = '';
+    const newElementId = 'store-locator-widget-id';
+    const newElement = document.createElement('div');
+    newElement.style = 'width:100%; height:100%';
+    newElement.id = newElementId;
+    this.element.appendChild(newElement);
+    this.storeLocatorWidget = new this.webAppLib(newElement.id, this.storeLocatorConfig.maps.apiKey);
+    this.storeLocatorWidget.isMobile = false;
+    this.storeLocatorWidget.setConf(this.storeLocatorConfig);
+    this.storeLocatorWidget.render();
+  }
+}
+class StoreLocatorEdit extends StoreLocator {
+  /**
+   * Constructor of the StoreLocatorEdit Class
+   *
+   * @param {HTMLElement} element       Element to initialize the map on
+   * @param {string}      clientId      ClientId of the Block
+   * @param {Function}    setAttributes to update attributes of the block
+   */
+  constructor(element, clientId, setAttributes) {
+    super(element);
+    this.clientId = clientId;
+    this.setAttributes = setAttributes;
+    this.initEdit();
+  }
+
+  /**
+   * Initialize Edit version of StoreLocator
+   */
+  initEdit() {
+    this.addListeners();
+  }
+
+  /**
+   * Recreate webapp.js script and reset global vars.
+   * This ensures to remove persistent states from the store locator widget for editing mode.
+   * @param {Function} callback - The function to call once the script is successfully loaded.
+   */
+  refreshScript(callback) {
+    const scriptSource = 'https://webapp.woosmap.com/webapp.js';
+    const loadingScript = this.element.ownerDocument.querySelector(`script[src="${scriptSource}"][data-loading]`);
+    if (loadingScript) {
+      return;
+    }
+    const existingScript = this.element.ownerDocument.querySelector(`script[src="${scriptSource}"]`);
+    if (existingScript) {
+      const globalVars = ['WebApp', 'woosmap'];
+      globalVars.forEach(varName => {
+        if (this.element.ownerDocument.defaultView[varName] !== undefined) {
+          this.element.ownerDocument.defaultView[varName] = null;
+        }
+      });
+      existingScript.parentNode.removeChild(existingScript);
+    }
+    const script = this.element.ownerDocument.createElement('script');
+    script.src = scriptSource;
+    script.setAttribute('data-loading', 'true');
+    script.onload = () => {
+      script.removeAttribute('data-loading');
+      this.webAppLib = this.element.ownerDocument.defaultView.WebApp;
+      callback();
+    };
+    script.onerror = error => {
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/notices').createErrorNotice(`Failed to load the script:${error}`, {
+        isDismissible: true,
+        type: 'snackbar'
+      });
+      script.removeAttribute('data-loading');
+    };
+    this.element.ownerDocument.head.appendChild(script);
+  }
+
+  /**
+   * Remove the widget's element from the DOM and release internal ref
+   */
+  remove() {
+    if (!this.storeLocatorWidget) {
+      return;
+    }
+    this.element.parentNode.removeChild(this.element);
+    this.storeLocatorWidget = null;
+  }
+  addListeners() {
+    // select the block when the user interacts with the map
+    this.element.addEventListener('click', () => {
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/block-editor').selectBlock(this.clientId);
+    });
+  }
+  updateDatasetProperty(key, value) {
+    if (typeof value === 'object') {
+      this.element.dataset[key] = JSON.stringify(value);
+    } else {
+      this.element.dataset[key] = value;
+    }
+  }
+  update(options, rerenderLocator = true) {
+    Object.entries(options).forEach(([key, value]) => {
+      if (key === 'height') {
+        this.element.style.height = `${value}px`;
+      } else {
+        this.updateDatasetProperty(key, value);
+      }
+    });
+    if (rerenderLocator) {
+      this.refreshScript(() => this.init());
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./src/components/WidgetJsonForm.js":
+/*!******************************************!*\
+  !*** ./src/components/WidgetJsonForm.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ WidgetJsonForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _utils_configUtils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/configUtils */ "./src/utils/configUtils.js");
+
+
+
+
+
+
+
+function WidgetJsonForm({
+  blockProps,
+  BlockIcon,
+  initialConfig,
+  onValidateConfig
+}) {
+  const {
+    height,
+    apiKey,
+    ...filteredInitialConfig
+  } = initialConfig;
+  const [config, setConfig] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(JSON.stringify(filteredInitialConfig, null, 2));
+  const handleValidateConfig = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
+    try {
+      const modifiedConfig = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_6__.processInputConfig)(config);
+      setConfig(modifiedConfig);
+      const parsedConfig = JSON.parse(modifiedConfig);
+      onValidateConfig(parsedConfig);
+    } catch (error) {
+      const errorMessage = `Invalid Widget Conf format: ${error.message}`;
+      (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.dispatch)('core/notices').createErrorNotice(errorMessage, {
+        isDismissible: true,
+        type: 'snackbar'
+      });
+    }
+  }, [config, onValidateConfig]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ...blockProps
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Placeholder, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Store Locator Widget Configuration', 'store-locator-widget-block'),
+    icon: BlockIcon
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("pre", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.RichText, {
+    value: config,
+    onChange: text => setConfig(text),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Write json conf…'),
+    "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Conf'),
+    preserveWhiteSpace: true,
+    allowedFormats: [],
+    withoutInteractiveFormatting: true,
+    __unstablePastePlainText: true /* GB 9.5 */
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    isPrimary: true,
+    onClick: handleValidateConfig,
+    style: {
+      marginTop: '10px'
+    }
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Validate Configuration', 'store-locator-widget-block'))));
+}
+
+/***/ }),
+
+/***/ "./src/edit.js":
+/*!*********************!*\
+  !*** ./src/edit.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ StoreLocatorBlockEdit)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_StoreLocator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/StoreLocator */ "./src/components/StoreLocator.js");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store */ "./src/store/index.js");
+/* harmony import */ var _inspector_settings__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./inspector-settings */ "./src/inspector-settings.js");
+/* harmony import */ var _block_icon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./block-icon */ "./src/block-icon.js");
+/* harmony import */ var _components_EditAuthForm__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/EditAuthForm */ "./src/components/EditAuthForm.js");
+/* harmony import */ var _components_ResizableMap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/ResizableMap */ "./src/components/ResizableMap.js");
+/* harmony import */ var _components_WidgetJsonForm__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/WidgetJsonForm */ "./src/components/WidgetJsonForm.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const StoreLocatorWidget = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.memo)(props => {
+  const {
+    storeLocatorWidget,
+    isAuthenticated,
+    clientId,
+    setAttributes,
+    setStoreLocatorWidget,
+    webAppLib,
+    apiKey
+  } = props;
+  const hasSLW = !!storeLocatorWidget;
+
+  /**
+   * render a new store locator widget on the provided element
+   */
+  const slwContainerRef = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__.useRefEffect)(element => {
+    if (!webAppLib) {
+      return;
+    }
+    if (isAuthenticated && !hasSLW) {
+      setStoreLocatorWidget(new _components_StoreLocator__WEBPACK_IMPORTED_MODULE_7__.StoreLocatorEdit(element, clientId, setAttributes));
+    }
+    return () => {
+      if (hasSLW) {
+        storeLocatorWidget.remove();
+        setStoreLocatorWidget(null);
+      }
+    };
+  }, [webAppLib, apiKey, isAuthenticated, storeLocatorWidget, clientId, setAttributes]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "storeLocatorWidgetEdit",
+    ref: slwContainerRef
+  });
+});
+function StoreLocatorBlockEdit(props) {
+  const {
+    attributes,
+    setAttributes,
+    clientId,
+    isSelected
+  } = props;
+  const {
+    height,
+    apiKey: initialApiKey
+  } = attributes;
+  const [storeLocatorWidget, setStoreLocatorWidget] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(null);
+  const [webAppLib, setWebAppLib] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(null);
+  const [apiKey, setApiKey] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(initialApiKey);
+  const hasSLW = !!storeLocatorWidget;
+  const [isLoading, setIsLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(true);
+  const [showConfigPlaceholder, setShowConfigPlaceholder] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(false);
+  const isAuthenticated = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useSelect)(select => {
+    return select(_store__WEBPACK_IMPORTED_MODULE_9__.store).isAuthenticated();
+  });
+  const {
+    updateAuthenticationStatus
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useDispatch)(_store__WEBPACK_IMPORTED_MODULE_9__.store);
+  const {
+    toggleSelection
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useDispatch)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.store);
+  const debouncedUpdate = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__.useDebounce)(newAttributes => {
+    storeLocatorWidget.update(newAttributes);
+  }, 500);
+  const handleSetApiKey = newApiKey => {
+    setApiKey(newApiKey);
+    setAttributes({
+      apiKey: newApiKey
+    });
+  };
+  const onValidateConfig = conf => {
+    setAttributes(conf);
+    setShowConfigPlaceholder(false);
+  };
+
+  /**
+   * Set the initial authentication of Woosmap
+   *
+   * ensures that the WebApp object gets initialized on the correct window which is
+   * needed for the iframe editors.
+   */
+  const setupRef = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__.useRefEffect)(element => {
+    // use the WebApp object on the window of the current document
+    const localWebAppLib = !!element.ownerDocument.defaultView.WebApp;
+
+    // return early if the WebApp script has not yet been loaded. The editor iframe
+    // will re-render the element after the scripts have been loaded
+    if (!localWebAppLib) {
+      setWebAppLib(null);
+      return;
+    }
+    setWebAppLib(localWebAppLib);
+    const handleConfigurationChange = ({
+      status
+    }) => {
+      function handleSuccessfulAuthentication() {
+        setIsLoading(false);
+        updateAuthenticationStatus(true);
+      }
+      switch (status) {
+        case 'Initialized':
+          handleSuccessfulAuthentication();
+          break;
+      }
+    };
+    const InitializeWebApp = () => {
+      handleConfigurationChange({
+        status: 'Initialized'
+      });
+    };
+    if (localWebAppLib) {
+      setIsLoading(false);
+      if (apiKey) {
+        InitializeWebApp();
+      }
+    }
+    window.addEventListener('woosmapSettingsSaved', InitializeWebApp);
+    return () => {
+      window.removeEventListener('woosmapSettingsSaved', InitializeWebApp);
+      setWebAppLib(null);
+    };
+  });
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    if (isAuthenticated) {
+      setIsLoading(false);
+    }
+  }, [isAuthenticated]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    if (isAuthenticated && hasSLW) {
+      debouncedUpdate(attributes);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [attributes, isAuthenticated, storeLocatorWidget, hasSLW]);
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)({
+    ref: setupRef
+  });
+  if (isLoading) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      ...blockProps
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Placeholder, {
+      style: {
+        height: `${height}px`
+      },
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Block for Woosmap Store Locator Widget', 'store-locator-widget-block'),
+      icon: _block_icon__WEBPACK_IMPORTED_MODULE_11__["default"]
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null)));
+  }
+  if (!isAuthenticated) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_inspector_settings__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      ...props,
+      isAuthenticated: isAuthenticated,
+      storeLocatorWidget: storeLocatorWidget,
+      webAppLib: webAppLib
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      ...blockProps
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Placeholder, {
+      style: {
+        minHeight: `${height}px`
+      },
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Authorize Woosmap Access', 'store-locator-widget-block'),
+      icon: _block_icon__WEBPACK_IMPORTED_MODULE_11__["default"],
+      isColumnLayout: true
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        marginBottom: '1em'
+      }
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('To embed a Woosmap Store Locator Widget in your website, you need to provide your Public API Key. Follow the instructions in the documentation to obtain this key: ', 'store-locator-widget-block'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: "https://developers.woosmap.com/support/api-keys/#registering-a-woosmap-public-api-key",
+      target: "_blank",
+      rel: "noopener noreferrer"
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Guide to register a Woosmap Public API Key.', 'store-locator-widget-block'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_EditAuthForm__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      setApiKey: handleSetApiKey
+    }))));
+  }
+  if (showConfigPlaceholder) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_WidgetJsonForm__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      blockProps: blockProps,
+      BlockIcon: _block_icon__WEBPACK_IMPORTED_MODULE_11__["default"],
+      initialConfig: attributes,
+      onValidateConfig: onValidateConfig
+    });
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.BlockControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ToolbarGroup, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ToolbarButton, {
+    icon: "admin-generic",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Configuration', 'store-locator-widget-block'),
+    onClick: () => setShowConfigPlaceholder(!showConfigPlaceholder)
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_inspector_settings__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    ...props,
+    isAuthenticated: isAuthenticated,
+    storeLocatorWidget: storeLocatorWidget,
+    webAppLib: webAppLib
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ...blockProps
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_ResizableMap__WEBPACK_IMPORTED_MODULE_13__.ResizableMap, {
+    onResizeStart: () => {
+      toggleSelection(false);
+    },
+    onResize: newHeight => {
+      storeLocatorWidget.update({
+        height: newHeight
+      }, false);
+    },
+    onResizeStop: newHeight => {
+      setAttributes({
+        height: newHeight
+      });
+      toggleSelection(true);
+    },
+    showHandle: isSelected,
+    size: {
+      height
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(StoreLocatorWidget, {
+    clientId: clientId,
+    setAttributes: setAttributes,
+    isAuthenticated: isAuthenticated,
+    webAppLib: webAppLib,
+    storeLocatorWidget: storeLocatorWidget,
+    setStoreLocatorWidget: setStoreLocatorWidget,
+    apiKey: apiKey
+  })));
+}
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
+/* harmony import */ var _block_icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block-icon */ "./src/block-icon.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./save */ "./src/save.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store */ "./src/store/index.js");
+/**
+ * Registers a new block provided a unique name and an object defining its behavior.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ */
+
+
+/**
+ * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+ * All files containing `style` keyword are bundled together. The code used
+ * gets applied both to the front of your site and to the editor.
+ *
+ * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+/**
+ * Every block starts by registering a new block type definition.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ */
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__, {
+  attributes: {
+    ..._block_json__WEBPACK_IMPORTED_MODULE_3__.attributes
+  },
+  icon: _block_icon__WEBPACK_IMPORTED_MODULE_2__["default"],
+  /**
+   * @see ./edit.js
+   */
+  edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
+  /**
+   * @see ./save.js
+   */
+  save: _save__WEBPACK_IMPORTED_MODULE_5__["default"]
+});
+
+/***/ }),
+
+/***/ "./src/inspector-settings.js":
+/*!***********************************!*\
+  !*** ./src/inspector-settings.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ InspectorSettings)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Settings_DisplaySettings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Settings/DisplaySettings */ "./src/Settings/DisplaySettings.js");
+/* harmony import */ var _Settings_MarkerSettings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Settings/MarkerSettings */ "./src/Settings/MarkerSettings.js");
+/* harmony import */ var _Settings_CustomMarkerSettings__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Settings/CustomMarkerSettings */ "./src/Settings/CustomMarkerSettings.js");
+/* harmony import */ var _Settings_InternationalizationSettings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Settings/InternationalizationSettings */ "./src/Settings/InternationalizationSettings.js");
+
+
+
+
+
+
+
+
+function InspectorSettings(props) {
+  const {
+    isAuthenticated
+  } = props;
+  if (!isAuthenticated) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('You need to confirm your access to Woosmap before you can continue.', 'store-locator-widget-block'))));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Settings_DisplaySettings__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    ...props
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Settings_InternationalizationSettings__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    ...props
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Settings_MarkerSettings__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    ...props
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Settings_CustomMarkerSettings__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    ...props
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/save.js":
+/*!*********************!*\
+  !*** ./src/save.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ StoreLocatorBlockSave)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function StoreLocatorBlockSave(props) {
+  const {
+    attributes: {
+      height,
+      apiKey,
+      theme,
+      internationalization,
+      woosmapView,
+      customMarkers,
+      filters
+    }
+  } = props;
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
+    style: {
+      height: `${height}px`
+    },
+    id: 'storeLocatorWidget'
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ...blockProps,
+    "data-api-key": apiKey,
+    "data-theme": JSON.stringify(theme),
+    "data-internationalization": JSON.stringify(internationalization),
+    "data-woosmap-view": JSON.stringify(woosmapView),
+    "data-custom-markers": JSON.stringify(customMarkers),
+    "data-filters": JSON.stringify(filters)
+  });
+}
+
+/***/ }),
+
+/***/ "./src/store/actions.js":
+/*!******************************!*\
+  !*** ./src/store/actions.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   updateAuthenticationStatus: () => (/* binding */ updateAuthenticationStatus)
+/* harmony export */ });
+/**
+ * Returns an action object used in signalling that the authentication state has changed
+ *
+ * @param {boolean} isAuthenticated status
+ *
+ * @return {Object} Action object.
+ */
+function updateAuthenticationStatus(isAuthenticated) {
+  return {
+    type: 'UPDATE_AUTHENTICATION',
+    isAuthenticated
+  };
+}
+
+/***/ }),
+
+/***/ "./src/store/index.js":
+/*!****************************!*\
+  !*** ./src/store/index.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   store: () => (/* binding */ store)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducer */ "./src/store/reducer.js");
+/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selectors */ "./src/store/selectors.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./src/store/actions.js");
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const STORE_NAME = 'woosmap/store-locator-widget-block';
+
+/**
+ * Store definition for the icons namespace.
+ *
+ * @type {Object}
+ */
+const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.createReduxStore)(STORE_NAME, {
+  reducer: _reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  selectors: _selectors__WEBPACK_IMPORTED_MODULE_2__,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__
+});
+(0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.register)(store);
+
+/***/ }),
+
+/***/ "./src/store/reducer.js":
+/*!******************************!*\
+  !*** ./src/store/reducer.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   authenticationReducer: () => (/* binding */ authenticationReducer),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Reducer managing the woosmap authentication
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+function authenticationReducer(state, action) {
+  switch (action.type) {
+    case 'UPDATE_AUTHENTICATION':
+      return {
+        ...state,
+        authenticated: action.isAuthenticated
+      };
+    default:
+      return state;
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.combineReducers)({
+  authenticationReducer
+}));
+
+/***/ }),
+
+/***/ "./src/store/selectors.js":
+/*!********************************!*\
+  !*** ./src/store/selectors.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isAuthenticated: () => (/* binding */ isAuthenticated)
+/* harmony export */ });
+/**
+ * Returns authentication state
+ *
+ * @param {Object} state Data state.
+ *
+ * @return {Array?} Icon Sets.
+ */
+function isAuthenticated(state) {
+  return Boolean(state?.authenticationReducer?.authenticated);
+}
+
+/***/ }),
+
+/***/ "./src/utils/configDefaults.js":
+/*!*************************************!*\
+  !*** ./src/utils/configDefaults.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   defaultConfig: () => (/* binding */ defaultConfig)
+/* harmony export */ });
+const defaultConfig = {
+  theme: {
+    primary_color: '#000'
+  },
+  datasource: {
+    max_responses: 5,
+    max_distance: 50000
+  },
+  internationalization: {
+    lang: 'en',
+    period: 'fr',
+    unitSystem: 0
+  },
+  maps: {
+    apiKey: '',
+    // This needs to be provided by the user
+    provider: 'woosmap'
+  },
+  woosmapView: {
+    initialCenter: {
+      lat: 50,
+      lng: 0
+    },
+    initialZoom: 13,
+    tileStyle: {
+      color: '#000',
+      size: 11,
+      minSize: 5,
+      typeRules: []
+    },
+    breakPoint: 10,
+    style: {
+      rules: [],
+      default: {
+        icon: {
+          url: 'https://images.woosmap.com/marker-default.svg'
+        },
+        selectedIcon: {
+          url: 'https://images.woosmap.com/marker-selected.svg'
+        },
+        numberedIcon: {
+          url: 'https://images.woosmap.com/marker-default.svg'
+        }
+      }
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./src/utils/configUtils.js":
+/*!**********************************!*\
+  !*** ./src/utils/configUtils.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseDataset: () => (/* binding */ parseDataset),
+/* harmony export */   processInputConfig: () => (/* binding */ processInputConfig),
+/* harmony export */   validateConfig: () => (/* binding */ validateConfig)
+/* harmony export */ });
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _configDefaults__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./configDefaults */ "./src/utils/configDefaults.js");
+// Safe JSON parsing with default value
+
+
+function deepMerge(target, source) {
+  Object.keys(source).forEach(key => {
+    if (Array.isArray(source[key])) {
+      target[key] = source[key];
+    } else if (source[key] && typeof source[key] === 'object') {
+      if (!target[key]) {
+        target[key] = {};
+      }
+      deepMerge(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  });
+  return target;
+}
+function safeParse(json, defaultValue = {}) {
+  try {
+    const parsed = JSON.parse(json);
+    return deepMerge(defaultValue, parsed); // Use deepMerge to combine defaults and parsed values
+  } catch (e) {
+    (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('core/notices').createErrorNotice(`Error parsing conf: ${e.message}`, {
+      isDismissible: true,
+      type: 'snackbar'
+    });
+    return defaultValue;
+  }
+}
+function parseDataset(dataset) {
+  const {
+    filters = '{}',
+    theme = '{}',
+    datasource = '{}',
+    internationalization = '{}',
+    woosmapView = '{}',
+    apiKey
+  } = dataset;
+  const parsedWoosmapView = safeParse(woosmapView, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.woosmapview);
+  return {
+    theme: safeParse(theme, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.theme),
+    datasource: safeParse(datasource, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.datasource),
+    internationalization: safeParse(internationalization, _configDefaults__WEBPACK_IMPORTED_MODULE_1__.defaultConfig.internationalization),
+    maps: {
+      apiKey,
+      provider: 'woosmap'
+    },
+    woosmapview: {
+      ...parsedWoosmapView,
+      initialCenter: parsedWoosmapView.initialCenter,
+      initialZoom: parsedWoosmapView.initialZoom,
+      tileStyle: {
+        color: parsedWoosmapView.tileStyle.color,
+        size: Number(parsedWoosmapView.tileStyle.size),
+        minSize: Number(parsedWoosmapView.tileStyle.minSize),
+        typeRules: parsedWoosmapView.tileStyle.typeRules
+      },
+      breakPoint: Number(parsedWoosmapView.breakPoint),
+      style: {
+        rules: parsedWoosmapView.style.rules,
+        default: parsedWoosmapView.style.default
+      }
+    },
+    filters: safeParse(filters, {})
+  };
+}
+function validateConfig(config) {
+  if (!config.maps.apiKey || typeof config.maps.apiKey !== 'string' || !config.maps.apiKey.trim()) {
+    throw new Error('StoreLocator configuration error: apiKey is required and must be a non-empty string.');
+  }
+  // Additional validations can be added here
+  return config;
+}
+function processInputConfig(config) {
+  const fixedConfig = config.replace(/'/g, '"') // Replace single quotes with double quotes
+  .replace(/([,{]\s*)([a-zA-Z0-9_]+):/g, '$1"$2":') // Ensure keys are quoted
+  .replace(/\b(true|false|null)\b/g, match => match.toLowerCase()) // Correct boolean and null literals
+  .replace(/,\s*([}\]])/g, '$1') // Remove trailing commas
+  .trim();
+  try {
+    // Attempt to parse and then stringify to ensure valid JSON format
+    return JSON.stringify(JSON.parse(fixedConfig), null, 2);
+  } catch (error) {
+    throw new Error('Failed to process input config into valid JSON: ' + error.message);
+  }
+}
+
+/***/ }),
+
+/***/ "./src/editor.scss":
+/*!*************************!*\
+  !*** ./src/editor.scss ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/style.scss":
+/*!************************!*\
+  !*** ./src/style.scss ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = window["React"];
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ }),
+
+/***/ "@wordpress/blocks":
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/compose":
+/*!*********************************!*\
+  !*** external ["wp","compose"] ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["compose"];
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["element"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "./src/block.json":
+/*!************************!*\
+  !*** ./src/block.json ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"woosmap/store-locator-widget-block","version":"0.1.0","title":"Woosmap Store Locator Widget Block","category":"widgets","keywords":["Woosmap","Store Locator","Store Finder","Map"],"description":"Easily display your stores on a Map using Woosmap platform","example":{},"supports":{"align":["wide","full"],"spacing":{"margin":true},"html":false,"multiple":false},"attributes":{"height":{"type":"string","default":"500"},"apiKey":{"type":"string"},"theme":{"type":"object","properties":{"primary_color":{"type":"string","default":"#000"}},"default":{"primary_color":"#000"}},"internationalization":{"type":"object","properties":{"lang":{"type":"string","default":"en"},"period":{"type":"string","default":"fr"},"unitSystem":{"type":"number","default":0}},"default":{"lang":"en","period":"fr","unitSystem":0}},"woosmapView":{"type":"object","default":{"breakPoint":10,"tileStyle":{"color":"#000","size":11,"minSize":5},"initialCenter":{"lat":50,"lng":0},"initialZoom":6,"style":{"default":{"icon":{"url":"https://images.woosmap.com/marker-default.svg"},"selectedIcon":{"url":"https://images.woosmap.com/marker-selected.svg"},"numberedIcon":{"url":"https://images.woosmap.com/marker-default.svg"}}}}},"filters":{"type":"object","default":{}},"customMarkers":{"type":"array","default":[],"items":{"type":"object","properties":{"storeType":{"type":"string"},"customTyleColor":{"type":"string"},"customDefaultMarkerUrl":{"type":"string"},"customSelectedMarkerUrl":{"type":"string"},"customNumberedMarkerUrl":{"type":"string"}}}}},"textdomain":"store-locator-widget-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","script":"woosmap-webapp-js"}');
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	(() => {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"index": 0,
+/******/ 			"./style-index": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = globalThis["webpackChunkstore_locator_widget_block"] = globalThis["webpackChunkstore_locator_widget_block"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-index"], () => (__webpack_require__("./src/index.js")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

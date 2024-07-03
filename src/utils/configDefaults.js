@@ -10,18 +10,18 @@ export const defaultConfig = {
 		apiKey: '', // This needs to be provided by the user
 		provider: 'woosmap',
 	},
-	woosmapview: {
+	woosmapView: {
 		initialCenter: { lat: 50, lng: 0 },
 		initialZoom: 13,
 		tileStyle: {
 			color: '#000',
 			size: 11,
 			minSize: 5,
-			typeRules: [], // Custom dot markers processed separately
+			typeRules: [],
 		},
 		breakPoint: 10,
 		style: {
-			rules: [], // Custom image markers processed separately
+			rules: [],
 			default: {
 				icon: {
 					url: 'https://images.woosmap.com/marker-default.svg',
@@ -34,11 +34,5 @@ export const defaultConfig = {
 				},
 			},
 		},
-	},
-	filters: {
-		opened: false,
-		customOrder: false,
-		filters: [], // Filters processed separately
-		outerOperator: 'or',
 	},
 };
