@@ -1,6 +1,5 @@
 import { dispatch } from '@wordpress/data';
 import { parseDataset, validateConfig } from '../utils/configUtils';
-import { __ } from '@wordpress/i18n';
 
 class StoreLocator {
 	constructor( element ) {
