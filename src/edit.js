@@ -29,7 +29,6 @@ const StoreLocatorWidget = memo( ( props ) => {
 		clientId,
 		setAttributes,
 		setStoreLocatorWidget,
-		webAppLib,
 		apiKey,
 	} = props;
 
@@ -40,10 +39,6 @@ const StoreLocatorWidget = memo( ( props ) => {
 	 */
 	const slwContainerRef = useRefEffect(
 		( element ) => {
-			if ( ! webAppLib ) {
-				return;
-			}
-
 			if ( isAuthenticated && ! hasSLW ) {
 				setStoreLocatorWidget(
 					new StoreLocatorEdit( element, clientId, setAttributes )
@@ -57,14 +52,7 @@ const StoreLocatorWidget = memo( ( props ) => {
 				}
 			};
 		},
-		[
-			webAppLib,
-			apiKey,
-			isAuthenticated,
-			storeLocatorWidget,
-			clientId,
-			setAttributes,
-		]
+		[ apiKey, isAuthenticated, storeLocatorWidget, clientId, setAttributes ]
 	);
 	return <div id="storeLocatorWidgetEdit" ref={ slwContainerRef } />;
 } );
@@ -73,7 +61,6 @@ export default function StoreLocatorBlockEdit( props ) {
 	const { attributes, setAttributes, clientId, isSelected } = props;
 	const { height, apiKey: initialApiKey } = attributes;
 	const [ storeLocatorWidget, setStoreLocatorWidget ] = useState( null );
-	const [ webAppLib, setWebAppLib ] = useState( null );
 	const [ apiKey, setApiKey ] = useState( initialApiKey );
 	const hasSLW = !! storeLocatorWidget;
 	const [ isLoading, setIsLoading ] = useState( true );
@@ -106,22 +93,9 @@ export default function StoreLocatorBlockEdit( props ) {
 	 * ensures that the WebApp object gets initialized on the correct window which is
 	 * needed for the iframe editors.
 	 */
-	const setupRef = useRefEffect( ( element ) => {
-		// use the WebApp object on the window of the current document
-		const localWebAppLib = !! element.ownerDocument.defaultView.WebApp;
-
-		// return early if the WebApp script has not yet been loaded. The editor iframe
-		// will re-render the element after the scripts have been loaded
-		if ( ! localWebAppLib ) {
-			setWebAppLib( null );
-			return;
-		}
-
-		setWebAppLib( localWebAppLib );
-
+	const setupRef = useRefEffect( () => {
 		const handleConfigurationChange = ( { status } ) => {
 			function handleSuccessfulAuthentication() {
-				setIsLoading( false );
 				updateAuthenticationStatus( true );
 			}
 
@@ -135,11 +109,9 @@ export default function StoreLocatorBlockEdit( props ) {
 			handleConfigurationChange( { status: 'Initialized' } );
 		};
 
-		if ( localWebAppLib ) {
-			setIsLoading( false );
-			if ( apiKey ) {
-				InitializeWebApp();
-			}
+		setIsLoading( false );
+		if ( apiKey && ! isAuthenticated ) {
+			InitializeWebApp();
 		}
 
 		window.addEventListener( 'woosmapSettingsSaved', InitializeWebApp );
@@ -149,7 +121,6 @@ export default function StoreLocatorBlockEdit( props ) {
 				'woosmapSettingsSaved',
 				InitializeWebApp
 			);
-			setWebAppLib( null );
 		};
 	} );
 
@@ -191,7 +162,6 @@ export default function StoreLocatorBlockEdit( props ) {
 					{ ...props }
 					isAuthenticated={ isAuthenticated }
 					storeLocatorWidget={ storeLocatorWidget }
-					webAppLib={ webAppLib }
 				/>
 				<div { ...blockProps }>
 					<Placeholder
@@ -256,7 +226,6 @@ export default function StoreLocatorBlockEdit( props ) {
 				{ ...props }
 				isAuthenticated={ isAuthenticated }
 				storeLocatorWidget={ storeLocatorWidget }
-				webAppLib={ webAppLib }
 			/>
 			<div { ...blockProps }>
 				<ResizableMap
@@ -280,7 +249,6 @@ export default function StoreLocatorBlockEdit( props ) {
 					clientId={ clientId }
 					setAttributes={ setAttributes }
 					isAuthenticated={ isAuthenticated }
-					webAppLib={ webAppLib }
 					storeLocatorWidget={ storeLocatorWidget }
 					setStoreLocatorWidget={ setStoreLocatorWidget }
 					apiKey={ apiKey }

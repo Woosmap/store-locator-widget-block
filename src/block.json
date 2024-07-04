@@ -99,6 +99,25 @@
 			"type": "object",
 			"default": {}
 		},
+		"initialSearch": {
+			"type": "object",
+			"default": {}
+		},
+		"maps": {
+			"type": "object",
+			"default": {
+				"provider": "woosmap",
+				"localities": {
+					"types": [
+						"locality",
+						"postal_code",
+						"address",
+						"admin_level",
+						"country"
+					]
+				}
+			}
+		},
 		"customMarkers": {
 			"type": "array",
 			"default": [],
@@ -128,6 +147,8 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js",
-	"script": "woosmap-webapp-js"
+	"viewScript": [
+		"file:./view.js",
+		"woosmap-webapp-js"
+	]
 }

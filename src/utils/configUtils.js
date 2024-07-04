@@ -41,23 +41,33 @@ export function parseDataset( dataset ) {
 		datasource = '{}',
 		internationalization = '{}',
 		woosmapView = '{}',
+		maps = '{}',
+		initialSearch = '{}',
 		apiKey,
 	} = dataset;
 
 	const parsedWoosmapView = safeParse(
 		woosmapView,
-		defaultConfig.woosmapview
+		defaultConfig.woosmapView
 	);
+	const parsedTheme = safeParse( theme, defaultConfig.theme );
+	const parsedDataSource = safeParse( datasource, defaultConfig.datasource );
+	const parsedInternationalization = safeParse(
+		internationalization,
+		defaultConfig.internationalization
+	);
+	const parsedFilters = safeParse( filters, {} );
+	const parsedInitialSearch = safeParse( initialSearch, {} );
 
 	return {
-		theme: safeParse( theme, defaultConfig.theme ),
-		datasource: safeParse( datasource, defaultConfig.datasource ),
-		internationalization: safeParse(
-			internationalization,
-			defaultConfig.internationalization
-		),
-		maps: { apiKey, provider: 'woosmap' },
-		woosmapview: {
+		theme: parsedTheme,
+		datasource: parsedDataSource,
+		internationalization: parsedInternationalization,
+		maps: {
+			...safeParse( maps, defaultConfig.maps ),
+			apiKey,
+		},
+		woosmapView: {
 			...parsedWoosmapView,
 			initialCenter: parsedWoosmapView.initialCenter,
 			initialZoom: parsedWoosmapView.initialZoom,
@@ -73,7 +83,8 @@ export function parseDataset( dataset ) {
 				default: parsedWoosmapView.style.default,
 			},
 		},
-		filters: safeParse( filters, {} ),
+		filters: parsedFilters,
+		initialSearch: parsedInitialSearch,
 	};
 }
 

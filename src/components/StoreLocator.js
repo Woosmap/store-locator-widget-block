@@ -1,19 +1,20 @@
 import { dispatch } from '@wordpress/data';
 import { parseDataset, validateConfig } from '../utils/configUtils';
+import { loadOrReplaceScript } from '../utils/scriptUtils';
 
 class StoreLocator {
 	constructor( element ) {
 		this.element = element;
 		this.storeLocatorConfig = {};
 
-		// get the webapp object on the current window object to account for iframe editors
-		this.webAppLib = element.ownerDocument.defaultView.WebApp;
-
-		if ( ! this.webAppLib || ! this.element.dataset.apiKey ) {
+		if ( ! this.element.dataset.apiKey ) {
 			return;
 		}
 
-		this.init();
+		loadOrReplaceScript( this.element, () => {
+			this.webAppLib = this.element.ownerDocument.defaultView.WebApp;
+			this.init();
+		} );
 	}
 
 	init() {
@@ -66,56 +67,6 @@ class StoreLocatorEdit extends StoreLocator {
 	}
 
 	/**
-	 * Recreate webapp.js script and reset global vars.
-	 * This ensures to remove persistent states from the store locator widget for editing mode.
-	 * @param {Function} callback - The function to call once the script is successfully loaded.
-	 */
-	refreshScript( callback ) {
-		const scriptSource = 'https://webapp.woosmap.com/webapp.js';
-		const loadingScript = this.element.ownerDocument.querySelector(
-			`script[src="${ scriptSource }"][data-loading]`
-		);
-		if ( loadingScript ) {
-			return;
-		}
-		const existingScript = this.element.ownerDocument.querySelector(
-			`script[src="${ scriptSource }"]`
-		);
-		if ( existingScript ) {
-			const globalVars = [ 'WebApp', 'woosmap' ];
-			globalVars.forEach( ( varName ) => {
-				if (
-					this.element.ownerDocument.defaultView[ varName ] !==
-					undefined
-				) {
-					this.element.ownerDocument.defaultView[ varName ] = null;
-				}
-			} );
-			existingScript.parentNode.removeChild( existingScript );
-		}
-
-		const script = this.element.ownerDocument.createElement( 'script' );
-		script.src = scriptSource;
-		script.setAttribute( 'data-loading', 'true' );
-		script.onload = () => {
-			script.removeAttribute( 'data-loading' );
-			this.webAppLib = this.element.ownerDocument.defaultView.WebApp;
-			callback();
-		};
-		script.onerror = ( error ) => {
-			dispatch( 'core/notices' ).createErrorNotice(
-				`Failed to load the script:${ error }`,
-				{
-					isDismissible: true,
-					type: 'snackbar',
-				}
-			);
-			script.removeAttribute( 'data-loading' );
-		};
-		this.element.ownerDocument.head.appendChild( script );
-	}
-
-	/**
 	 * Remove the widget's element from the DOM and release internal ref
 	 */
 	remove() {
@@ -151,7 +102,10 @@ class StoreLocatorEdit extends StoreLocator {
 		} );
 
 		if ( rerenderLocator ) {
-			this.refreshScript( () => this.init() );
+			loadOrReplaceScript( this.element, () => {
+				this.webAppLib = this.element.ownerDocument.defaultView.WebApp;
+				this.init();
+			} );
 		}
 	}
 }

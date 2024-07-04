@@ -7,8 +7,16 @@ export const defaultConfig = {
 		unitSystem: 0,
 	},
 	maps: {
-		apiKey: '', // This needs to be provided by the user
 		provider: 'woosmap',
+		localities: {
+			types: [
+				'locality',
+				'postal_code',
+				'address',
+				'admin_level',
+				'country',
+			],
+		},
 	},
 	woosmapView: {
 		initialCenter: { lat: 50, lng: 0 },
