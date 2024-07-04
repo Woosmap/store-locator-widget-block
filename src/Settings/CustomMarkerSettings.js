@@ -6,7 +6,7 @@ import { dispatch } from '@wordpress/data';
 
 export default function CustomMarkerSettings( props ) {
 	const {
-		attributes: { customMarkers },
+		attributes: { woosmapView },
 		setAttributes,
 	} = props;
 
@@ -28,18 +28,26 @@ export default function CustomMarkerSettings( props ) {
 		}
 
 		const newMarker = {
-			storeType,
-			customTyleColor: '#000',
-			customDefaultMarkerUrl:
-				'https://images.woosmap.com/marker-default.svg',
-			customSelectedMarkerUrl:
-				'https://images.woosmap.com/marker-selected.svg',
-			customNumberedMarkerUrl:
-				'https://images.woosmap.com/marker-default.svg',
+			type: storeType,
+			icon: { url: 'https://images.woosmap.com/marker-default.svg' },
+			selectedIcon: {
+				url: 'https://images.woosmap.com/marker-selected.svg',
+			},
+			numberedIcon: {
+				url: 'https://images.woosmap.com/marker-default.svg',
+			},
 		};
 
-		const newCustomMarkers = [ ...customMarkers, newMarker ];
-		setAttributes( { customMarkers: newCustomMarkers } );
+		const newCustomMarkers = [ ...woosmapView.style.rules, newMarker ];
+		setAttributes( {
+			woosmapView: {
+				...woosmapView,
+				style: {
+					...woosmapView.style,
+					rules: newCustomMarkers,
+				},
+			},
+		} );
 
 		setStoreType( '' );
 	};
@@ -69,17 +77,16 @@ export default function CustomMarkerSettings( props ) {
 					{ __( 'Add Custom Marker', 'store-locator-widget-block' ) }
 				</Button>
 			</div>
-			{ customMarkers.map( ( marker, index ) => (
+			{ ( woosmapView.style?.rules || [] ).map( ( marker, index ) => (
 				<EditCustomMarkerSettings
 					key={ index }
 					index={ index }
 					marker={ marker }
-					storeType={ marker.storeType }
-					customTyleColor={ marker.customTyleColor }
-					customDefaultMarkerUrl={ marker.customDefaultMarkerUrl }
-					customSelectedMarkerUrl={ marker.customSelectedMarkerUrl }
-					customNumberedMarkerUrl={ marker.customNumberedMarkerUrl }
-					customMarkers={ customMarkers }
+					storeType={ marker.type }
+					customDefaultMarkerUrl={ marker.icon.url }
+					customSelectedMarkerUrl={ marker.selectedIcon.url }
+					customNumberedMarkerUrl={ marker.numberedIcon.url }
+					woosmapView={ woosmapView }
 					setAttributes={ setAttributes }
 				/>
 			) ) }

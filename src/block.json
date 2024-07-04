@@ -12,7 +12,6 @@
 		"Map"
 	],
 	"description": "Easily display your stores on a Map using Woosmap platform",
-	"example": {},
 	"supports": {
 		"align": [
 			"wide",
@@ -46,23 +45,8 @@
 		},
 		"internationalization": {
 			"type": "object",
-			"properties": {
-				"lang": {
-					"type": "string",
-					"default": "en"
-				},
-				"period": {
-					"type": "string",
-					"default": "fr"
-				},
-				"unitSystem": {
-					"type": "number",
-					"default": 0
-				}
-			},
 			"default": {
 				"lang": "en",
-				"period": "fr",
 				"unitSystem": 0
 			}
 		},
@@ -95,14 +79,6 @@
 				}
 			}
 		},
-		"filters": {
-			"type": "object",
-			"default": {}
-		},
-		"initialSearch": {
-			"type": "object",
-			"default": {}
-		},
 		"maps": {
 			"type": "object",
 			"default": {
@@ -118,37 +94,16 @@
 				}
 			}
 		},
-		"customMarkers": {
-			"type": "array",
-			"default": [],
-			"items": {
-				"type": "object",
-				"properties": {
-					"storeType": {
-						"type": "string"
-					},
-					"customTyleColor": {
-						"type": "string"
-					},
-					"customDefaultMarkerUrl": {
-						"type": "string"
-					},
-					"customSelectedMarkerUrl": {
-						"type": "string"
-					},
-					"customNumberedMarkerUrl": {
-						"type": "string"
-					}
-				}
-			}
+		"filters": {
+			"type": "object"
+		},
+		"initialSearch": {
+			"type": "object"
 		}
 	},
 	"textdomain": "store-locator-widget-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
-	"viewScript": [
-		"file:./view.js",
-		"woosmap-webapp-js"
-	]
+	"viewScript": "file:./view.js"
 }

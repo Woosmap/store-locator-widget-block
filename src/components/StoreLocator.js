@@ -25,6 +25,7 @@ class StoreLocator {
 		const config = parseDataset( this.element.dataset );
 		this.storeLocatorConfig = validateConfig( config );
 
+		console.log(this.storeLocatorConfig);
 		this.element.innerHTML = '';
 		const newElementId = 'store-locator-widget-id';
 

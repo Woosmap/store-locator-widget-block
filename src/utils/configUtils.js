@@ -34,6 +34,16 @@ function safeParse( json, defaultValue = {} ) {
 	}
 }
 
+// Utility function to check for empty values
+function isEmptyValue( value ) {
+	return (
+		value === null ||
+		value === undefined ||
+		( typeof value === 'object' && Object.keys( value ).length === 0 ) ||
+		( typeof value === 'string' && value.trim() === '' )
+	);
+}
+
 export function parseDataset( dataset ) {
 	const {
 		filters = '{}',
@@ -56,10 +66,10 @@ export function parseDataset( dataset ) {
 		internationalization,
 		defaultConfig.internationalization
 	);
-	const parsedFilters = safeParse( filters, {} );
-	const parsedInitialSearch = safeParse( initialSearch, {} );
+	const parsedFilters = safeParse( filters );
+	const parsedInitialSearch = safeParse( initialSearch );
 
-	return {
+	const config = {
 		theme: parsedTheme,
 		datasource: parsedDataSource,
 		internationalization: parsedInternationalization,
@@ -86,6 +96,19 @@ export function parseDataset( dataset ) {
 		filters: parsedFilters,
 		initialSearch: parsedInitialSearch,
 	};
+
+	removeEmptyValues( config );
+	return config;
+}
+
+// Remove top-level keys with empty values
+
+function removeEmptyValues( config ) {
+	Object.keys( config ).forEach( ( key ) => {
+		if ( isEmptyValue( config[ key ] ) ) {
+			delete config[ key ];
+		}
+	} );
 }
 
 export function validateConfig( config ) {
@@ -104,7 +127,6 @@ export function validateConfig( config ) {
 
 export function processInputConfig( config ) {
 	const fixedConfig = config
-		.replace( /'/g, '"' ) // Replace single quotes with double quotes
 		.replace( /([,{]\s*)([a-zA-Z0-9_]+):/g, '$1"$2":' ) // Ensure keys are quoted
 		.replace( /\b(true|false|null)\b/g, ( match ) => match.toLowerCase() ) // Correct boolean and null literals
 		.replace( /,\s*([}\]])/g, '$1' ) // Remove trailing commas

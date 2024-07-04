@@ -8,7 +8,6 @@ export default function StoreLocatorBlockSave( props ) {
 			theme,
 			internationalization,
 			woosmapView,
-			customMarkers,
 			filters,
 			maps,
 			initialSearch,
@@ -29,7 +28,6 @@ export default function StoreLocatorBlockSave( props ) {
 			data-theme={ JSON.stringify( theme ) }
 			data-internationalization={ JSON.stringify( internationalization ) }
 			data-woosmap-view={ JSON.stringify( woosmapView ) }
-			data-custom-markers={ JSON.stringify( customMarkers ) }
 			data-filters={ JSON.stringify( filters ) }
 			data-maps={ JSON.stringify( maps ) }
 			data-initial-search={ JSON.stringify( initialSearch ) }

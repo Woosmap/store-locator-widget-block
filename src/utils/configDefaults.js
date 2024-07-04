@@ -3,7 +3,6 @@ export const defaultConfig = {
 	datasource: { max_responses: 5, max_distance: 50000 },
 	internationalization: {
 		lang: 'en',
-		period: 'fr',
 		unitSystem: 0,
 	},
 	maps: {

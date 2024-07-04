@@ -19,7 +19,7 @@ export function loadOrReplaceScript( element, callback = null ) {
 		`script[src^="${ webappScriptSource }"], script[src^="${ mapScriptSource }"]`
 	);
 	if ( existingScripts.length ) {
-		const globalVars = [ 'WebApp', 'woosmap' ];
+		const globalVars = [ 'WebApp', 'woosmap', '__webapp_maps_callback' ];
 		globalVars.forEach( ( varName ) => {
 			if ( element.ownerDocument.defaultView[ varName ] !== undefined ) {
 				element.ownerDocument.defaultView[ varName ] = null;

@@ -197,12 +197,26 @@ export default function StoreLocatorBlockEdit( props ) {
 	}
 	if ( showConfigPlaceholder ) {
 		return (
-			<WidgetJsonForm
-				blockProps={ blockProps }
-				BlockIcon={ BlockIcon }
-				initialConfig={ attributes }
-				onValidateConfig={ onValidateConfig }
-			/>
+			<>
+				<BlockControls>
+					<ToolbarGroup>
+						<ToolbarButton
+							icon="location"
+							label={ __(
+								'Show Map',
+								'store-locator-widget-block'
+							) }
+							onClick={ () => setShowConfigPlaceholder( false ) }
+						/>
+					</ToolbarGroup>
+				</BlockControls>
+				<WidgetJsonForm
+					blockProps={ blockProps }
+					BlockIcon={ BlockIcon }
+					initialConfig={ attributes }
+					onValidateConfig={ onValidateConfig }
+				/>
+			</>
 		);
 	}
 
@@ -216,9 +230,7 @@ export default function StoreLocatorBlockEdit( props ) {
 							'Show Configuration',
 							'store-locator-widget-block'
 						) }
-						onClick={ () =>
-							setShowConfigPlaceholder( ! showConfigPlaceholder )
-						}
+						onClick={ () => setShowConfigPlaceholder( true ) }
 					/>
 				</ToolbarGroup>
 			</BlockControls>
