@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    aria-label="Block: undefined"
+    class="block-editor-block-list__block wp-block"
+    id="block-undefined"
+    role="document"
+    tabindex="0"
+  >
+    <div
+      class="components-placeholder"
+    >
+      <div
+        aria-hidden="true"
+        style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; pointer-events: none; opacity: 0; overflow: hidden; z-index: -1;"
+      />
+      <div
+        class="components-placeholder__label"
+      >
+        Store Locator Widget Configuration
+      </div>
+      <div
+        class="components-placeholder__fieldset"
+      >
+        <div
+          style="margin-bottom: 1em;"
+        >
+          Before updating the configuration, please ensure that your JSON is valid and that it includes all necessary fields for the widget to function correctly.
+        </div>
+        <pre>
+          <div
+            aria-label="Conf"
+            aria-multiline="true"
+            aria-readonly="false"
+            class="block-editor-rich-text__editable rich-text"
+            contenteditable="true"
+            role="textbox"
+            style="white-space: pre-wrap; min-width: 1px;"
+          >
+            {
+            <br
+              data-rich-text-line-break="true"
+            />
+              "woosmapView": {
+            <br
+              data-rich-text-line-break="true"
+            />
+                "initialCenter": {
+            <br
+              data-rich-text-line-break="true"
+            />
+                  "lat": 50,
+            <br
+              data-rich-text-line-break="true"
+            />
+                  "lng": 0
+            <br
+              data-rich-text-line-break="true"
+            />
+                },
+            <br
+              data-rich-text-line-break="true"
+            />
+                "initialZoom": 13
+            <br
+              data-rich-text-line-break="true"
+            />
+              },
+            <br
+              data-rich-text-line-break="true"
+            />
+              "theme": {
+            <br
+              data-rich-text-line-break="true"
+            />
+                "primary_color": "#000000"
+            <br
+              data-rich-text-line-break="true"
+            />
+              }
+            <br
+              data-rich-text-line-break="true"
+            />
+            }
+          </div>
+        </pre>
+        <button
+          class="components-button is-primary"
+          style="margin-top: 10px;"
+          type="button"
+        >
+          Validate Configuration
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

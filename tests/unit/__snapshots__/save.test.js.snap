@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoreLocatorBlockSave component matches snapshot with default attributes 1`] = `
+<DocumentFragment>
+  <div
+    data-api-key=""
+    data-height="300"
+    data-theme="{"primary_color":"#ffffff"}"
+    data-woosmap-view="{"initialCenter":{"lat":50,"lng":0},"initialZoom":13}"
+    id="storeLocatorWidget"
+    style="height: 300px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`StoreLocatorBlockSave component matches snapshot with provided attributes 1`] = `
+<DocumentFragment>
+  <div
+    data-api-key="your-api-key"
+    data-height="400"
+    data-theme="{"primary_color":"#ffffff"}"
+    data-woosmap-view="{"initialCenter":{"lat":51.5074,"lng":0.1278},"initialZoom":15}"
+    id="storeLocatorWidget"
+    style="height: 400px;"
+  />
+</DocumentFragment>
+`;
