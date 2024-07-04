@@ -99,6 +99,9 @@
 		},
 		"initialSearch": {
 			"type": "object"
+		},
+		"datasource": {
+			"type": "object"
 		}
 	},
 	"textdomain": "store-locator-widget-block",

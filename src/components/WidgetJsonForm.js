@@ -10,10 +10,8 @@ export default function WidgetJsonForm( {
 	initialConfig,
 	onValidateConfig,
 } ) {
-	const { height, apiKey, ...filteredInitialConfig } = initialConfig;
-
 	const [ config, setConfig ] = useState(
-		JSON.stringify( filteredInitialConfig, null, 2 )
+		JSON.stringify( initialConfig, null, 2 )
 	);
 
 	const handleValidateConfig = useCallback( () => {

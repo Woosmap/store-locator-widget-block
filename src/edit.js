@@ -65,7 +65,7 @@ export default function StoreLocatorBlockEdit( props ) {
 	const hasSLW = !! storeLocatorWidget;
 	const [ isLoading, setIsLoading ] = useState( true );
 	const [ showConfigPlaceholder, setShowConfigPlaceholder ] =
-		useState( false );
+		useState( true );
 
 	const isAuthenticated = useSelect( ( select ) => {
 		return select( slwBlockStore ).isAuthenticated();
@@ -83,7 +83,7 @@ export default function StoreLocatorBlockEdit( props ) {
 	};
 
 	const onValidateConfig = ( conf ) => {
-		setAttributes( conf );
+		setAttributes( { ...attributes, ...conf } );
 		setShowConfigPlaceholder( false );
 	};
 
@@ -212,8 +212,15 @@ export default function StoreLocatorBlockEdit( props ) {
 				</BlockControls>
 				<WidgetJsonForm
 					blockProps={ blockProps }
-					BlockIcon={ BlockIcon }
-					initialConfig={ attributes }
+					initialConfig={ {
+						woosmapView: attributes.woosmapView,
+						theme: attributes.theme,
+						initialSearch: attributes.initialSearch,
+						internationalization: attributes.internationalization,
+						filters: attributes.filters,
+						maps: attributes.maps,
+						datasource: attributes.datasource,
+					} }
 					onValidateConfig={ onValidateConfig }
 				/>
 			</>
@@ -246,12 +253,12 @@ export default function StoreLocatorBlockEdit( props ) {
 					} }
 					onResize={ ( newHeight ) => {
 						storeLocatorWidget.update(
-							{ height: newHeight },
+							{ height: newHeight.toString() },
 							false
 						);
 					} }
 					onResizeStop={ ( newHeight ) => {
-						setAttributes( { height: newHeight } );
+						setAttributes( { height: newHeight.toString() } );
 						toggleSelection( true );
 					} }
 					showHandle={ isSelected }

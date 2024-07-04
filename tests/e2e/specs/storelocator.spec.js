@@ -25,10 +25,16 @@ test.describe('Store Locator Widget Editor Block Functionality', () => {
 			.locator('text=Confirm Woosmap Credentials')
 			.click();
 
+		// Confirm the JSON Conf.
+		await editor.canvas
+			.locator('text=Validate Configuration')
+			.click();
+
 		// Verify that the store locator map is visible.
 		await expect(
 			editor.canvas.locator('[id="store-locator-widget-id"]')
 		).toBeVisible();
+
 
 		// Navigate to JSON Conf.
 		await page
