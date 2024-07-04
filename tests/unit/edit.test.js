@@ -17,7 +17,7 @@ describe("StoreLocatorBlockEdit component", () => {
 				initialZoom: 13,
 			},
 			theme: {primary_color: '#000000'},
-			apiKey: ''
+			apiKey: 'fake-apikey'
 		};
 
 		const {asFragment} = render(

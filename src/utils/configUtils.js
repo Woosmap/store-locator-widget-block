@@ -34,6 +34,16 @@ function safeParse( json, defaultValue = {} ) {
 	}
 }
 
+// Utility function to check for empty values
+function isEmptyValue( value ) {
+	return (
+		value === null ||
+		value === undefined ||
+		( typeof value === 'object' && Object.keys( value ).length === 0 ) ||
+		( typeof value === 'string' && value.trim() === '' )
+	);
+}
+
 export function parseDataset( dataset ) {
 	const {
 		filters = '{}',
@@ -41,23 +51,33 @@ export function parseDataset( dataset ) {
 		datasource = '{}',
 		internationalization = '{}',
 		woosmapView = '{}',
+		maps = '{}',
+		initialSearch = '{}',
 		apiKey,
 	} = dataset;
 
 	const parsedWoosmapView = safeParse(
 		woosmapView,
-		defaultConfig.woosmapview
+		defaultConfig.woosmapView
 	);
+	const parsedTheme = safeParse( theme, defaultConfig.theme );
+	const parsedDataSource = safeParse( datasource, defaultConfig.datasource );
+	const parsedInternationalization = safeParse(
+		internationalization,
+		defaultConfig.internationalization
+	);
+	const parsedFilters = safeParse( filters );
+	const parsedInitialSearch = safeParse( initialSearch );
 
-	return {
-		theme: safeParse( theme, defaultConfig.theme ),
-		datasource: safeParse( datasource, defaultConfig.datasource ),
-		internationalization: safeParse(
-			internationalization,
-			defaultConfig.internationalization
-		),
-		maps: { apiKey, provider: 'woosmap' },
-		woosmapview: {
+	const config = {
+		theme: parsedTheme,
+		datasource: parsedDataSource,
+		internationalization: parsedInternationalization,
+		maps: {
+			...safeParse( maps, defaultConfig.maps ),
+			apiKey,
+		},
+		woosmapView: {
 			...parsedWoosmapView,
 			initialCenter: parsedWoosmapView.initialCenter,
 			initialZoom: parsedWoosmapView.initialZoom,
@@ -73,8 +93,22 @@ export function parseDataset( dataset ) {
 				default: parsedWoosmapView.style.default,
 			},
 		},
-		filters: safeParse( filters, {} ),
+		filters: parsedFilters,
+		initialSearch: parsedInitialSearch,
 	};
+
+	removeEmptyValues( config );
+	return config;
+}
+
+// Remove top-level keys with empty values
+
+function removeEmptyValues( config ) {
+	Object.keys( config ).forEach( ( key ) => {
+		if ( isEmptyValue( config[ key ] ) ) {
+			delete config[ key ];
+		}
+	} );
 }
 
 export function validateConfig( config ) {
@@ -93,7 +127,6 @@ export function validateConfig( config ) {
 
 export function processInputConfig( config ) {
 	const fixedConfig = config
-		.replace( /'/g, '"' ) // Replace single quotes with double quotes
 		.replace( /([,{]\s*)([a-zA-Z0-9_]+):/g, '$1"$2":' ) // Ensure keys are quoted
 		.replace( /\b(true|false|null)\b/g, ( match ) => match.toLowerCase() ) // Correct boolean and null literals
 		.replace( /,\s*([}\]])/g, '$1' ) // Remove trailing commas

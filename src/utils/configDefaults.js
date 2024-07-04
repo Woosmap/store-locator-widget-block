@@ -3,12 +3,19 @@ export const defaultConfig = {
 	datasource: { max_responses: 5, max_distance: 50000 },
 	internationalization: {
 		lang: 'en',
-		period: 'fr',
 		unitSystem: 0,
 	},
 	maps: {
-		apiKey: '', // This needs to be provided by the user
 		provider: 'woosmap',
+		localities: {
+			types: [
+				'locality',
+				'postal_code',
+				'address',
+				'admin_level',
+				'country',
+			],
+		},
 	},
 	woosmapView: {
 		initialCenter: { lat: 50, lng: 0 },

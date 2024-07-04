@@ -11,7 +11,6 @@ exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
   >
     <div
       class="components-placeholder"
-      style="height: 300px;"
     >
       <div
         aria-hidden="true"
@@ -20,92 +19,80 @@ exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
       <div
         class="components-placeholder__label"
       >
-        <svg
-          viewBox="0 0 1024 771.444"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            fill="#4FC3F7"
-            height="172.249"
-            width="166.721"
-            x="427.842"
-          />
-          <rect
-            fill="#5586FF"
-            height="166.721"
-            width="255.601"
-            x="338.962"
-            y="172.249"
-          />
-          <rect
-            fill="#3D5AFE"
-            height="255.609"
-            width="166.721"
-            x="172.241"
-            y="172.249"
-          />
-          <rect
-            fill="#3949AB"
-            height="166.721"
-            width="338.962"
-            y="427.858"
-          />
-          <rect
-            fill="#FFAB00"
-            height="166.721"
-            width="172.257"
-            x="851.743"
-            y="176.865"
-          />
-          <rect
-            fill="#FF5252"
-            height="255.609"
-            width="166.721"
-            x="685.022"
-            y="176.865"
-          />
-          <rect
-            fill="#F50057"
-            height="166.721"
-            width="255.601"
-            x="596.142"
-            y="432.474"
-          />
-          <rect
-            fill="#C51162"
-            height="338.961"
-            width="166.721"
-            x="429.421"
-            y="432.483"
-          />
-        </svg>
-        Block for Woosmap Store Locator Widget
+        Store Locator Widget Configuration
       </div>
       <div
         class="components-placeholder__fieldset"
       >
-        <svg
-          class="components-spinner css-etcl5r-StyledSpinner ea4tfvq2"
-          focusable="false"
-          height="16"
-          role="presentation"
-          viewBox="0 0 100 100"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          style="margin-bottom: 1em;"
         >
-          <circle
-            class="css-mx768t-SpinnerTrack-commonPathProps ea4tfvq1"
-            cx="50"
-            cy="50"
-            r="50"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            class="css-7c7ebc-SpinnerIndicator-commonPathProps ea4tfvq0"
-            d="m 50 0 a 50 50 0 0 1 50 50"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
+          Before updating the configuration, please ensure that your JSON is valid and that it includes all necessary fields for the widget to function correctly.
+        </div>
+        <pre>
+          <div
+            aria-label="Conf"
+            aria-multiline="true"
+            aria-readonly="false"
+            class="block-editor-rich-text__editable rich-text"
+            contenteditable="true"
+            role="textbox"
+            style="white-space: pre-wrap; min-width: 1px;"
+          >
+            {
+            <br
+              data-rich-text-line-break="true"
+            />
+              "woosmapView": {
+            <br
+              data-rich-text-line-break="true"
+            />
+                "initialCenter": {
+            <br
+              data-rich-text-line-break="true"
+            />
+                  "lat": 50,
+            <br
+              data-rich-text-line-break="true"
+            />
+                  "lng": 0
+            <br
+              data-rich-text-line-break="true"
+            />
+                },
+            <br
+              data-rich-text-line-break="true"
+            />
+                "initialZoom": 13
+            <br
+              data-rich-text-line-break="true"
+            />
+              },
+            <br
+              data-rich-text-line-break="true"
+            />
+              "theme": {
+            <br
+              data-rich-text-line-break="true"
+            />
+                "primary_color": "#000000"
+            <br
+              data-rich-text-line-break="true"
+            />
+              }
+            <br
+              data-rich-text-line-break="true"
+            />
+            }
+          </div>
+        </pre>
+        <button
+          class="components-button is-primary"
+          style="margin-top: 10px;"
+          type="button"
+        >
+          Validate Configuration
+        </button>
       </div>
     </div>
   </div>

@@ -8,8 +8,10 @@ export default function StoreLocatorBlockSave( props ) {
 			theme,
 			internationalization,
 			woosmapView,
-			customMarkers,
 			filters,
+			maps,
+			initialSearch,
+			datasource,
 		},
 	} = props;
 
@@ -23,12 +25,15 @@ export default function StoreLocatorBlockSave( props ) {
 	return (
 		<div
 			{ ...blockProps }
+			data-height={ height }
 			data-api-key={ apiKey }
 			data-theme={ JSON.stringify( theme ) }
 			data-internationalization={ JSON.stringify( internationalization ) }
 			data-woosmap-view={ JSON.stringify( woosmapView ) }
-			data-custom-markers={ JSON.stringify( customMarkers ) }
 			data-filters={ JSON.stringify( filters ) }
+			data-maps={ JSON.stringify( maps ) }
+			data-initial-search={ JSON.stringify( initialSearch ) }
+			data-datasource={ JSON.stringify( datasource ) }
 		></div>
 	);
 }

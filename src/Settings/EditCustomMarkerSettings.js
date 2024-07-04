@@ -1,11 +1,4 @@
-import {
-	PanelBody,
-	TextControl,
-	Button,
-	PanelRow,
-	ColorIndicator,
-	ColorPalette,
-} from '@wordpress/components';
+import { PanelBody, TextControl, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { dispatch } from '@wordpress/data';
 
@@ -14,26 +7,41 @@ export default function EditCustomMarkerSettings( props ) {
 		index,
 		marker,
 		storeType,
-		customTyleColor,
 		customDefaultMarkerUrl,
 		customSelectedMarkerUrl,
 		customNumberedMarkerUrl,
-		customMarkers,
+		woosmapView,
 		setAttributes,
 	} = props;
 
 	const updateMarker = ( updatedMarker ) => {
-		const newCustomMarkers = customMarkers.map( ( m, i ) =>
+		const newCustomMarkers = woosmapView.style.rules.map( ( m, i ) =>
 			i === index ? updatedMarker : m
 		);
-		setAttributes( { customMarkers: newCustomMarkers } );
+		setAttributes( {
+			woosmapView: {
+				...woosmapView,
+				style: {
+					...woosmapView.style,
+					rules: newCustomMarkers,
+				},
+			},
+		} );
 	};
 
 	const deleteMarker = () => {
-		const newCustomMarkers = customMarkers.filter(
+		const newCustomMarkers = woosmapView.style.rules.filter(
 			( _, i ) => i !== index
 		);
-		setAttributes( { customMarkers: newCustomMarkers } );
+		setAttributes( {
+			woosmapView: {
+				...woosmapView,
+				style: {
+					...woosmapView.style,
+					rules: newCustomMarkers,
+				},
+			},
+		} );
 	};
 
 	const validateStoreType = ( value ) => {
@@ -66,21 +74,6 @@ export default function EditCustomMarkerSettings( props ) {
 						updateMarker( { ...marker, storeType: value } );
 					}
 				} }
-			/>
-			<PanelRow>
-				<label htmlFor="custom-tile-color-control">
-					{ __( 'Custom Tile Color', 'store-locator-widget-block' ) }
-				</label>
-				<ColorIndicator
-					id="custom-tile-color-control"
-					colorValue={ customTyleColor }
-				/>
-			</PanelRow>
-			<ColorPalette
-				value={ customTyleColor }
-				onChange={ ( value ) =>
-					updateMarker( { ...marker, customTyleColor: value } )
-				}
 			/>
 			<div
 				style={ {

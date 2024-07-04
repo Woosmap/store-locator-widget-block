@@ -7,14 +7,11 @@ import { processInputConfig } from '../utils/configUtils';
 
 export default function WidgetJsonForm( {
 	blockProps,
-	BlockIcon,
 	initialConfig,
 	onValidateConfig,
 } ) {
-	const { height, apiKey, ...filteredInitialConfig } = initialConfig;
-
 	const [ config, setConfig ] = useState(
-		JSON.stringify( filteredInitialConfig, null, 2 )
+		JSON.stringify( initialConfig, null, 2 )
 	);
 
 	const handleValidateConfig = useCallback( () => {
@@ -39,8 +36,13 @@ export default function WidgetJsonForm( {
 					'Store Locator Widget Configuration',
 					'store-locator-widget-block'
 				) }
-				icon={ BlockIcon }
 			>
+				<div style={ { marginBottom: '1em' } }>
+					{ __(
+						'Before updating the configuration, please ensure that your JSON is valid and that it includes all necessary fields for the widget to function correctly.',
+						'store-locator-widget-block'
+					) }
+				</div>
 				<pre>
 					<RichText
 						value={ config }
@@ -50,7 +52,6 @@ export default function WidgetJsonForm( {
 						preserveWhiteSpace={ true }
 						allowedFormats={ [] }
 						withoutInteractiveFormatting={ true }
-						__unstablePastePlainText={ true /* GB 9.5 */ }
 					/>
 				</pre>
 				<Button
