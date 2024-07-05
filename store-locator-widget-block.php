@@ -5,8 +5,8 @@
  * Requires at least: 6.1
  * Tested up to:      6.5
  * Requires PHP:      7.0
- * Version:           0.1.0
- * Author:            Woosmap Team
+ * Version:           1.0.0
+ * Author:            The Woosmap Team
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       store-locator-widget-block
@@ -20,7 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function woosmap_store_locator_widget_block_init() {
 	register_block_type( __DIR__ . '/build' );
-	wp_register_script( 'woosmap-webapp-js', 'https://webapp.woosmap.com/webapp.js', [], null, false );
 }
 add_action( 'init', 'woosmap_store_locator_widget_block_init' );
 
@@ -54,15 +53,4 @@ function woosmap_sanitize_settings($input) {
 	}
 
 	return $input;
-}
-
-/**
- * Helper to retrieve a setting.
- *
- * @param string $setting The name of the setting.
- * @return mixed
- */
-function get_woosmap_settings( $setting ) {
-	$settings = get_option( 'woosmap_settings', [] );
-	return isset( $settings[ $setting ] ) ? $settings[ $setting ] : '';
 }
