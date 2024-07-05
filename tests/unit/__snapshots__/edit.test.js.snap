@@ -29,62 +29,60 @@ exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
         >
           Before updating the configuration, please ensure that your JSON is valid and that it includes all necessary fields for the widget to function correctly.
         </div>
-        <pre>
-          <div
-            aria-label="Conf"
-            aria-multiline="true"
-            aria-readonly="false"
-            class="block-editor-rich-text__editable rich-text"
-            contenteditable="true"
-            role="textbox"
-            style="white-space: pre-wrap; min-width: 1px;"
-          >
-            {
-            <br
-              data-rich-text-line-break="true"
-            />
-              "woosmapView": {
-            <br
-              data-rich-text-line-break="true"
-            />
-                "initialCenter": {
-            <br
-              data-rich-text-line-break="true"
-            />
-                  "lat": 50,
-            <br
-              data-rich-text-line-break="true"
-            />
-                  "lng": 0
-            <br
-              data-rich-text-line-break="true"
-            />
-                },
-            <br
-              data-rich-text-line-break="true"
-            />
-                "initialZoom": 13
-            <br
-              data-rich-text-line-break="true"
-            />
+        <pre
+          aria-label="Conf"
+          aria-multiline="true"
+          aria-readonly="false"
+          class="block-editor-rich-text__editable rich-text"
+          contenteditable="true"
+          role="textbox"
+          style="white-space: pre-wrap; min-width: 1px;"
+        >
+          {
+          <br
+            data-rich-text-line-break="true"
+          />
+            "woosmapView": {
+          <br
+            data-rich-text-line-break="true"
+          />
+              "initialCenter": {
+          <br
+            data-rich-text-line-break="true"
+          />
+                "lat": 50,
+          <br
+            data-rich-text-line-break="true"
+          />
+                "lng": 0
+          <br
+            data-rich-text-line-break="true"
+          />
               },
-            <br
-              data-rich-text-line-break="true"
-            />
-              "theme": {
-            <br
-              data-rich-text-line-break="true"
-            />
-                "primary_color": "#000000"
-            <br
-              data-rich-text-line-break="true"
-            />
-              }
-            <br
-              data-rich-text-line-break="true"
-            />
+          <br
+            data-rich-text-line-break="true"
+          />
+              "initialZoom": 13
+          <br
+            data-rich-text-line-break="true"
+          />
+            },
+          <br
+            data-rich-text-line-break="true"
+          />
+            "theme": {
+          <br
+            data-rich-text-line-break="true"
+          />
+              "primary_color": "#000000"
+          <br
+            data-rich-text-line-break="true"
+          />
             }
-          </div>
+          <br
+            data-rich-text-line-break="true"
+          />
+          }
         </pre>
         <button
           class="components-button is-primary"

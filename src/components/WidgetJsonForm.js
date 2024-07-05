@@ -43,17 +43,17 @@ export default function WidgetJsonForm( {
 						'store-locator-widget-block'
 					) }
 				</div>
-				<pre>
-					<RichText
-						value={ config }
-						onChange={ ( text ) => setConfig( text ) }
-						placeholder={ __( 'Write json conf…' ) }
-						aria-label={ __( 'Conf' ) }
-						preserveWhiteSpace={ true }
-						allowedFormats={ [] }
-						withoutInteractiveFormatting={ true }
-					/>
-				</pre>
+				<RichText
+					value={ config }
+					tagName={ 'pre' }
+					onChange={ ( text ) => setConfig( text ) }
+					placeholder={ __( 'Write json conf…' ) }
+					aria-label={ __( 'Conf' ) }
+					preserveWhiteSpace={ true }
+					allowedFormats={ [] }
+					withoutInteractiveFormatting={ true }
+					__unstablePastePlainText
+				/>
 				<Button
 					isPrimary
 					onClick={ handleValidateConfig }
