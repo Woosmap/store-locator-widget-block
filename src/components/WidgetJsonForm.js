@@ -44,10 +44,10 @@ export default function WidgetJsonForm( {
 					}
 				);
 			} )
-			.catch( ( error ) => {
+			.catch( () => {
 				dispatch( 'core/notices' ).createErrorNotice(
 					__(
-						`Failed to copy configuration: ${ error.message }`,
+						`Failed to copy configuration`,
 						'store-locator-widget-block'
 					),
 					{
