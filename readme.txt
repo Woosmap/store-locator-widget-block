@@ -4,7 +4,7 @@ Tags: store locator, maps, map block, block
 Requires at least: 6.1
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0-or-later
 License URI: https://spdx.org/licenses/GPL-2.0-or-later.html
 

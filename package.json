@@ -1,6 +1,6 @@
 {
 	"name": "store-locator-widget-block",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Easily display your stores on a Map using Woosmap platform",
 	"author": "@woosmap",
 	"license": "GPL-2.0-or-later",
