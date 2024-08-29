@@ -137,6 +137,32 @@ export default function StoreLocatorBlockEdit( props ) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ attributes, isAuthenticated, storeLocatorWidget, hasSLW ] );
 
+	// Set the Marker URLs from local assets dynamically only once when the component mounts
+	useEffect( () => {
+		if ( ! attributes.woosmapView.style ) {
+			const { markerDefaultUrl, markerSelectedUrl } =
+				window.woosmapPluginData;
+			setAttributes( {
+				...attributes,
+				woosmapView: {
+					...attributes.woosmapView,
+					style: {
+						default: {
+							icon: {
+								url: markerDefaultUrl,
+							},
+							selectedIcon: {
+								url: markerSelectedUrl,
+							},
+							numberedIcon: {
+								url: markerDefaultUrl,
+							},
+						},
+					},
+				},
+			} );
+		}
+	}, [ setAttributes, attributes ] );
 	const blockProps = useBlockProps( { ref: setupRef } );
 
 	if ( isLoading ) {

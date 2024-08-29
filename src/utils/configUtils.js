@@ -133,8 +133,13 @@ export function processInputConfig( config ) {
 		.trim();
 
 	try {
-		// Attempt to parse and then stringify to ensure valid JSON format
-		return JSON.stringify( JSON.parse( fixedConfig ), null, 2 );
+		const parsedConfig = JSON.parse( fixedConfig );
+		// Check and replace "woosmapview" with "woosmapView" at the first level
+		if ( parsedConfig.hasOwnProperty( 'woosmapview' ) ) {
+			parsedConfig.woosmapView = parsedConfig.woosmapview;
+			delete parsedConfig.woosmapview;
+		}
+		return JSON.stringify( parsedConfig, null, 2 );
 	} catch ( error ) {
 		throw new Error(
 			'Failed to process input config into valid JSON: ' + error.message

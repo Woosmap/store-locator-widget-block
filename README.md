@@ -83,3 +83,32 @@ When you create a new Woosmap block, the initial settings screen prompts you to 
 has already been configured, this field will be pre-populated with the existing key stored in the Woosmap settings.
 After validation, proceed to the Map View to access various editor settings, or edit the JSON Configuration as desired.
 ![Block JSON Configuration](.wordpress-org/screenshot-2.png "Example of Woosmap Store Locator Widget block showing Editable JSON Configuration in the new WordPress editor")
+
+## Local Development
+
+**Install Docker**: Docker is required to run a local WordPress environment using `wp-env`.
+
+**Install Dependencies**:
+
+```shell
+npm ci
+```
+
+**Start the Local Development Server**: This will set up a local WordPress environment for development.
+
+```shell
+npm run wp-env start
+```
+
+Then you can **compile assets and watch for changes** using:
+
+```shell
+npm run build
+npm start
+```
+
+Then navigate to http://localhost:8888/wp-admin/edit.php and edit the post to add the Widget block.
+This block is present under the "WIDGETS" tab of the Gutenberg block browser.
+
+For further documentation regarding the `@wordpress/env` package, please refer to
+their [official documentation](https://www.npmjs.com/package/@wordpress/env).

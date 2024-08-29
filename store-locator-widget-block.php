@@ -5,8 +5,8 @@
  * Requires at least: 6.1
  * Tested up to:      6.5
  * Requires PHP:      7.0
- * Version:           1.0.0
- * Author:            The Woosmap Team
+ * Version:           1.0.1
+ * Author:            @woosmap
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       store-locator-widget-block
@@ -20,6 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function woosmap_store_locator_widget_block_init() {
 	register_block_type( __DIR__ . '/build' );
+	 wp_localize_script('woosmap-store-locator-widget-block-editor-script', 'woosmapPluginData', array(
+        'markerDefaultUrl' => plugins_url('assets/images/marker-default.svg', __FILE__),
+        'markerSelectedUrl' => plugins_url('assets/images/marker-selected.svg', __FILE__),
+    ));
 }
 add_action( 'init', 'woosmap_store_locator_widget_block_init' );
 

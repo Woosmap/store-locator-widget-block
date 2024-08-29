@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="40px" viewBox="0 0 28 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>marker-default</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="marker-default" fill-rule="nonzero">
+            <path d="M15.314,38.617 C15.314,29.4 28,24.06 28,14 C28,6.2680135 21.7319865,0 14,0 C6.2680135,0 0,6.2680135 0,14 C0,24.06 12.686,29.4 12.686,38.617 C12.6934326,38.9487408 12.8400828,39.2620505 13.0900649,39.4802617 C13.3400471,39.6984729 13.6702963,39.8014521 14,39.764 C14.3291206,39.7986397 14.6578011,39.6946611 14.9071161,39.4770323 C15.1564311,39.2594034 15.3038596,38.9477831 15.314,38.617 Z" id="Path" fill="#5485FF"></path>
+            <circle id="Oval" fill="#FFFFFF" cx="14" cy="14.259" r="5.622"></circle>
+        </g>
+    </g>
+</svg>

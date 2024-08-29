@@ -59,7 +59,7 @@ export default function EditAuthForm( { setApiKey } ) {
 				) }
 				readOnly={ isBusy }
 				name="woosmap_public_api_key"
-				value={ publicApiKey }
+				value={ publicApiKey || '' }
 				onChange={ ( newPublicApiKeyKey ) =>
 					setPublicApiKey( newPublicApiKeyKey )
 				}

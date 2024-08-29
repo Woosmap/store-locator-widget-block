@@ -27,19 +27,5 @@ export const defaultConfig = {
 			typeRules: [],
 		},
 		breakPoint: 10,
-		style: {
-			rules: [],
-			default: {
-				icon: {
-					url: 'https://images.woosmap.com/marker-default.svg',
-				},
-				selectedIcon: {
-					url: 'https://images.woosmap.com/marker-selected.svg',
-				},
-				numberedIcon: {
-					url: 'https://images.woosmap.com/marker-default.svg',
-				},
-			},
-		},
 	},
 };

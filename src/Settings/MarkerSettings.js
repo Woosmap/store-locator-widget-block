@@ -1,20 +1,47 @@
 import {
 	PanelBody,
-	TextControl,
 	RangeControl,
 	PanelRow,
 	ColorIndicator,
 	ColorPalette,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import EditMarker from '../components/EditMarker';
 
-export default function MarkerSettings( props ) {
-	const {
-		attributes: { woosmapView },
-		setAttributes,
-	} = props;
-
+export default function MarkerSettings( {
+	attributes: { woosmapView },
+	setAttributes,
+} ) {
 	const { breakPoint, tileStyle, style } = woosmapView || {};
+
+	const updateAttribute = ( key, value ) => {
+		setAttributes( {
+			woosmapView: {
+				...woosmapView,
+				[ key ]: value,
+			},
+		} );
+	};
+
+	const updateMarker = ( updatedMarker ) => {
+		updateAttribute( 'style', {
+			...style,
+			default: {
+				...style.default,
+				...updatedMarker,
+			},
+		} );
+	};
+
+	const renderEditMarker = ( label, markerUrl, updateKey ) => (
+		<EditMarker
+			label={ label }
+			markerUrl={ markerUrl }
+			update={ ( marker ) =>
+				updateMarker( { [ updateKey ]: { url: marker.markerUrl } } )
+			}
+		/>
+	);
 
 	return (
 		<PanelBody
@@ -33,14 +60,9 @@ export default function MarkerSettings( props ) {
 			<ColorPalette
 				value={ tileStyle.color }
 				onChange={ ( value ) =>
-					setAttributes( {
-						woosmapView: {
-							...woosmapView,
-							tileStyle: {
-								...tileStyle,
-								color: value,
-							},
-						},
+					updateAttribute( 'tileStyle', {
+						...tileStyle,
+						color: value,
 					} )
 				}
 			/>
@@ -48,14 +70,9 @@ export default function MarkerSettings( props ) {
 				label={ __( 'Tile Size', 'store-locator-widget-block' ) }
 				value={ tileStyle.size }
 				onChange={ ( value ) =>
-					setAttributes( {
-						woosmapView: {
-							...woosmapView,
-							tileStyle: {
-								...tileStyle,
-								size: value,
-							},
-						},
+					updateAttribute( 'tileStyle', {
+						...tileStyle,
+						size: value,
 					} )
 				}
 				min={ 1 }
@@ -65,128 +82,29 @@ export default function MarkerSettings( props ) {
 			<RangeControl
 				label={ __( 'Break Point', 'store-locator-widget-block' ) }
 				value={ breakPoint }
-				onChange={ ( value ) =>
-					setAttributes( {
-						woosmapView: {
-							...woosmapView,
-							breakPoint: value,
-						},
-					} )
-				}
+				onChange={ ( value ) => updateAttribute( 'breakPoint', value ) }
 				min={ 1 }
 				max={ 20 }
 				step={ 1 }
 			/>
-			<div
-				style={ {
-					marginBottom: 20,
-					padding: 10,
-					border: '1px solid lightgray',
-					borderRadius: 5,
-				} }
-			>
-				<TextControl
-					label={ __(
-						'Default Marker Url',
-						'store-locator-widget-block'
-					) }
-					value={ style.default.icon.url }
-					onChange={ ( value ) =>
-						setAttributes( {
-							woosmapView: {
-								...woosmapView,
-								style: {
-									...style,
-									default: {
-										...style.default,
-										icon: { url: value },
-									},
-								},
-							},
-						} )
-					}
-				/>
-				{ style.default.icon.url && (
-					<img
-						src={ style.default.icon.url }
-						alt="Default Marker Url"
-						style={ { maxWidth: '100%', height: 'auto' } }
-					/>
-				) }
-			</div>
-			<div
-				style={ {
-					marginBottom: 20,
-					padding: 10,
-					border: '1px solid lightgray',
-					borderRadius: 5,
-				} }
-			>
-				<TextControl
-					label={ __(
-						'Selected Marker Url',
-						'store-locator-widget-block'
-					) }
-					value={ style.default.selectedIcon.url }
-					onChange={ ( value ) =>
-						setAttributes( {
-							woosmapView: {
-								...woosmapView,
-								style: {
-									...style,
-									default: {
-										...style.default,
-										selectedIcon: { url: value },
-									},
-								},
-							},
-						} )
-					}
-				/>
-				{ style.default.selectedIcon.url && (
-					<img
-						src={ style.default.selectedIcon.url }
-						alt="Selected Marker Url"
-						style={ { maxWidth: '100%', height: 'auto' } }
-					/>
-				) }
-			</div>
-			<div
-				style={ {
-					padding: 10,
-					border: '1px solid lightgray',
-					borderRadius: 5,
-				} }
-			>
-				<TextControl
-					label={ __(
-						'Numbered Marker Url',
-						'store-locator-widget-block'
-					) }
-					value={ style.default.numberedIcon.url }
-					onChange={ ( value ) =>
-						setAttributes( {
-							woosmapView: {
-								...woosmapView,
-								style: {
-									...style,
-									default: {
-										...style.default,
-										numberedIcon: { url: value },
-									},
-								},
-							},
-						} )
-					}
-				/>
-				{ style.default.numberedIcon.url && (
-					<img
-						src={ style.default.numberedIcon.url }
-						alt="Numbered Marker Url"
-						style={ { maxWidth: '100%', height: 'auto' } }
-					/>
-				) }
-			</div>
+			{ renderEditMarker(
+				__( 'Default Marker Url', 'store-locator-widget-block' ),
+				style.default.icon.url ||
+					window.woosmapPluginData.markerDefaultUrl,
+				'icon'
+			) }
+			{ renderEditMarker(
+				__( 'Selected Marker Url', 'store-locator-widget-block' ),
+				style.default.selectedIcon.url ||
+					window.woosmapPluginData.selectedDefaultUrl,
+				'selectedIcon'
+			) }
+			{ renderEditMarker(
+				__( 'Numbered Marker Url', 'store-locator-widget-block' ),
+				style.default.numberedIcon.url ||
+					window.woosmapPluginData.markerDefaultUrl,
+				'numberedIcon'
+			) }
 		</PanelBody>
 	);
 }

@@ -29,6 +29,20 @@ exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
         >
           Before updating the configuration, please ensure that your JSON is valid and that it includes all necessary fields for the widget to function correctly.
         </div>
+        <button
+          class="components-button is-primary"
+          style="margin-top: 10px;"
+          type="button"
+        >
+          Validate Configuration
+        </button>
+        <button
+          class="components-button is-secondary"
+          style="margin-top: 10px; margin-left: 10px;"
+          type="button"
+        >
+          Copy Configuration
+        </button>
         <pre
           aria-label="Conf"
           aria-multiline="true"
@@ -84,13 +98,6 @@ exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
           />
           }
         </pre>
-        <button
-          class="components-button is-primary"
-          style="margin-top: 10px;"
-          type="button"
-        >
-          Validate Configuration
-        </button>
       </div>
     </div>
   </div>

@@ -29,6 +29,34 @@ export default function WidgetJsonForm( {
 		}
 	}, [ config, onValidateConfig ] );
 
+	const handleCopyConfig = useCallback( () => {
+		window.navigator.clipboard
+			.writeText( config )
+			.then( () => {
+				dispatch( 'core/notices' ).createSuccessNotice(
+					__(
+						'Configuration copied to clipboard.',
+						'store-locator-widget-block'
+					),
+					{
+						isDismissible: true,
+						type: 'snackbar',
+					}
+				);
+			} )
+			.catch( ( error ) => {
+				dispatch( 'core/notices' ).createErrorNotice(
+					__(
+						`Failed to copy configuration: ${ error.message }`,
+						'store-locator-widget-block'
+					),
+					{
+						isDismissible: true,
+						type: 'snackbar',
+					}
+				);
+			} );
+	}, [ config ] );
 	return (
 		<div { ...blockProps }>
 			<Placeholder
@@ -43,6 +71,23 @@ export default function WidgetJsonForm( {
 						'store-locator-widget-block'
 					) }
 				</div>
+				<Button
+					isPrimary
+					onClick={ handleValidateConfig }
+					style={ { marginTop: '10px' } }
+				>
+					{ __(
+						'Validate Configuration',
+						'store-locator-widget-block'
+					) }
+				</Button>
+				<Button
+					isSecondary
+					onClick={ handleCopyConfig }
+					style={ { marginTop: '10px', marginLeft: '10px' } }
+				>
+					{ __( 'Copy Configuration', 'store-locator-widget-block' ) }
+				</Button>
 				<RichText
 					value={ config }
 					tagName={ 'pre' }
@@ -54,16 +99,6 @@ export default function WidgetJsonForm( {
 					withoutInteractiveFormatting={ true }
 					__unstablePastePlainText
 				/>
-				<Button
-					isPrimary
-					onClick={ handleValidateConfig }
-					style={ { marginTop: '10px' } }
-				>
-					{ __(
-						'Validate Configuration',
-						'store-locator-widget-block'
-					) }
-				</Button>
 			</Placeholder>
 		</div>
 	);
