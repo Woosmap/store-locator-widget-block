@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "woosmap/store-locator-widget-block",
-	"version": "0.1.0",
+	"version": "1.0.1",
 	"title": "Woosmap Store Locator Widget Block",
 	"category": "widgets",
 	"keywords": [
