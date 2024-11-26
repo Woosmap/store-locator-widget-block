@@ -4,7 +4,7 @@ Tags: store locator, maps, map block, block
 Requires at least: 6.1
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPL-2.0-or-later
 License URI: https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -134,6 +134,10 @@ usage to ensure you stay within your plan's limits and analyze the data to gain 
 3. Block Configuration API Key
 
 == Changelog ==
+
+= 1.0.2 - 2024-26-11 =
+
+- Tested up to WP 6.7
 
 = 1.0.1 - 2024-27-08 =
 
