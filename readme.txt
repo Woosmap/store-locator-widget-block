@@ -2,9 +2,9 @@
 Contributors: @woosmap
 Tags: store locator, maps, map block, block
 Requires at least: 6.1
-Tested up to: 6.7
-Requires PHP: 7.0
-Stable tag: 1.0.2
+Tested up to: 7.0
+Requires PHP: 7.4
+Stable tag: 1.0.3
 License: GPL-2.0-or-later
 License URI: https://spdx.org/licenses/GPL-2.0-or-later.html
 
@@ -134,6 +134,12 @@ usage to ensure you stay within your plan's limits and analyze the data to gain 
 3. Block Configuration API Key
 
 == Changelog ==
+
+= 1.0.3 - 2026-06-02 =
+
+- Tested up to WP 7.0.
+- Raised minimum PHP to 7.4 (WordPress 7.0 dropped support for PHP 7.2/7.3).
+- Updated @wordpress/* build dependencies for WordPress 7.0 compatibility (React 19) and opted RangeControls into the new 40px default control size.
 
 = 1.0.2 - 2024-26-11 =
 

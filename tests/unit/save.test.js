@@ -1,4 +1,15 @@
 import {render, cleanup} from "@testing-library/react";
+
+// Unit-test our save output in isolation. `useBlockProps.save()` runs WordPress's
+// `blocks.getSaveContent.extraProps` filter pipeline (align support, etc.), which
+// expects the block-serialization context that a bare render doesn't provide.
+// Mock the WP boundary so we assert our own data-* serialization, not WP internals.
+jest.mock("@wordpress/block-editor", () => ({
+	useBlockProps: Object.assign(jest.fn(() => ({})), {
+		save: jest.fn((props) => props),
+	}),
+}));
+
 import StoreLocatorBlockSave from '../../src/save';
 
 describe("StoreLocatorBlockSave component", () => {

@@ -33,6 +33,7 @@ export default function DisplaySettings( props ) {
 				}
 			/>
 			<RangeControl
+				__next40pxDefaultSize
 				label={ __( 'Zoom', 'store-locator-widget-block' ) }
 				value={ woosmapView.initialZoom }
 				onChange={ ( value ) =>
@@ -48,6 +49,7 @@ export default function DisplaySettings( props ) {
 				step={ 0.5 }
 			/>
 			<RangeControl
+				__next40pxDefaultSize
 				label={ __(
 					'Height ( pixels )',
 					'store-locator-widget-block'
@@ -59,6 +61,7 @@ export default function DisplaySettings( props ) {
 				step={ 5 }
 			/>
 			<RangeControl
+				__next40pxDefaultSize
 				label={ __( 'Default Latitude', 'store-locator-widget-block' ) }
 				value={ woosmapView.initialCenter.lat }
 				onChange={ ( value ) =>
@@ -77,6 +80,7 @@ export default function DisplaySettings( props ) {
 				step={ 0.1 }
 			/>
 			<RangeControl
+				__next40pxDefaultSize
 				label={ __(
 					'Default Longitude',
 					'store-locator-widget-block'

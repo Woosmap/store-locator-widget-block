@@ -67,6 +67,7 @@ export default function MarkerSettings( {
 				}
 			/>
 			<RangeControl
+				__next40pxDefaultSize
 				label={ __( 'Tile Size', 'store-locator-widget-block' ) }
 				value={ tileStyle.size }
 				onChange={ ( value ) =>
@@ -80,6 +81,7 @@ export default function MarkerSettings( {
 				step={ 1 }
 			/>
 			<RangeControl
+				__next40pxDefaultSize
 				label={ __( 'Break Point', 'store-locator-widget-block' ) }
 				value={ breakPoint }
 				onChange={ ( value ) => updateAttribute( 'breakPoint', value ) }

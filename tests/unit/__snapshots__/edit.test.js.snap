@@ -3,7 +3,7 @@
 exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    aria-label="Block: undefined"
+    aria-label="Block: "
     class="block-editor-block-list__block wp-block"
     id="block-undefined"
     role="document"
@@ -50,7 +50,7 @@ exports[`StoreLocatorBlockEdit component matches snapshot 1`] = `
           class="block-editor-rich-text__editable rich-text"
           contenteditable="true"
           role="textbox"
-          style="white-space: pre-wrap; min-width: 1px;"
+          style="white-space: pre-wrap;"
         >
           {
           <br
