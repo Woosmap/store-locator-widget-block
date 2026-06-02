@@ -1,7 +1,7 @@
 === Store Locator Widget Block ===
 Contributors: @woosmap
 Tags: store locator, maps, map block, block
-Requires at least: 6.1
+Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.0.3
@@ -138,6 +138,7 @@ usage to ensure you stay within your plan's limits and analyze the data to gain 
 = 1.0.3 - 2026-06-02 =
 
 - Tested up to WP 7.0.
+- Corrected minimum WordPress version to 6.3 (the block uses block API v3).
 - Raised minimum PHP to 7.4 (WordPress 7.0 dropped support for PHP 7.2/7.3).
 - Updated @wordpress/* build dependencies for WordPress 7.0 compatibility (React 19) and opted RangeControls into the new 40px default control size.
 
