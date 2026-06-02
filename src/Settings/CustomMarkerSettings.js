@@ -4,15 +4,15 @@ import { useState } from '@wordpress/element';
 import { dispatch } from '@wordpress/data';
 import EditCustomMarker from '../components/EditCustomMarker';
 
-export default function CustomMarkerSettings( {
+export default function CustomMarkerSettings({
 	attributes: { woosmapView },
 	setAttributes,
-} ) {
-	const [ storeType, setStoreType ] = useState( '' );
+}) {
+	const [storeType, setStoreType] = useState('');
 
 	const addCustomMarker = () => {
-		if ( ! storeType.trim() ) {
-			dispatch( 'core/notices' ).createErrorNotice(
+		if (!storeType.trim()) {
+			dispatch('core/notices').createErrorNotice(
 				__(
 					'Store Type Title cannot be empty',
 					'store-locator-widget-block'
@@ -28,8 +28,8 @@ export default function CustomMarkerSettings( {
 		const { icon, selectedIcon, numberedIcon } =
 			woosmapView.style?.default || {};
 
-		if ( ! icon?.url || ! selectedIcon?.url || ! numberedIcon?.url ) {
-			dispatch( 'core/notices' ).createErrorNotice(
+		if (!icon?.url || !selectedIcon?.url || !numberedIcon?.url) {
+			dispatch('core/notices').createErrorNotice(
 				__(
 					'Marker URLs are missing in woosmapView.style.default',
 					'store-locator-widget-block'
@@ -49,7 +49,7 @@ export default function CustomMarkerSettings( {
 			numberedIcon: { url: numberedIcon.url },
 		};
 		const newCustomMarkers = [
-			...( woosmapView.style?.rules || [] ),
+			...(woosmapView.style?.rules || []),
 			newMarker,
 		];
 		const newRule = {
@@ -57,10 +57,10 @@ export default function CustomMarkerSettings( {
 			color: woosmapView.tileStyle?.color || '#000000',
 		};
 		const newTypeRules = [
-			...( woosmapView.tileStyle?.typeRules || [] ),
+			...(woosmapView.tileStyle?.typeRules || []),
 			newRule,
 		];
-		setAttributes( {
+		setAttributes({
 			woosmapView: {
 				...woosmapView,
 				style: {
@@ -72,16 +72,16 @@ export default function CustomMarkerSettings( {
 					typeRules: newTypeRules,
 				},
 			},
-		} );
+		});
 
-		setStoreType( '' );
+		setStoreType('');
 	};
 
-	const updateMarker = ( index, updatedMarker ) => {
-		const newCustomMarkers = woosmapView.style.rules.map( ( m, i ) =>
+	const updateMarker = (index, updatedMarker) => {
+		const newCustomMarkers = woosmapView.style.rules.map((m, i) =>
 			i === index ? updatedMarker : m
 		);
-		setAttributes( {
+		setAttributes({
 			woosmapView: {
 				...woosmapView,
 				style: {
@@ -89,17 +89,17 @@ export default function CustomMarkerSettings( {
 					rules: newCustomMarkers,
 				},
 			},
-		} );
+		});
 	};
 
-	const updateTypeRules = ( type, newColor ) => {
-		const newTypeRules = woosmapView.tileStyle.typeRules.map( ( rule ) =>
+	const updateTypeRules = (type, newColor) => {
+		const newTypeRules = woosmapView.tileStyle.typeRules.map((rule) =>
 			rule.type === type
 				? { ...rule, color: newColor || woosmapView.tileStyle?.color }
 				: rule
 		);
 
-		setAttributes( {
+		setAttributes({
 			woosmapView: {
 				...woosmapView,
 				tileStyle: {
@@ -107,14 +107,14 @@ export default function CustomMarkerSettings( {
 					typeRules: newTypeRules,
 				},
 			},
-		} );
+		});
 	};
 
-	const deleteMarker = ( index ) => {
+	const deleteMarker = (index) => {
 		const newCustomMarkers = woosmapView.style.rules.filter(
-			( _, i ) => i !== index
+			(_, i) => i !== index
 		);
-		setAttributes( {
+		setAttributes({
 			woosmapView: {
 				...woosmapView,
 				style: {
@@ -122,7 +122,7 @@ export default function CustomMarkerSettings( {
 					rules: newCustomMarkers,
 				},
 			},
-		} );
+		});
 	};
 
 	const panelStyle = {
@@ -134,44 +134,41 @@ export default function CustomMarkerSettings( {
 
 	return (
 		<PanelBody
-			title={ __(
-				'Custom Marker Settings',
-				'store-locator-widget-block'
-			) }
-			initialOpen={ false }
+			title={__('Custom Marker Settings', 'store-locator-widget-block')}
+			initialOpen={false}
 		>
-			<div style={ panelStyle }>
+			<div style={panelStyle}>
 				<TextControl
-					label={ __( 'Store Type', 'store-locator-widget-block' ) }
-					value={ storeType }
-					onChange={ setStoreType }
+					label={__('Store Type', 'store-locator-widget-block')}
+					value={storeType}
+					onChange={setStoreType}
 				/>
-				<Button variant="primary" onClick={ addCustomMarker }>
-					{ __( 'Add Custom Marker', 'store-locator-widget-block' ) }
+				<Button variant="primary" onClick={addCustomMarker}>
+					{__('Add Custom Marker', 'store-locator-widget-block')}
 				</Button>
 			</div>
-			{ ( woosmapView.style?.rules || [] ).map( ( marker, index ) => (
+			{(woosmapView.style?.rules || []).map((marker, index) => (
 				<EditCustomMarker
-					key={ index }
-					marker={ marker }
-					storeType={ marker.type }
-					customDefaultMarkerUrl={ marker.icon.url }
-					customSelectedMarkerUrl={ marker.selectedIcon.url }
-					customNumberedMarkerUrl={ marker.numberedIcon.url }
+					key={index}
+					marker={marker}
+					storeType={marker.type}
+					customDefaultMarkerUrl={marker.icon.url}
+					customSelectedMarkerUrl={marker.selectedIcon.url}
+					customNumberedMarkerUrl={marker.numberedIcon.url}
 					color={
 						woosmapView.tileStyle?.typeRules?.find(
-							( rule ) => rule.type === marker.type
+							(rule) => rule.type === marker.type
 						)?.color || woosmapView.tileStyle?.color
 					}
-					updateMarker={ ( updatedMarker ) =>
-						updateMarker( index, updatedMarker )
+					updateMarker={(updatedMarker) =>
+						updateMarker(index, updatedMarker)
 					}
-					updateTypeRules={ ( color ) =>
-						updateTypeRules( marker.type, color )
+					updateTypeRules={(color) =>
+						updateTypeRules(marker.type, color)
 					}
-					deleteMarker={ () => deleteMarker( index ) }
+					deleteMarker={() => deleteMarker(index)}
 				/>
-			) ) }
+			))}
 		</PanelBody>
 	);
 }

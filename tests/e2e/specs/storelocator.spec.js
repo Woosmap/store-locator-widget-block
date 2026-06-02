@@ -1,15 +1,15 @@
 /**
  * Import WordPress Playwright test utilities.
  */
-const {test, expect} = require('@wordpress/e2e-test-utils-playwright');
+const { test, expect } = require('@wordpress/e2e-test-utils-playwright');
 
 test.describe('Store Locator Widget Editor Block Functionality', () => {
-	test.beforeEach(async ({admin}) => {
+	test.beforeEach(async ({ admin }) => {
 		// Create a new post before each test.
 		await admin.createNewPost();
 	});
 
-	test('Authentication Form Displays Correctly', async ({editor, page}) => {
+	test('Authentication Form Displays Correctly', async ({ editor, page }) => {
 		// Insert the Store Locator Widget block.
 		await editor.insertBlock({
 			name: 'woosmap/store-locator-widget-block',
@@ -21,35 +21,25 @@ test.describe('Store Locator Widget Editor Block Functionality', () => {
 			.fill('foodmarkets-woos');
 
 		// Confirm the API key.
-		await editor.canvas
-			.locator('text=Confirm Woosmap Credentials')
-			.click();
+		await editor.canvas.locator('text=Confirm Woosmap Credentials').click();
 
 		// Confirm the JSON Conf.
-		await editor.canvas
-			.locator('text=Validate Configuration')
-			.click();
+		await editor.canvas.locator('text=Validate Configuration').click();
 
 		// Verify that the store locator map is visible.
 		await expect(
 			editor.canvas.locator('[id="store-locator-widget-id"]')
 		).toBeVisible();
-
 
 		// Navigate to JSON Conf.
-		await page
-			.locator('[aria-label="Show Configuration"]')
-			.click();
+		await page.locator('[aria-label="Show Configuration"]').click();
 
 		// Confirm the JSON Conf.
-		await editor.canvas
-			.locator('text=Validate Configuration')
-			.click();
+		await editor.canvas.locator('text=Validate Configuration').click();
 
 		// Verify that the store locator map is visible.
 		await expect(
 			editor.canvas.locator('[id="store-locator-widget-id"]')
 		).toBeVisible();
-
 	});
 });

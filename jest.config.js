@@ -5,7 +5,7 @@
  * `parsel-js`), which Jest can't load as CommonJS. Transform those instead of
  * ignoring them like the rest of node_modules.
  */
-const defaultConfig = require( '@wordpress/scripts/config/jest-unit.config.js' );
+const defaultConfig = require('@wordpress/scripts/config/jest-unit.config.js');
 
 module.exports = {
 	...defaultConfig,

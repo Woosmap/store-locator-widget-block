@@ -1,6 +1,6 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
-export default function StoreLocatorBlockSave( props ) {
+export default function StoreLocatorBlockSave(props) {
 	const {
 		attributes: {
 			height,
@@ -15,25 +15,25 @@ export default function StoreLocatorBlockSave( props ) {
 		},
 	} = props;
 
-	const blockProps = useBlockProps.save( {
+	const blockProps = useBlockProps.save({
 		style: {
-			height: `${ height }px`,
+			height: `${height}px`,
 		},
 		id: 'storeLocatorWidget',
-	} );
+	});
 
 	return (
 		<div
-			{ ...blockProps }
-			data-height={ height }
-			data-api-key={ apiKey }
-			data-theme={ JSON.stringify( theme ) }
-			data-internationalization={ JSON.stringify( internationalization ) }
-			data-woosmap-view={ JSON.stringify( woosmapView ) }
-			data-filters={ JSON.stringify( filters ) }
-			data-maps={ JSON.stringify( maps ) }
-			data-initial-search={ JSON.stringify( initialSearch ) }
-			data-datasource={ JSON.stringify( datasource ) }
+			{...blockProps}
+			data-height={height}
+			data-api-key={apiKey}
+			data-theme={JSON.stringify(theme)}
+			data-internationalization={JSON.stringify(internationalization)}
+			data-woosmap-view={JSON.stringify(woosmapView)}
+			data-filters={JSON.stringify(filters)}
+			data-maps={JSON.stringify(maps)}
+			data-initial-search={JSON.stringify(initialSearch)}
+			data-datasource={JSON.stringify(datasource)}
 		></div>
 	);
 }

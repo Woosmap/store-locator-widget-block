@@ -28,7 +28,7 @@ import './store';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType( metadata, {
+registerBlockType(metadata, {
 	attributes: {
 		...metadata.attributes,
 	},
@@ -42,4 +42,4 @@ registerBlockType( metadata, {
 	 * @see ./save.js
 	 */
 	save: StoreLocatorBlockSave,
-} );
+});

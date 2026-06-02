@@ -1,7 +1,6 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import DisplaySettings from '../../../src/Settings/DisplaySettings';
 import '@testing-library/jest-dom';
-
 
 const setAttributes = jest.fn();
 
@@ -9,13 +8,12 @@ const defaultProps = {
 	attributes: {
 		height: 300,
 		woosmapView: {
-			initialCenter: {lat: 50, lng: 0},
+			initialCenter: { lat: 50, lng: 0 },
 			initialZoom: 13,
 		},
 		theme: {
-			primary_color: '#000000'
+			primary_color: '#000000',
 		},
-
 	},
 	setAttributes,
 	setState: jest.fn(),

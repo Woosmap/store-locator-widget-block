@@ -10,27 +10,27 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * WordPress dependencies
  */
-const baseConfig = require( '@wordpress/scripts/config/playwright.config' );
+const baseConfig = require('@wordpress/scripts/config/playwright.config');
 
-const config = defineConfig( {
+const config = defineConfig({
 	...baseConfig,
 	reporter: process.env.CI
-		? [ [ 'github' ], [ './config/flaky-tests-reporter.js' ] ]
+		? [['github'], ['./config/flaky-tests-reporter.js']]
 		: 'list',
 	workers: 1,
 	globalSetup: fileURLToPath(
-		new URL( './config/global-setup.js', 'file:' + __filename ).href
+		new URL('./config/global-setup.js', 'file:' + __filename).href
 	),
 	projects: [
 		{
 			name: 'chromium',
-			use: { ...devices[ 'Desktop Chrome' ] },
+			use: { ...devices['Desktop Chrome'] },
 			grepInvert: /-chromium/,
 		},
 		{
 			name: 'webkit',
 			use: {
-				...devices[ 'Desktop Safari' ],
+				...devices['Desktop Safari'],
 				/**
 				 * Headless webkit won't receive dataTransfer with custom types in the
 				 * drop event on Linux. The solution is to use `xvfb-run` to run the tests.
@@ -46,11 +46,11 @@ const config = defineConfig( {
 		},
 		{
 			name: 'firefox',
-			use: { ...devices[ 'Desktop Firefox' ] },
+			use: { ...devices['Desktop Firefox'] },
 			grep: /@firefox/,
 			grepInvert: /-firefox/,
 		},
 	],
-} );
+});
 
 export default config;
