@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 import MarkerIconUpload from './MarkerIconUpload';
 import { useState } from '@wordpress/element';
 
-export default function EditCustomMarker( props ) {
+export default function EditCustomMarker(props) {
 	const {
 		marker,
 		storeType,
@@ -21,29 +21,29 @@ export default function EditCustomMarker( props ) {
 		deleteMarker,
 	} = props;
 
-	const [ color, setColor ] = useState( props.color );
+	const [color, setColor] = useState(props.color);
 
-	const renderMarkerIconUpload = ( title, markerUrl, updateKey ) => (
+	const renderMarkerIconUpload = (title, markerUrl, updateKey) => (
 		<PanelBody
-			title={ title }
+			title={title}
 			className="marker-edit"
 			icon={
 				<img
-					src={ markerUrl }
-					alt={ `${ title } Icon` }
-					style={ { height: '20px' } }
+					src={markerUrl}
+					alt={`${title} Icon`}
+					style={{ height: '20px' }}
 				/>
 			}
-			initialOpen={ false }
+			initialOpen={false}
 		>
 			<PanelRow>
 				<MarkerIconUpload
-					marker={ { markerUrl } }
-					update={ ( updatedMarker ) =>
-						updateMarker( {
+					marker={{ markerUrl }}
+					update={(updatedMarker) =>
+						updateMarker({
 							...marker,
-							[ updateKey ]: { url: updatedMarker.markerUrl },
-						} )
+							[updateKey]: { url: updatedMarker.markerUrl },
+						})
 					}
 				/>
 			</PanelRow>
@@ -52,46 +52,44 @@ export default function EditCustomMarker( props ) {
 
 	return (
 		<PanelBody
-			title={ __( 'Edit: ', 'store-locator-widget-block' ) + storeType }
-			initialOpen={ false }
-			icon={
-				<ColorIndicator id="tile-color-control" colorValue={ color } />
-			}
+			title={__('Edit:', 'store-locator-widget-block') + storeType}
+			initialOpen={false}
+			icon={<ColorIndicator id="tile-color-control" colorValue={color} />}
 		>
 			<p>
-				{ __( 'Store Type: ', 'store-locator-widget-block' ) }
-				<code>{ storeType }</code>
+				{__('Store Type:', 'store-locator-widget-block')}
+				<code>{storeType}</code>
 			</p>
 
 			<label htmlFor="tile-color-control">
-				{ __( 'Tile Color', 'store-locator-widget-block' ) }
+				{__('Tile Color', 'store-locator-widget-block')}
 			</label>
 			<ColorPalette
-				value={ color }
-				onChange={ ( newColor ) => {
-					setColor( newColor );
-					updateTypeRules( newColor );
-				} }
+				value={color}
+				onChange={(newColor) => {
+					setColor(newColor);
+					updateTypeRules(newColor);
+				}}
 			/>
 
-			{ renderMarkerIconUpload(
-				__( 'Default Marker Icon', 'store-locator-widget-block' ),
+			{renderMarkerIconUpload(
+				__('Default Marker Icon', 'store-locator-widget-block'),
 				customDefaultMarkerUrl,
 				'icon'
-			) }
-			{ renderMarkerIconUpload(
-				__( 'Selected Marker Icon', 'store-locator-widget-block' ),
+			)}
+			{renderMarkerIconUpload(
+				__('Selected Marker Icon', 'store-locator-widget-block'),
 				customSelectedMarkerUrl,
 				'selectedIcon'
-			) }
-			{ renderMarkerIconUpload(
-				__( 'Numbered Marker Icon', 'store-locator-widget-block' ),
+			)}
+			{renderMarkerIconUpload(
+				__('Numbered Marker Icon', 'store-locator-widget-block'),
 				customNumberedMarkerUrl,
 				'numberedIcon'
-			) }
+			)}
 
-			<Button variant="primary" onClick={ deleteMarker }>
-				{ __( 'Delete Custom Marker', 'store-locator-widget-block' ) }
+			<Button variant="primary" onClick={deleteMarker}>
+				{__('Delete Custom Marker', 'store-locator-widget-block')}
 			</Button>
 		</PanelBody>
 	);

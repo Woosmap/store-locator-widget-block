@@ -7,18 +7,18 @@ import MarkerSettings from './Settings/MarkerSettings';
 import CustomMarkerSettings from './Settings/CustomMarkerSettings';
 import InternationalizationSettings from './Settings/InternationalizationSettings';
 
-export default function InspectorSettings( props ) {
+export default function InspectorSettings(props) {
 	const { isAuthenticated } = props;
 
-	if ( ! isAuthenticated ) {
+	if (!isAuthenticated) {
 		return (
 			<InspectorControls>
 				<PanelBody>
 					<p>
-						{ __(
+						{__(
 							'You need to confirm your access to Woosmap before you can continue.',
 							'store-locator-widget-block'
-						) }
+						)}
 					</p>
 				</PanelBody>
 			</InspectorControls>
@@ -27,10 +27,10 @@ export default function InspectorSettings( props ) {
 
 	return (
 		<InspectorControls>
-			<DisplaySettings { ...props } />
-			<InternationalizationSettings { ...props } />
-			<MarkerSettings { ...props } />
-			<CustomMarkerSettings { ...props } />
+			<DisplaySettings {...props} />
+			<InternationalizationSettings {...props} />
+			<MarkerSettings {...props} />
+			<CustomMarkerSettings {...props} />
 		</InspectorControls>
 	);
 }

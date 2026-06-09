@@ -17,10 +17,10 @@ const STORE_NAME = 'woosmap/store-locator-widget-block';
  *
  * @type {Object}
  */
-export const store = createReduxStore( STORE_NAME, {
+export const store = createReduxStore(STORE_NAME, {
 	reducer,
 	selectors,
 	actions,
-} );
+});
 
-register( store );
+register(store);
